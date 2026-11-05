@@ -7,9 +7,11 @@ import fcp.core.launch.AndroidNativeRuntime
 import fcp.core.launch.AuthlibInjector
 import fcp.core.launch.GameLauncher
 import fcp.core.launch.GamePaths
+import fcp.core.launch.LAUNCH_PLACEHOLDER_PATTERN
 import fcp.core.launch.LaunchAccount
 import fcp.core.launch.LaunchException
 import fcp.core.launch.LaunchRequest
+import java.util.regex.Pattern
 import fcp.core.net.HttpClient
 import fcp.core.net.HttpRequest
 import fcp.core.net.HttpResponse
@@ -23,6 +25,20 @@ import kotlin.test.assertTrue
 import org.junit.jupiter.api.Test
 
 class LaunchTest {
+    @Test
+    fun placeholderPatternCompilesForTheJvmAndKeepsTheIcuBraceEscape() {
+        // Android kotlin.text.Regex uses ICU. `Regex("\\$\\{([^}]+)}")` throws
+        // PatternSyntaxException there (Syntax error near the unescaped '}').
+        // The desktop java.util.regex engine accepts both forms, so this check
+        // locks the escaped pattern the device must use and still proves it substitutes.
+        assertTrue(LAUNCH_PLACEHOLDER_PATTERN.endsWith("\\}"))
+        val compiled = Pattern.compile(LAUNCH_PLACEHOLDER_PATTERN)
+        val matcher = compiled.matcher("\${auth_player_name}")
+        assertTrue(matcher.matches())
+        assertEquals("auth_player_name", matcher.group(1))
+        assertEquals("Steve", compiled.matcher("\${auth_player_name}").replaceAll("Steve"))
+    }
+
     @Test
     fun modernCommandUsesLinuxRulesAccountAndClasspath() {
         val root = tempGame()

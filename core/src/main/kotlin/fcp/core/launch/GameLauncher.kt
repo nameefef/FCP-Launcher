@@ -10,6 +10,12 @@ import java.io.InputStream
 import java.time.OffsetDateTime
 import java.util.concurrent.TimeUnit
 
+/**
+ * Matches `${name}` in a Minecraft argument template.
+ * The closing brace is escaped so the same pattern compiles on Android ICU and on a desktop JVM.
+ */
+internal const val LAUNCH_PLACEHOLDER_PATTERN = "\\$\\{([^}]+)\\}"
+
 class GameLauncher {
     fun plan(request: LaunchRequest): LaunchPlan {
         val problems = mutableListOf<String>()
@@ -309,7 +315,10 @@ class GameLauncher {
         }
 
     private companion object {
-        val PLACEHOLDER = Regex("\\$\\{([^}]+)}")
+        // Android ICU (kotlin.text.Regex on device) rejects an unescaped '}'
+        // that closes `${...}`. java.util.regex on the desktop JVM accepts it,
+        // so unit tests must keep the escaped form below.
+        val PLACEHOLDER = Regex(LAUNCH_PLACEHOLDER_PATTERN)
     }
 }
 
