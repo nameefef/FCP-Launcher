@@ -17,6 +17,8 @@ kotlin {
 
 dependencies {
     implementation("com.google.code.gson:gson:2.11.0")
+    implementation("org.apache.commons:commons-compress:1.27.1")
+    implementation("org.tukaani:xz:1.10")
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter:5.11.4")
 }

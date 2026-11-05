@@ -158,6 +158,92 @@ class GameRepository(
         )
     }
 
+    /**
+     * Fills gaps in an install that stopped early. Existing files whose size
+     * matches the metadata are left in place. Missing client, libraries, the
+     * asset index, and asset objects are downloaded again (BMCLAPI, then Mojang).
+     * One failed object does not skip the rest of the index.
+     */
+    fun completeInstallation(
+        versionId: String,
+        gameDir: File,
+        platform: String = "linux",
+        listener: InstallListener? = null,
+    ) {
+        val seen = mutableSetOf<String>()
+        fun walk(id: String) {
+            if (!seen.add(id)) throw DownloadException("版本继承出现循环：$id")
+            val file = File(gameDir, "versions/$id/$id.json")
+            if (!file.isFile) throw DownloadException("还没有安装 $id。缺少 ${file.path}")
+            val json = file.readText()
+            val metadata = parseVersionMetadata(json)
+            val inherits = com.google.gson.JsonParser.parseString(json).asJsonObject
+                .get("inheritsFrom")?.asString?.takeIf { it.isNotBlank() }
+            if (inherits != null) walk(inherits)
+            completeOne(metadata, gameDir, platform, listener, downloadClient = id == versionId)
+        }
+        walk(versionId)
+    }
+
+    private fun completeOne(
+        metadata: VersionMetadata,
+        gameDir: File,
+        platform: String,
+        listener: InstallListener?,
+        downloadClient: Boolean,
+    ) {
+        if (downloadClient) {
+            val client = metadata.client
+            val jar = File(gameDir, "versions/${metadata.id}/${metadata.id}.jar")
+            if (client != null && !isReady(jar, client.sha1, client.size)) {
+                downloadFile(
+                    urls = mirrors.candidatesFor(client.url),
+                    dest = jar,
+                    sha1 = client.sha1,
+                    label = "客户端 ${metadata.id}",
+                    listener = listener,
+                )
+            }
+        }
+        for (library in metadata.libraries) {
+            if (!library.includeFor(platform)) continue
+            val artifact = library.artifact ?: continue
+            val relative = artifact.path ?: mavenRelativePath(library.name)
+            val dest = File(gameDir, "libraries/$relative")
+            if (isReady(dest, artifact.sha1, artifact.size)) continue
+            downloadFile(
+                urls = mirrors.candidatesFor(artifact.url),
+                dest = dest,
+                sha1 = artifact.sha1,
+                label = "依赖库 $relative",
+                listener = listener,
+            )
+        }
+        val index = metadata.assetIndex
+        val indexId = metadata.assetIndexId
+        if (index != null && indexId != null) {
+            val indexFile = File(gameDir, "assets/indexes/$indexId.json")
+            if (!isReady(indexFile, index.sha1, index.size)) {
+                downloadFile(
+                    urls = mirrors.candidatesFor(index.url),
+                    dest = indexFile,
+                    sha1 = index.sha1,
+                    label = "资源索引 $indexId",
+                    listener = listener,
+                )
+            }
+            downloadAssetObjects(indexFile, gameDir, limit = null, listener = listener, used = mutableListOf())
+        }
+    }
+
+    private fun isReady(file: File, sha1: String?, size: Long?): Boolean {
+        if (!file.isFile) return false
+        if (size != null && file.length() != size) return false
+        if (sha1 == null) return true
+        if (size != null) return true
+        return sha1Hex(file).equals(sha1, ignoreCase = true)
+    }
+
     private fun downloadAssetObjects(
         indexFile: File,
         gameDir: File,
@@ -168,18 +254,33 @@ class GameRepository(
         val root = com.google.gson.JsonParser.parseString(indexFile.readText()).asJsonObject
         val objects = root.getAsJsonObject("objects") ?: return 0
         var count = 0
+        val failed = mutableListOf<String>()
         for ((name, value) in objects.entrySet()) {
             if (limit != null && count >= limit) break
-            val hash = value.asJsonObject.get("hash")?.asString ?: continue
+            val obj = value.asJsonObject
+            val hash = obj.get("hash")?.asString ?: continue
+            val size = obj.get("size")?.takeUnless { it.isJsonNull }?.asLong
             val dest = File(gameDir, "assets/objects/${hash.substring(0, 2)}/$hash")
-            used += downloadFile(
-                urls = mirrors.assetObjectUrls(hash),
-                dest = dest,
-                sha1 = hash,
-                label = "资源 $name",
-                listener = listener,
-            )
-            count += 1
+            if (isReady(dest, hash, size)) {
+                count += 1
+                continue
+            }
+            try {
+                used += downloadFile(
+                    urls = mirrors.assetObjectUrls(hash),
+                    dest = dest,
+                    sha1 = hash,
+                    label = "资源 $name",
+                    listener = listener,
+                )
+                count += 1
+            } catch (e: Exception) {
+                failed += "$name（${e.message}）"
+            }
+        }
+        if (failed.isNotEmpty()) {
+            val sample = failed.take(6).joinToString("；")
+            throw DownloadException("有 ${failed.size} 个资源下载失败，已保留其余文件。例如：$sample")
         }
         return count
     }
