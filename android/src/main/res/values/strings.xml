@@ -34,6 +34,11 @@
     <string name="use_account">使用</string>
     <string name="delete_account">删除</string>
     <string name="current_account">当前</string>
+    <string name="account_kind_offline">离线</string>
+    <string name="account_kind_littleskin">LittleSkin</string>
+    <string name="account_kind_custom">第三方</string>
+    <string name="account_row">%1$s · %2$s</string>
+    <string name="account_row_current">当前 · %1$s · %2$s</string>
     <string name="no_accounts">还没有账号</string>
     <string name="about_version">版本 %1$s</string>
     <string name="about_summary">在 Android 上管理 Minecraft Java 版账号，并从 BMCLAPI 下载历代版本文件。</string>

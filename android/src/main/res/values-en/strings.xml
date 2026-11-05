@@ -34,6 +34,11 @@
     <string name="use_account">Use</string>
     <string name="delete_account">Delete</string>
     <string name="current_account">Current</string>
+    <string name="account_kind_offline">Offline</string>
+    <string name="account_kind_littleskin">LittleSkin</string>
+    <string name="account_kind_custom">Third-party</string>
+    <string name="account_row">%1$s · %2$s</string>
+    <string name="account_row_current">Current · %1$s · %2$s</string>
     <string name="no_accounts">No accounts yet</string>
     <string name="about_version">Version %1$s</string>
     <string name="about_summary">Manage Minecraft Java accounts on Android and download historical versions through BMCLAPI.</string>

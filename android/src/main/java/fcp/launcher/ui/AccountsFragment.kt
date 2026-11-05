@@ -129,8 +129,22 @@ class AccountsFragment : Fragment() {
     ) {
         val account = storedYggdrasil(preset, session, profile)
         store().upsert(account)
-        binding?.accountStatus?.text = getString(R.string.account_added, "${account.kindLabel} · ${account.profileName}")
+        binding?.accountStatus?.text = getString(R.string.account_added, accountTitle(account, selected = false))
         renderAccounts()
+    }
+
+    private fun accountKind(account: StoredAccount): String = when (account) {
+        is StoredAccount.Offline -> getString(R.string.account_kind_offline)
+        is StoredAccount.Yggdrasil -> if (account.preset == LittleSkin.PRESET_ID) {
+            getString(R.string.account_kind_littleskin)
+        } else {
+            getString(R.string.account_kind_custom)
+        }
+    }
+
+    private fun accountTitle(account: StoredAccount, selected: Boolean): String {
+        val format = if (selected) R.string.account_row_current else R.string.account_row
+        return getString(format, accountKind(account), account.profileName)
     }
 
     private fun renderAccounts() {
@@ -144,14 +158,13 @@ class AccountsFragment : Fragment() {
         if (views.accountStatus.text == getString(R.string.no_accounts)) {
             val selected = data.accounts.firstOrNull { it.id == data.selectedId }
             if (selected != null) {
-                views.accountStatus.text = selected.kindLabel + " · " + selected.profileName
+                views.accountStatus.text = accountTitle(selected, selected = true)
             }
         }
         val inflater = LayoutInflater.from(requireContext())
         for (account in data.accounts) {
             val row = ItemAccountBinding.inflate(inflater, views.accountList, true)
-            val current = if (account.id == data.selectedId) getString(R.string.current_account) + " · " else ""
-            row.accountTitle.text = current + account.kindLabel + " · " + account.profileName
+            row.accountTitle.text = accountTitle(account, selected = account.id == data.selectedId)
             row.accountSubtitle.text = when (account) {
                 is StoredAccount.Offline -> account.uuid
                 is StoredAccount.Yggdrasil -> account.serverName + " · " + account.apiRoot

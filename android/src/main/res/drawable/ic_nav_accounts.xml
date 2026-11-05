@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- FCP Launcher bottom-nav icon (accounts). 12x12 pixel grid, 2 units per pixel. Single colour so BottomNavigationView tinting applies. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M2,2h20v2h-20zM2,4h20v2h-20zM2,6h2v2h-2zM20,6h2v2h-2zM2,8h20v2h-20zM2,10h2v2h-2zM8,10h8v2h-8zM20,10h2v2h-2zM2,12h2v2h-2zM8,12h8v2h-8zM20,12h2v2h-2zM2,14h20v2h-20zM2,16h6v2h-6zM16,16h6v2h-6zM2,18h20v2h-20zM2,20h20v2h-20z" />
+</vector>
