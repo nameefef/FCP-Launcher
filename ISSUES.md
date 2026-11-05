@@ -8,3 +8,12 @@
 6. [web] 官网下载页与说明（对接 @3d建模 首页 3D）
 7. [qa] 各端冒烟清单（下载、启动、联机、协议署名页）
 
+## v0.1 decisions (issues #3, #8, #9)
+
+Shipped on Android first. Desktop (#5) and multiplayer (#4) stay open.
+
+- Offline accounts use the HMCL / FCL `OfflinePlayer:` UUID. No crack / online-bypass tooling.
+- Third-party login is LittleSkin (API root from https://manual.littleskin.cn/yggdrasil/ : `https://littleskin.cn/api/yggdrasil`). Advanced users can paste another authlib-injector / Yggdrasil URL, including hosts that send `X-Authlib-Injector-API-Location`.
+- Official Microsoft login is out of v0.1. Do not block on a Mojang client-id whitelist, and do not embed another launcher's Azure client id.
+- Version lists and files try BMCLAPI2 first (`https://bmclapi2.bangbang93.com`) and fall back to Mojang. About must keep the BMCLAPI credit. No extra unknown mirrors.
+

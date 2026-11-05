@@ -14,6 +14,17 @@ Third-party / upstream acknowledgements (non-exhaustive; expand as code lands):
   EasyTier, Terracotta) retain their respective licenses; when vendored
   or linked, their notices must be preserved.
 
+- BMCLAPI (https://bmclapi2.bangbang93.com) — download mirror operated by bangbang93.
+  The Android client uses it as the default source for Minecraft version manifests,
+  client jars, libraries, and assets, and falls back to Mojang's official hosts.
+  The in-app About screen must keep this attribution.
+  https://github.com/bangbang93/BMCLAPI
+- LittleSkin (https://littleskin.cn) — optional third-party Yggdrasil / authlib-injector
+  service. The prefilled API root is the one published in the LittleSkin manual:
+  https://manual.littleskin.cn/yggdrasil/
+  https://littleskin.cn/api/yggdrasil
+  LittleSkin is not Microsoft or Mojang login.
+
 Plain Craft Launcher (PCL) by 龙腾猫跃 is NOT included as source.
 UI/UX ideas may be referenced independently; do not copy PCL code or assets.
 PCL uses a custom limited distribution license, incompatible with shipping
