@@ -2,6 +2,7 @@
 // Copyright (c) 2026 FCP contributors
 package fcp.launcher.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -163,7 +164,7 @@ private class VersionAdapter(
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val item = items[position]
         holder.id.text = item.id
-        holder.type.text = item.type
+        holder.type.text = versionTypeLabel(holder.itemView.context, item.type)
         holder.download.setOnClickListener { onDownload(item) }
     }
 
@@ -174,4 +175,15 @@ private class VersionAdapter(
         val type: TextView = binding.versionType
         val download = binding.download
     }
+}
+
+/** Mojang manifest `type` values, shown with the same labels as the version filters. */
+private fun versionTypeLabel(context: Context, type: String): String {
+    val res = when (type) {
+        "release" -> R.string.filter_releases
+        "snapshot" -> R.string.filter_snapshots
+        "old_alpha", "old_beta" -> R.string.filter_old
+        else -> return type
+    }
+    return context.getString(res)
 }
