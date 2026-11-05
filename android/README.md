@@ -50,3 +50,5 @@ Open the repository root in Android Studio (not only the `android/` folder) so t
 ## Branding
 
 Use `shared/Branding` — show `PRODUCT_NAME` everywhere; `PRODUCT_FULL_NAME` only as a hidden easter egg (tap the About title seven times); formal About stays `PRODUCT_NAME`.
+
+Launcher art is the isometric grass block in `branding/` (`icon.svg`, `icon-512.png`, `ic_launcher.xml`). The Android drawable is a copy of `branding/ic_launcher.xml`.

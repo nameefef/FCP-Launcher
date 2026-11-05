@@ -49,6 +49,7 @@ class AccountsFragment : Fragment() {
                 views.customPassword,
                 "custom",
                 views.customLogin,
+                resolveFirst = true,
             )
         }
         renderAccounts()
@@ -75,14 +76,26 @@ class AccountsFragment : Fragment() {
         }
     }
 
-    private fun login(apiRoot: String, userField: EditText, passwordField: EditText, preset: String, button: View) {
-        val views = binding ?: return
+    private fun login(
+        apiRoot: String,
+        userField: EditText,
+        passwordField: EditText,
+        preset: String,
+        button: View,
+        resolveFirst: Boolean = false,
+    ) {
         val username = userField.text?.toString().orEmpty()
         val password = passwordField.text?.toString().orEmpty()
         button.isEnabled = false
         viewLifecycleOwner.lifecycleScope.launch {
             val result = withContext(Dispatchers.IO) {
-                runCatching { yggdrasil.login(apiRoot, username, password) }
+                runCatching {
+                    if (resolveFirst) {
+                        yggdrasil.loginResolved(apiRoot, username, password)
+                    } else {
+                        yggdrasil.login(apiRoot, username, password)
+                    }
+                }
             }
             button.isEnabled = true
             val current = binding ?: return@launch

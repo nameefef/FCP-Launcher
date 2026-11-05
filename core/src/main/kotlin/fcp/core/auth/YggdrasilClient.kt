@@ -54,6 +54,17 @@ class YggdrasilClient(private val http: HttpClient) {
         throw YggdrasilException("认证服务器重定向次数过多")
     }
 
+    /**
+     * Custom authlib-injector entry. Resolves ALI (`X-Authlib-Injector-API-Location`)
+     * before authenticate. The LittleSkin preset already has the API root and
+     * should call [login] directly.
+     */
+    fun loginResolved(rawInput: String, username: String, password: String): LoginOutcome {
+        val server = resolve(rawInput)
+        return login(server.apiRoot, username, password)
+    }
+
+    /** Authenticates against an API root that is already resolved. Does not follow ALI. */
     fun login(apiRoot: String, username: String, password: String): LoginOutcome {
         val user = username.trim()
         if (user.isEmpty() || password.isEmpty()) {

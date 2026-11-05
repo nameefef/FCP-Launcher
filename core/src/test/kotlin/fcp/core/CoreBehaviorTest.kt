@@ -231,6 +231,38 @@ class CoreBehaviorTest {
     }
 
     @Test
+    fun customLoginFollowsAliBeforeAuthenticate() {
+        val posts = mutableListOf<String>()
+        val http = ScriptHttp { request ->
+            when {
+                request.url == "https://skins.example" && request.method == "GET" ->
+                    HttpResponse(
+                        code = 200,
+                        headers = mapOf("X-Authlib-Injector-API-Location" to listOf("/api/yggdrasil")),
+                        body = ByteArray(0),
+                        finalUrl = request.url,
+                    )
+                request.url == "https://skins.example/api/yggdrasil" && request.method == "GET" ->
+                    text(200, """{"meta":{"serverName":"Example Skin"}}""")
+                request.url.endsWith("/authserver/authenticate") -> {
+                    posts += request.url
+                    text(
+                        200,
+                        """{"accessToken":"t","clientToken":"c","selectedProfile":{"id":"550e8400e29b41d4a716446655440000","name":"Ada"}}""",
+                    )
+                }
+                else -> error("unexpected ${request.method} ${request.url}")
+            }
+        }
+        val client = YggdrasilClient(http)
+        val ready = assertIs<LoginOutcome.Ready>(client.loginResolved("skins.example", "ada", "secret"))
+        assertEquals("https://skins.example/api/yggdrasil", ready.session.apiRoot)
+        assertEquals("Example Skin", ready.session.serverName)
+        assertEquals(listOf("https://skins.example/api/yggdrasil/authserver/authenticate"), posts)
+        assertFailsWith<YggdrasilException> { client.login("skins.example", "ada", "secret") }
+    }
+
+    @Test
     fun multipleProfilesAskTheUserToChoose() {
         val http = ScriptHttp { request ->
             when {
