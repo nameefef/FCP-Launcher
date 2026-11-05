@@ -1,24 +1,95 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FCP Launcher</title>
-  <style>
-    :root { color-scheme: dark; font-family: system-ui, sans-serif; }
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center;
-      background: #0b1220; color: #e8eefc; }
-    main { max-width: 40rem; padding: 2rem; text-align: center; }
-    h1 { margin: 0 0 .5rem; font-size: 2rem; }
-    p { opacity: .85; line-height: 1.6; }
-    a { color: #7db4ff; }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FCP Launcher｜跨平台 Minecraft 启动器</title>
+<meta name="description" content="FCP Launcher：开源跨平台 Minecraft 启动器，支持 Windows、macOS、Linux 与 Android，内置游戏下载与多人联机。GPL-3.0。" />
+<meta property="og:title" content="FCP Launcher" />
+<meta property="og:description" content="开源跨平台 Minecraft 启动器 · Windows / macOS / Linux / Android" />
+<style>
+:root{--bg:#0a0f1a;--panel:#111a2b;--line:#1f2b44;--text:#e8eefc;--mute:#93a3c4;--accent:#5fb3ff;--grass:#6bbf4a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+header{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:#0a0f1acc;backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.04em}
+.brand i{width:28px;height:28px;background:linear-gradient(var(--grass) 0 35%,#8a6243 35%);image-rendering:pixelated;box-shadow:3px 3px 0 #000}
+nav a{margin-left:22px;color:var(--mute);font-size:14px}nav a:hover{color:var(--text)}
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100svh - 57px);align-items:center;padding:0 6vw;gap:2rem;overflow:hidden;background:radial-gradient(ellipse at 75% 45%,#1b3358 0,#0a0f1a 60%)}
+.kicker{color:var(--accent);font:600 12px/1 ui-monospace,monospace;letter-spacing:.2em}
+h1{font-size:clamp(40px,6vw,76px);line-height:1.02;margin:.4em 0 .3em;letter-spacing:-.02em}
+h1 span{color:var(--accent)}
+.lead{color:var(--mute);max-width:32em;font-size:17px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0}
+.btn{padding:13px 22px;border:1px solid var(--line);background:var(--panel);font-weight:600;box-shadow:4px 4px 0 #000;transition:transform .15s}
+.btn:hover{transform:translate(-2px,-2px)}
+.btn.primary{background:var(--accent);color:#06101f;border-color:var(--accent)}
+.plats{display:flex;gap:8px;flex-wrap:wrap}.plats span{font-size:12px;color:var(--mute);border:1px solid var(--line);padding:4px 10px}
+.scene{position:relative;height:min(78svh,640px)}
+.stars i{position:absolute;width:2px;height:2px;background:#fff;opacity:.5;border-radius:50%}
+section{padding:90px 6vw;border-top:1px solid var(--line)}
+h2{font-size:clamp(26px,3.4vw,40px);margin:0 0 30px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);padding:22px}
+.card b{display:block;font-size:18px;margin-bottom:6px}.card p{margin:0;color:var(--mute);font-size:14px}
+.card em{font-style:normal;font-size:26px}
+.dl .card{display:flex;flex-direction:column;gap:10px}.dl .card .btn{align-self:flex-start;margin-top:auto}
+.note{color:var(--mute);font-size:13px;margin-top:18px}
+footer{padding:36px 6vw;color:var(--mute);font-size:13px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media (max-width:900px){.hero{grid-template-columns:1fr;padding-top:40px}.scene{height:420px}nav a:not(:last-child){display:none}}
+</style>
 </head>
 <body>
-  <main>
-    <h1>FCP Launcher</h1>
-    <p>跨平台 Minecraft 启动器官网占位页。下载与文档即将上线。</p>
-    <p><a href="https://github.com/nameefef/FCP-Launcher">GitHub</a> · GPL-3.0</p>
-  </main>
+<header>
+  <a class="brand" href="#top"><i></i>FCP Launcher</a>
+  <nav><a href="#features">功能</a><a href="#download">下载</a><a href="#license">开源协议</a><a href="https://github.com/nameefef/FCP-Launcher">GitHub</a></nav>
+</header>
+<main id="top">
+  <div class="hero">
+    <div>
+      <p class="kicker">OPEN SOURCE · CROSS PLATFORM</p>
+      <h1>一个启动器，<br/><span>所有平台</span>。</h1>
+      <p class="lead">FCP Launcher 是开源的 Minecraft 启动器。游戏本体、模组和资源一键下载，内置多人联机，电脑和手机用同一套体验。</p>
+      <div class="cta">
+        <a class="btn primary" href="#download">下载 FCP</a>
+        <a class="btn" href="https://github.com/nameefef/FCP-Launcher">查看源码</a>
+      </div>
+      <div class="plats"><span>Windows</span><span>macOS</span><span>Linux</span><span>Android</span></div>
+    </div>
+    <div class="scene" data-mc3d aria-hidden="true"><div class="stars"></div></div>
+  </div>
+
+  <section id="features">
+    <h2>为玩家准备的实用功能</h2>
+    <div class="grid">
+      <div class="card"><em>⬇</em><b>游戏下载</b><p>官方版本、Forge / Fabric / NeoForge、模组与资源包，下载后自动补全依赖。</p></div>
+      <div class="card"><em>🌐</em><b>多人联机</b><p>不用公网 IP，和朋友组队进同一个局域网世界。</p></div>
+      <div class="card"><em>💻</em><b>全平台</b><p>Windows、macOS、Linux 与 Android 共用一套核心，存档和设置习惯一致。</p></div>
+      <div class="card"><em>🧩</em><b>开源透明</b><p>以 GPL-3.0 发布，代码公开，欢迎提 issue 和 PR。</p></div>
+    </div>
+  </section>
+
+  <section id="download" class="dl">
+    <h2>下载</h2>
+    <div class="grid">
+      <div class="card"><b>Windows</b><p>Windows 10 / 11</p><a class="btn" href="https://github.com/nameefef/FCP-Launcher/releases">前往发布页</a></div>
+      <div class="card"><b>macOS</b><p>Apple 芯片 / Intel</p><a class="btn" href="https://github.com/nameefef/FCP-Launcher/releases">前往发布页</a></div>
+      <div class="card"><b>Linux</b><p>x86_64 / ARM64</p><a class="btn" href="https://github.com/nameefef/FCP-Launcher/releases">前往发布页</a></div>
+      <div class="card"><b>Android</b><p>手机与平板</p><a class="btn" href="https://github.com/nameefef/FCP-Launcher/releases">前往发布页</a></div>
+    </div>
+    <p class="note">首个版本还在开发中，发布后会出现在 GitHub 发布页。</p>
+  </section>
+
+  <section id="license">
+    <h2>开源协议与致谢</h2>
+    <p class="lead">FCP Launcher 以 GPL-3.0 协议开源。移动端基于 <a href="https://github.com/FCL-Team/FoldCraftLauncher" style="color:var(--accent)">Fold Craft Launcher</a>（GPL-3.0），感谢上游项目及所有贡献者。完整的第三方声明见仓库中的 NOTICE 文件。</p>
+  </section>
+</main>
+<footer><span>© FCP Launcher · GPL-3.0</span><span>与 Mojang、Microsoft 无隶属关系</span></footer>
+<script>
+(function(){var s=document.querySelector('.stars');for(var i=0;i<40;i++){var e=document.createElement('i');e.style.left=Math.random()*100+'%';e.style.top=Math.random()*100+'%';e.style.opacity=(.2+Math.random()*.6).toFixed(2);s.appendChild(e);}})();
+</script>
+<script src="assets/island.js" defer></script>
 </body>
 </html>
