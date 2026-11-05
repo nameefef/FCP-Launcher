@@ -8,7 +8,7 @@ public final class Branding {
   public static final String PRODUCT_NAME = "FCP Launcher";
 
   /**
-   * Internal full expansion for the in-app About screen only.
+   * Internal full expansion for the hidden in-app easter egg (not the formal About page) only.
    * Do not put this on the website, README, or store listing.
    */
   public static final String PRODUCT_FULL_NAME = "Fuck Chinese Parental";

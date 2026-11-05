@@ -2,4 +2,4 @@
 
 ## Branding
 
-Use `shared/Branding` — show `PRODUCT_NAME` everywhere; `PRODUCT_FULL_NAME` only on the About screen.
+Use `shared/Branding` — show `PRODUCT_NAME` everywhere; `PRODUCT_FULL_NAME` only as a hidden easter egg; formal About stays `PRODUCT_NAME`.

@@ -7,7 +7,7 @@ package fcp.shared
 const val PRODUCT_NAME: String = "FCP Launcher"
 
 /**
- * Internal full expansion shown only in the in-app About screen (not on the website,
+ * Internal full expansion shown only in the hidden in-app easter egg (not the formal About page) (not on the website,
  * README, or store listing copy). Source is public GPL — anyone can still find this string.
  */
 const val PRODUCT_FULL_NAME: String = "Fuck Chinese Parental"
