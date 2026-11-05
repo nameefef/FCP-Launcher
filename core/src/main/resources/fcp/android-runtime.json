@@ -1,0 +1,136 @@
+{
+  "jre": [
+    {
+      "major": 8,
+      "abi": "arm64-v8a",
+      "url": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.3.4.4/FCL-release-1.3.4.4-arm64-v8a.apk",
+      "sha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "format": "fcl-apk",
+      "entries": [
+        "assets/app_runtime/java/jre8/universal.tar.xz",
+        "assets/app_runtime/java/jre8/bin-arm64.tar.xz"
+      ],
+      "source": "FCL-Team/FoldCraftLauncher 1.3.4.4"
+    },
+    {
+      "major": 8,
+      "abi": "armeabi-v7a",
+      "url": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.3.4.4/FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "sha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "format": "fcl-apk",
+      "entries": [
+        "assets/app_runtime/java/jre8/universal.tar.xz",
+        "assets/app_runtime/java/jre8/bin-arm.tar.xz"
+      ],
+      "source": "FCL-Team/FoldCraftLauncher 1.3.4.4"
+    },
+    {
+      "major": 8,
+      "abi": "x86",
+      "url": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.3.4.4/FCL-release-1.3.4.4-x86.apk",
+      "sha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "format": "fcl-apk",
+      "entries": [
+        "assets/app_runtime/java/jre8/universal.tar.xz",
+        "assets/app_runtime/java/jre8/bin-x86.tar.xz"
+      ],
+      "source": "FCL-Team/FoldCraftLauncher 1.3.4.4"
+    },
+    {
+      "major": 8,
+      "abi": "x86_64",
+      "url": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.3.4.4/FCL-release-1.3.4.4-x86_64.apk",
+      "sha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "format": "fcl-apk",
+      "entries": [
+        "assets/app_runtime/java/jre8/universal.tar.xz",
+        "assets/app_runtime/java/jre8/bin-x86_64.tar.xz"
+      ],
+      "source": "FCL-Team/FoldCraftLauncher 1.3.4.4"
+    },
+    {
+      "major": 17,
+      "abi": "arm64-v8a",
+      "url": "https://github.com/PojavLauncherTeam/android-openjdk-build-multiarch/releases/download/jre17-ec28559/jre17-arm64-20210825-release.tar.xz",
+      "sha256": "c64583ac2e0ec8857e43456fa9adcf482c6a8e454a7133173bf15692d2478b8d",
+      "format": "tar.xz",
+      "entries": [],
+      "source": "PojavLauncherTeam/android-openjdk-build-multiarch jre17-ec28559"
+    },
+    {
+      "major": 17,
+      "abi": "armeabi-v7a",
+      "url": "https://github.com/PojavLauncherTeam/android-openjdk-build-multiarch/releases/download/jre17-ec28559/jre17-arm-20210914-release.tar.xz",
+      "sha256": "1c27a6a839fc76fc14618ad547b212f881f8d5b8dfa0c5853a38817ba316b428",
+      "format": "tar.xz",
+      "entries": [],
+      "source": "PojavLauncherTeam/android-openjdk-build-multiarch jre17-ec28559"
+    },
+    {
+      "major": 17,
+      "abi": "x86",
+      "url": "https://github.com/PojavLauncherTeam/android-openjdk-build-multiarch/releases/download/jre17-ec28559/jre17-x86-20220225-release.tar.xz",
+      "sha256": "51a51b05cb19a830733864c10a1a706353224353941842362dc6376cc0ab0658",
+      "format": "tar.xz",
+      "entries": [],
+      "source": "PojavLauncherTeam/android-openjdk-build-multiarch jre17-ec28559"
+    },
+    {
+      "major": 17,
+      "abi": "x86_64",
+      "url": "https://github.com/PojavLauncherTeam/android-openjdk-build-multiarch/releases/download/jre17-ec28559/jre17-x86_64-20210825-release.tar.xz",
+      "sha256": "ebbdf75ab864a83671a108032c30e67174f79cc19596cfc1d7bfb71be26b6e71",
+      "format": "tar.xz",
+      "entries": [],
+      "source": "PojavLauncherTeam/android-openjdk-build-multiarch jre17-ec28559"
+    },
+    {
+      "major": 21,
+      "abi": "arm64-v8a",
+      "url": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.3.4.4/FCL-release-1.3.4.4-arm64-v8a.apk",
+      "sha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "format": "fcl-apk",
+      "entries": [
+        "assets/app_runtime/java/jre21/universal.tar.xz",
+        "assets/app_runtime/java/jre21/bin-arm64.tar.xz"
+      ],
+      "source": "FCL-Team/FoldCraftLauncher 1.3.4.4"
+    },
+    {
+      "major": 21,
+      "abi": "armeabi-v7a",
+      "url": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.3.4.4/FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "sha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "format": "fcl-apk",
+      "entries": [
+        "assets/app_runtime/java/jre21/universal.tar.xz",
+        "assets/app_runtime/java/jre21/bin-arm.tar.xz"
+      ],
+      "source": "FCL-Team/FoldCraftLauncher 1.3.4.4"
+    },
+    {
+      "major": 21,
+      "abi": "x86",
+      "url": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.3.4.4/FCL-release-1.3.4.4-x86.apk",
+      "sha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "format": "fcl-apk",
+      "entries": [
+        "assets/app_runtime/java/jre21/universal.tar.xz",
+        "assets/app_runtime/java/jre21/bin-x86.tar.xz"
+      ],
+      "source": "FCL-Team/FoldCraftLauncher 1.3.4.4"
+    },
+    {
+      "major": 21,
+      "abi": "x86_64",
+      "url": "https://github.com/FCL-Team/FoldCraftLauncher/releases/download/1.3.4.4/FCL-release-1.3.4.4-x86_64.apk",
+      "sha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "format": "fcl-apk",
+      "entries": [
+        "assets/app_runtime/java/jre21/universal.tar.xz",
+        "assets/app_runtime/java/jre21/bin-x86_64.tar.xz"
+      ],
+      "source": "FCL-Team/FoldCraftLauncher 1.3.4.4"
+    }
+  ]
+}

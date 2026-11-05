@@ -5,12 +5,15 @@ package fcp.launcher.launch
 import android.content.Context
 import android.content.Intent
 import fcp.core.auth.AccountStore
+import fcp.core.download.GameRepository
 import fcp.core.launch.AuthlibInjector
 import fcp.core.launch.GameLauncher
 import fcp.core.launch.GamePaths
 import fcp.core.launch.LaunchException
 import fcp.core.launch.LaunchLog
 import fcp.core.launch.LaunchRequest
+import fcp.core.launch.RuntimeInstaller
+import fcp.core.launch.loadBundledRuntimeCatalog
 import fcp.core.launch.loadResolvedVersion
 import fcp.core.launch.toLaunchAccount
 import fcp.core.net.UrlHttpClient
@@ -40,11 +43,31 @@ class AndroidGameLaunch(context: Context) {
             val stored = selectedAccount()
                 ?: return fail(log, app.getString(R.string.no_account_for_launch))
             onStatus(app.getString(R.string.launch_checking))
+            onStatus(app.getString(R.string.repairing_assets))
+            GameRepository().completeInstallation(versionId, gameDir) { event ->
+                onStatus(event.label)
+            }
             val resolved = loadResolvedVersion(gameDir, versionId)
             val major = resolved.javaMajor ?: 8
             val runtime = runtimeRoot()
             runtime.mkdirs()
-            val javaBinary = RuntimeProbe.findJava(runtime, major)
+            var javaBinary = RuntimeProbe.findJava(runtime, major)
+            var runtimeError: String? = null
+            if (javaBinary == null || !javaBinary.canExecute()) {
+                onStatus(app.getString(R.string.downloading_runtime, major))
+                val installed = runCatching {
+                    RuntimeInstaller().ensureJava(
+                        catalog = loadBundledRuntimeCatalog(),
+                        http = UrlHttpClient(),
+                        abi = RuntimeProbe.deviceAbi(),
+                        major = major,
+                        runtimeRoot = runtime,
+                        onStatus = onStatus,
+                    )
+                }
+                javaBinary = installed.getOrNull() ?: javaBinary
+                runtimeError = installed.exceptionOrNull()?.message
+            }
             val nativeDirs = RuntimeProbe.nativeDirectories(
                 File(app.applicationInfo.nativeLibraryDir),
                 runtime,
@@ -72,8 +95,9 @@ class AndroidGameLaunch(context: Context) {
                 authlibDownloadError = authlibError,
                 launcherName = PRODUCT_NAME,
                 launcherVersion = BuildConfig.VERSION_NAME,
-                extraJvmArgs = RuntimeProbe.extraJvmArgs(gameDir),
+                extraJvmArgs = rendererJvmArgs(gameDir, present),
                 environment = RuntimeProbe.environment(javaBinary, natives, gameDir, present),
+                runtimeDownloadError = runtimeError,
                 checkNativeRuntime = true,
                 presentNativeLibraries = present,
                 nativeSearchPaths = nativeDirs.map { it.absolutePath },
@@ -108,6 +132,13 @@ class AndroidGameLaunch(context: Context) {
             if (!processLogWritten) LaunchLog.writeFailure(log, message)
             return LaunchOutcome.Failed(message, log)
         }
+    }
+
+    private fun rendererJvmArgs(gameDir: File, present: Set<String>): List<String> {
+        val args = RuntimeProbe.extraJvmArgs(gameDir).toMutableList()
+        val renderer = listOf("libgl4es_114.so", "libgl4es.so", "libng_gl4es.so").firstOrNull { it in present }
+        if (renderer != null) args += "-Dorg.lwjgl.opengl.libname=$renderer"
+        return args
     }
 
     private fun selectedAccount() = AccountStore(File(app.filesDir, "accounts.json")).load().let { file ->

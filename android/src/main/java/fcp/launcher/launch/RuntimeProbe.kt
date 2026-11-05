@@ -2,6 +2,7 @@
 // Copyright (c) 2026 FCP contributors
 package fcp.launcher.launch
 
+import android.os.Build
 import fcp.core.launch.AndroidNativeRuntime
 import java.io.File
 
@@ -10,6 +11,13 @@ import java.io.File
  * The debug APK does not ship the JRE or the native renderer.
  */
 object RuntimeProbe {
+    fun deviceAbi(): String {
+        val known = listOf("arm64-v8a", "armeabi-v7a", "x86_64", "x86")
+        return Build.SUPPORTED_ABIS.firstOrNull { it in known }
+            ?: Build.SUPPORTED_ABIS.firstOrNull()
+            ?: "unknown"
+    }
+
     fun canonicalJava(runtimeRoot: File, major: Int): File =
         File(runtimeRoot, "java-$major/bin/java")
 
@@ -100,7 +108,7 @@ object RuntimeProbe {
         env["TMPDIR"] = File(gameDir, "tmp").apply { mkdirs() }.absolutePath
         env["POJAV_NATIVEDIR"] = nativesDir.absolutePath
         val renderer = when {
-            "libgl4es.so" in present || "libgl4es_114.so" in present -> "gl4es"
+            "libgl4es.so" in present || "libgl4es_114.so" in present || "libng_gl4es.so" in present -> "gl4es"
             "libvgpu.so" in present || "libvirglrenderer.so" in present -> "virgl"
             "libOSMesa.so" in present -> "zink"
             else -> null

@@ -54,6 +54,8 @@ data class LaunchRequest(
     val nativesDirectory: File,
     val authlibInjectorJar: File?,
     val authlibDownloadError: String? = null,
+    /** Set when the first-run JRE download did not produce a java binary. */
+    val runtimeDownloadError: String? = null,
     val platform: String = "linux",
     val maxMemoryMb: Int = 1024,
     val launcherName: String = PRODUCT_NAME,
@@ -167,17 +169,27 @@ fun redactSecrets(text: String, secrets: Collection<String>): String {
 
 /**
  * GLFW, OpenAL, and a renderer are the native pieces a Pojav / FCL style
- * runtime uses to open a window. This build does not ship those `.so` files.
+ * runtime uses to open a window. Fold Craft Launcher 1.3.4.4 ships GLFW's
+ * JNI entry points inside `libpojavexec.so` and the renderer as
+ * `libgl4es_114.so` (also `libng_gl4es.so`). Mojang's LWJGL still asks for
+ * `libglfw.so`, so the APK includes that filename as a copy of libpojavexec.
  */
 object AndroidNativeRuntime {
     data class Group(val label: String, val libraries: List<String>)
 
     val groups: List<Group> = listOf(
-        Group("GLFW", listOf("libglfw.so")),
+        Group("GLFW", listOf("libglfw.so", "libpojavexec.so")),
         Group("OpenAL", listOf("libopenal.so")),
         Group(
             "渲染器",
-            listOf("libgl4es.so", "libgl4es_114.so", "libvgpu.so", "libvirglrenderer.so", "libOSMesa.so"),
+            listOf(
+                "libgl4es.so",
+                "libgl4es_114.so",
+                "libng_gl4es.so",
+                "libvgpu.so",
+                "libvirglrenderer.so",
+                "libOSMesa.so",
+            ),
         ),
     )
 
@@ -199,7 +211,7 @@ object AndroidNativeRuntime {
                 appendLine("已查找：")
                 searched.forEach { append("- ").appendLine(it) }
             }
-            append("这些库属于 Pojav / Fold Craft Launcher 一类运行时。当前安装包没有带上它们，所以不会启动进程。")
+            append("这些库来自 Fold Craft Launcher 1.3.4.4，应在安装包的 native 目录或 runtime/natives。没有找到时不会启动进程。")
         }.trim()
     }
 }

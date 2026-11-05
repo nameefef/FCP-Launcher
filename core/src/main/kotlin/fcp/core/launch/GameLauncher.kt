@@ -159,11 +159,12 @@ class GameLauncher {
     private fun collectRuntime(request: LaunchRequest, javaMajor: Int, problems: MutableList<String>) {
         val java = request.javaBinary
         if (java == null || !java.isFile) {
+            val download = request.runtimeDownloadError?.let { "\n$it" }.orEmpty()
             problems += """
                 没有找到可用的 Java $javaMajor，无法启动 ${request.versionId}。
                 期望的路径：${request.expectedJavaPath}
                 同一 runtime 目录下的 jre-$javaMajor、Internal-$javaMajor 也可以。
-                当前安装包没有内置这份 Android JRE。
+                Android JRE 会在首次启动时下载；这次没有得到可用的 java。$download
             """.trimIndent()
         } else if (!java.canExecute()) {
             problems += "找到了 Java，但没有执行权限：${java.path}"

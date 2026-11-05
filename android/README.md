@@ -2,7 +2,7 @@
 
 Gradle project for FCP Launcher on Android. Account, download, and launch-command code lives in the JVM module `core/` (repository root) so a later desktop shell can reuse it. The UI is `android/`.
 
-Behavior follows [HMCL](https://github.com/HMCL-dev/HMCL) and [Fold Craft Launcher](https://github.com/FCL-Team/FoldCraftLauncher): offline names, authlib-injector / Yggdrasil, BMCLAPI-first files, and a Minecraft Java command line. The FCL native tree (Amethyst / Pojav) is not vendored, so this APK cannot open a world until that runtime is placed in app storage. No Plain Craft Launcher source is included.
+Behavior follows [HMCL](https://github.com/HMCL-dev/HMCL) and [Fold Craft Launcher](https://github.com/FCL-Team/FoldCraftLauncher): offline names, authlib-injector / Yggdrasil, BMCLAPI-first files, and a Minecraft Java command line. The debug APK ships the FCL 1.3.4.4 native bridge and renderer. The JRE is downloaded on first launch. No Plain Craft Launcher source is included.
 
 ## What works
 
@@ -16,19 +16,25 @@ Behavior follows [HMCL](https://github.com/HMCL-dev/HMCL) and [Fold Craft Launch
 
 ## Runtime layout
 
-Game files stay in `files/minecraft/`. The runtime is `files/runtime/`:
+Game files stay in `files/minecraft/`. The runtime is `files/runtime/`.
 
 | Path | Role |
 |------|------|
-| `runtime/java-17/bin/java` (also `jre-17`, `Internal-17`, and the same for 8 and 21) | Android JRE for the major version in the version JSON. Older versions without `javaVersion` use Java 8. |
-| `runtime/natives/` and the APK native library dir | `libglfw.so`, `libopenal.so`, and one renderer (`libgl4es.so`, `libvgpu.so`, `libvirglrenderer.so`, or `libOSMesa.so`). |
+| `runtime/java-17/bin/java` (also `jre-17`, `Internal-17`, and the same for 8 and 21) | Android JRE. Java 17 is the Pojav tarball from `jre17-ec28559`, checked with SHA-256 and unpacked on first launch. Java 8 and 21 come from the matching Fold Craft Launcher 1.3.4.4 APK (`assets/app_runtime/java/jre*/`). |
+| APK `lib/<abi>/` (staged to `runtime/natives/` at launch) | `libglfw.so` (same file as `libpojavexec.so`), `libopenal.so`, `libgl4es_114.so`, plus `libfcl.so`, `libbytehook.so`, `libandroidnsbypass.so`, and `libc++_shared.so`. Refresh them with `scripts/fetch-android-runtime.py`. |
 | `runtime/authlib-injector.jar` | Java agent for LittleSkin and other Yggdrasil accounts. |
 
-If any of those are missing, launch stops before creating a process and the dialog lists what is missing. The same text is written to the log.
+`启动` downloads the JRE when `bin/java` is missing, then execs it. The log is `logs/fcp-launch.log`. A missing client, library, asset, or failed download is named there and the process is not started.
+
+Rebuild the pinned binaries and checksum catalog with:
+
+```bash
+python3 scripts/fetch-android-runtime.py
+```
 
 ## What is deferred
 
-- Shipping the Pojav / Fold Craft Launcher JRE and renderer inside the APK. Without them the launch path reports the gap; it does not enter a world.
+- A full FCL activity surface (touch controls, custom GLFW window). This build starts the Java process with the FCL bridge libraries on the library path. Reaching a world still depends on that process opening a window.
 - Official Microsoft login. This build does not register an Azure app and does not embed another launcher's client id.
 - Multiplayer (issue #4) and the desktop apps (issue #5).
 

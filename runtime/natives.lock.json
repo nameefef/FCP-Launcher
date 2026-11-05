@@ -1,0 +1,266 @@
+{
+  "fclTag": "1.3.4.4",
+  "jre17Tag": "jre17-ec28559",
+  "natives": [
+    {
+      "abi": "arm64-v8a",
+      "name": "libpojavexec.so",
+      "sha256": "fde3063d7d3f699712802ab0599f8a29011453b5971c26b2595b6d816f468aa6",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libpojavexec.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libfcl.so",
+      "sha256": "38208195c43c28ae4e80c7a84cb4e976f20796e184d1be2e5f07f72a3d61182e",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libfcl.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libandroidnsbypass.so",
+      "sha256": "82daa2e1b49d4620c5ae4999f02540a87b685046000d6b250739a266beddf242",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libandroidnsbypass.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libbytehook.so",
+      "sha256": "69c0bbddd47850dd06f26ca13ad64d010be56c2103f6e4785da6a75754c2a516",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libbytehook.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libc++_shared.so",
+      "sha256": "92ee8da641b969254cc8723f64aa115d36c8ffa87115e38bc9cb89e3eefee839",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libc++_shared.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libopenal.so",
+      "sha256": "e9c9171d5832637a1e9c476fd9cc61b4e1a5edb38db220c96227795109ff541c",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libopenal.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libgl4es_114.so",
+      "sha256": "3dbcc87baae1436f2affb923eda053d7e256f0aa032654452e2b2092566f6b24",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libgl4es_114.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libglfw.so",
+      "sha256": "fde3063d7d3f699712802ab0599f8a29011453b5971c26b2595b6d816f468aa6",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libpojavexec.so",
+      "note": "same bytes as libpojavexec.so; Mojang LWJGL loads libglfw.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libpojavexec.so",
+      "sha256": "dd823b6d81ad101412891d83580b6377c012bb6626a92dc7030a03d1834d1c49",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libpojavexec.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libfcl.so",
+      "sha256": "e71a33b4620920070ef31df903ee2ca726b31d61da28e9cf23644bcecd0e6056",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libfcl.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libandroidnsbypass.so",
+      "sha256": "eebf601b88cfae8c1e25ef6e41cfcc7d7dd55a1e8d9cb02a0a751a74f7d4c3f1",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libandroidnsbypass.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libbytehook.so",
+      "sha256": "79eb726b3202e132b30a3959a079761812a0c9e35d4a9a454f8cf4d5d1d24818",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libbytehook.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libc++_shared.so",
+      "sha256": "37d4ffc8c166bd8e670971985bc888e89279c771fcbf90ec70a592ad9645c9d7",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libc++_shared.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libopenal.so",
+      "sha256": "7d0c4942e9d87fd0ef6e31128c64413e454a8877d45914ac7d54486e70a08421",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libopenal.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libgl4es_114.so",
+      "sha256": "ffa254b7d1f71fe25af962bf145b013f57546cfd67ee5d1c7a75ad973df183e4",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libgl4es_114.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libglfw.so",
+      "sha256": "dd823b6d81ad101412891d83580b6377c012bb6626a92dc7030a03d1834d1c49",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libpojavexec.so",
+      "note": "same bytes as libpojavexec.so; Mojang LWJGL loads libglfw.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libpojavexec.so",
+      "sha256": "da83c44bf4229fdf1e927eb1ff0fac585ef0f92f21de5e05d2ed7cd4fe99200f",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libpojavexec.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libfcl.so",
+      "sha256": "52bd19352777a7ab4e40c03431fd0dfe474d56b477257c345ff6dc50b8fca314",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libfcl.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libandroidnsbypass.so",
+      "sha256": "30714d4b87f4796966bf3cbb11f6140efbf24e9d770a51da5379f5373ba2f79d",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libandroidnsbypass.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libbytehook.so",
+      "sha256": "689b0036d9875ea076d2755ce467573779c79e093832f424a353bf53784cc02c",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libbytehook.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libc++_shared.so",
+      "sha256": "128bb6e63a08bbd21fba7128223fb6e1016afd76dab9cbc09d9aaf4b0400f4e2",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libc++_shared.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libopenal.so",
+      "sha256": "dd90f8905e4c23025e1d140570e4dead461b520a04c3a6100e40a128c13cbacf",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libopenal.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libgl4es_114.so",
+      "sha256": "eba6fa929bfde45afa60ea92788493ffa5f0ebe635b482452447d0631bd5811f",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libgl4es_114.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libglfw.so",
+      "sha256": "da83c44bf4229fdf1e927eb1ff0fac585ef0f92f21de5e05d2ed7cd4fe99200f",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libpojavexec.so",
+      "note": "same bytes as libpojavexec.so; Mojang LWJGL loads libglfw.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libpojavexec.so",
+      "sha256": "0729f16aec5a6f298ec9e7966e7ee2bbf5d21332323736f8f152f6d491765d0e",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libpojavexec.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libfcl.so",
+      "sha256": "a464434317c8fa5b3ea8a45b47a39710989638ec1e0d539f62448d69b381ab9a",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libfcl.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libandroidnsbypass.so",
+      "sha256": "ff8937b41f96611a9b690ec29133ccd118f9618d7f65a04b7cb37adb5048e454",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libandroidnsbypass.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libbytehook.so",
+      "sha256": "7b8682f28caacbc360fbbf92656e1200b175d543655f61203adf510717ae65f6",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libbytehook.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libc++_shared.so",
+      "sha256": "649cf75deda40f5985f316d1cc63cba59466db453e610a14e983e36be0caaa94",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libc++_shared.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libopenal.so",
+      "sha256": "ee9accbde10c9f5fc6ae59822c952e9b70a45e3e6293cca32829dc916650223b",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libopenal.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libgl4es_114.so",
+      "sha256": "b53d34bf8dc086d78ddaf33b6b400da9397c85d3b55530daf8b9ed2fea08a093",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libgl4es_114.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libglfw.so",
+      "sha256": "0729f16aec5a6f298ec9e7966e7ee2bbf5d21332323736f8f152f6d491765d0e",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libpojavexec.so",
+      "note": "same bytes as libpojavexec.so; Mojang LWJGL loads libglfw.so"
+    }
+  ]
+}
