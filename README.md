@@ -28,4 +28,9 @@
 
 ## 开发状态
 
-骨架阶段：目录与协议已就位，桌面 / Android / 官网实现进行中。
+| 版本 | 范围 |
+|------|------|
+| **v0.1（当前）** | Android：离线账号、LittleSkin（可填其他 Yggdrasil）、BMCLAPI 优先的历代版本下载。见 [`android/README.md`](./android/README.md)。 |
+| 之后 | 桌面端 Win / macOS / Linux（[#5](https://github.com/nameefef/FCP-Launcher/issues/5)）、联机（[#4](https://github.com/nameefef/FCP-Launcher/issues/4)）、启动游戏进程、官方 Microsoft 登录。 |
+
+v0.1 **不**接入官方 Microsoft 登录，也不借用其他启动器的 Azure Client ID。
