@@ -24,6 +24,11 @@ Third-party / upstream acknowledgements (non-exhaustive; expand as code lands):
   https://manual.littleskin.cn/yggdrasil/
   https://littleskin.cn/api/yggdrasil
   LittleSkin is not Microsoft or Mojang login.
+- authlib-injector — AGPL-3.0
+  https://github.com/yushijinhun/authlib-injector
+  Used as a separate Java agent when launching a Yggdrasil account (LittleSkin
+  or a custom server). The jar is downloaded at launch from BMCLAPI, then from
+  the GitHub release if that fails. It is not vendored in this repository.
 
 Plain Craft Launcher (PCL) by 龙腾猫跃 is NOT included as source.
 UI/UX ideas may be referenced independently; do not copy PCL code or assets.

@@ -30,7 +30,7 @@
 
 | 版本 | 范围 |
 |------|------|
-| **v0.1（当前）** | Android：离线账号、LittleSkin（可填其他 Yggdrasil）、BMCLAPI 优先的历代版本下载。见 [`android/README.md`](./android/README.md)。 |
-| 之后 | 桌面端 Win / macOS / Linux（[#5](https://github.com/nameefef/FCP-Launcher/issues/5)）、联机（[#4](https://github.com/nameefef/FCP-Launcher/issues/4)）、启动游戏进程、官方 Microsoft 登录。 |
+| **当前** | Android：离线账号、LittleSkin（可填其他 Yggdrasil）、BMCLAPI 优先的历代版本下载，以及游戏启动。见 [`android/README.md`](./android/README.md)。 |
+| 之后 | 桌面端 Win / macOS / Linux（[#5](https://github.com/nameefef/FCP-Launcher/issues/5)）、联机（[#4](https://github.com/nameefef/FCP-Launcher/issues/4)）、把 Pojav / FCL 的 JRE 和渲染库打进安装包、官方 Microsoft 登录。 |
 
 v0.1 **不**接入官方 Microsoft 登录，也不借用其他启动器的 Azure Client ID。

@@ -52,10 +52,11 @@ data class LibrarySpec(
     val nativeOnly: Boolean,
 ) {
     /**
-     * Desktop natives are not downloaded. Fold Craft Launcher supplies Android
-     * LWJGL binaries itself; v0.1 only fetches the Java artifacts a later launch
-     * step would put on the classpath. [platform] follows Mojang's library rule
-     * names (`linux` is what the FCL/Pojav runtime matches).
+     * Desktop native jars are not downloaded. The Android launch path puts these
+     * Java artifacts on the classpath and expects GLFW / OpenAL / renderer
+     * `.so` files from a Pojav / Fold Craft Launcher style runtime.
+     * [platform] follows Mojang's library rule names (`linux` is what that
+     * runtime matches).
      */
     fun includeFor(platform: String): Boolean {
         if (nativeOnly || artifact == null) return false
@@ -119,16 +120,7 @@ fun parseVersionMetadata(json: String): VersionMetadata {
 
 private fun parseLibrary(lib: JsonObject): LibrarySpec {
     val name = lib.requireString("name")
-    val rules = lib.getAsJsonArray("rules").orEmpty().map { element ->
-        val rule = element.asJsonObject
-        val os = rule.getAsJsonObject("os")
-        RuleSpec(
-            action = rule.get("action")?.asString ?: "allow",
-            osName = os?.get("name")?.asString,
-            osArch = os?.get("arch")?.asString,
-            hasFeatures = rule.get("features") != null,
-        )
-    }
+    val rules = parseRules(lib.getAsJsonArray("rules"))
     val artifact = lib.getAsJsonObject("downloads")?.getAsJsonObject("artifact")?.toRemoteFile(
         path = lib.getAsJsonObject("downloads")?.getAsJsonObject("artifact")?.get("path")?.asString,
     ) ?: mavenArtifact(lib, name)
@@ -182,6 +174,18 @@ private fun parseObject(json: String, what: String): JsonObject {
     if (!element.isJsonObject) throw DownloadException("$what 不是 JSON 对象")
     return element.asJsonObject
 }
+
+fun parseRules(array: com.google.gson.JsonArray?): List<RuleSpec> =
+    array.orEmpty().map { element ->
+        val rule = element.asJsonObject
+        val os = rule.getAsJsonObject("os")
+        RuleSpec(
+            action = rule.get("action")?.asString ?: "allow",
+            osName = os?.get("name")?.asString,
+            osArch = os?.get("arch")?.asString,
+            hasFeatures = rule.get("features") != null,
+        )
+    }
 
 private fun JsonObject.requireString(name: String): String =
     get(name)?.asString?.takeIf { it.isNotBlank() }
