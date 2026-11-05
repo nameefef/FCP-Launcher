@@ -1,0 +1,23 @@
+FCP Launcher
+Copyright (c) 2026 FCP contributors
+
+This product is licensed under the GNU General Public License v3.0.
+See the LICENSE file in the project root.
+
+Third-party / upstream acknowledgements (non-exhaustive; expand as code lands):
+
+- HMCL (Hello Minecraft! Launcher) — GPL-3.0
+  https://github.com/HMCL-dev/HMCL
+- Fold Craft Launcher (FCL) — GPL-3.0
+  https://github.com/FCL-Team/FoldCraftLauncher
+  Related components used by FCL (e.g. Amethyst-Android / Pojav lineage,
+  EasyTier, Terracotta) retain their respective licenses; when vendored
+  or linked, their notices must be preserved.
+
+Plain Craft Launcher (PCL) by 龙腾猫跃 is NOT included as source.
+UI/UX ideas may be referenced independently; do not copy PCL code or assets.
+PCL uses a custom limited distribution license, incompatible with shipping
+PCL code inside this GPL-licensed product.
+
+Minecraft is a trademark of Mojang Synergies AB. This project is not
+affiliated with Mojang or Microsoft.
