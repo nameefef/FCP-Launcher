@@ -195,6 +195,19 @@ object AndroidNativeRuntime {
 
     val libraryNames: Set<String> = groups.flatMap { it.libraries }.toSet()
 
+    /**
+     * Shared objects stored under the APK's `lib/<abi>/`. The probe accepts any
+     * one library from each group. The loader also needs the bridge dependencies:
+     * `libglfw.so` links `libfcl.so`, `libbytehook.so`, and `libandroidnsbypass.so`,
+     * and that last one links `libc++_shared.so`.
+     */
+    val shippedLibraryNames: Set<String> = libraryNames + setOf(
+        "libfcl.so",
+        "libbytehook.so",
+        "libandroidnsbypass.so",
+        "libc++_shared.so",
+    )
+
     fun problem(present: Set<String>, searched: List<String>): String? {
         val missing = groups.filter { group -> group.libraries.none { it in present } }
         if (missing.isEmpty()) return null

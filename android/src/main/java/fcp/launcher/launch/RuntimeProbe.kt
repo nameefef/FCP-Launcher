@@ -8,7 +8,8 @@ import java.io.File
 
 /**
  * Looks for a Pojav / Fold Craft Launcher style runtime under app storage.
- * The debug APK does not ship the JRE or the native renderer.
+ * The JRE is downloaded on first launch. Renderer and bridge libraries ship
+ * in the APK and are staged into `runtime/natives` before the probe runs.
  */
 object RuntimeProbe {
     fun deviceAbi(): String {
@@ -60,15 +61,25 @@ object RuntimeProbe {
         target.mkdirs()
         for (name in names) {
             val dest = File(target, name)
-            if (dest.exists()) continue
             val source = sources.firstNotNullOfOrNull { dir ->
                 File(dir, name).takeIf { it.isFile && it.absolutePath != dest.absolutePath }
             } ?: continue
+            if (sameFile(dest, source)) continue
             try {
+                if (dest.exists() || java.nio.file.Files.isSymbolicLink(dest.toPath())) dest.delete()
                 java.nio.file.Files.createSymbolicLink(dest.toPath(), source.toPath())
             } catch (_: Exception) {
                 source.copyTo(dest, overwrite = true)
             }
+        }
+    }
+
+    private fun sameFile(dest: File, source: File): Boolean {
+        if (!dest.exists() && !java.nio.file.Files.isSymbolicLink(dest.toPath())) return false
+        return try {
+            java.nio.file.Files.isSameFile(dest.toPath(), source.toPath())
+        } catch (_: Exception) {
+            false
         }
     }
 
@@ -91,6 +102,8 @@ object RuntimeProbe {
         val env = linkedMapOf<String, String>()
         val binDir = javaBinary?.parentFile
         val javaHome = binDir?.parentFile
+        // Game loads GLFW/OpenAL from this directory via LD_LIBRARY_PATH.
+        // java.library.path is set to the same directory by GameLauncher.
         val libDirs = mutableListOf(nativesDir.absolutePath)
         if (binDir != null && javaHome != null) {
             env["JAVA_HOME"] = javaHome.absolutePath

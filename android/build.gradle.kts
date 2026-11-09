@@ -22,6 +22,14 @@ android {
         }
     }
 
+    // AGP defaults to extractNativeLibs=false, which leaves nativeLibraryDir empty.
+    // The game process looks for real .so files, so install must extract them.
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

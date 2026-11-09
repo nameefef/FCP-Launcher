@@ -4,8 +4,11 @@ package fcp.launcher.launch
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import fcp.core.auth.AccountStore
 import fcp.core.download.GameRepository
+import fcp.core.launch.AndroidNativeRuntime
+import fcp.core.launch.ApkNativeLibraries
 import fcp.core.launch.AuthlibInjector
 import fcp.core.launch.GameLauncher
 import fcp.core.launch.GamePaths
@@ -68,13 +71,20 @@ class AndroidGameLaunch(context: Context) {
                 javaBinary = installed.getOrNull() ?: javaBinary
                 runtimeError = installed.exceptionOrNull()?.message
             }
-            val nativeDirs = RuntimeProbe.nativeDirectories(
-                File(app.applicationInfo.nativeLibraryDir),
-                runtime,
-            )
-            val present = RuntimeProbe.presentLibraries(nativeDirs)
+            val nativeLibraryDir = File(app.applicationInfo.nativeLibraryDir)
             val natives = File(runtime, "natives")
-            RuntimeProbe.stageNatives(natives, nativeDirs, present)
+            // extractNativeLibs=false leaves nativeLibraryDir empty. Pull the
+            // .so files out of the APK so the probe and the game both see them.
+            ApkNativeLibraries.ensureExtracted(
+                apk = File(app.applicationInfo.sourceDir),
+                abis = Build.SUPPORTED_ABIS.toList(),
+                names = AndroidNativeRuntime.shippedLibraryNames,
+                nativeLibraryDir = nativeLibraryDir,
+                destination = natives,
+            )
+            val nativeDirs = RuntimeProbe.nativeDirectories(nativeLibraryDir, runtime)
+            RuntimeProbe.stageNatives(natives, nativeDirs, AndroidNativeRuntime.shippedLibraryNames)
+            val present = RuntimeProbe.presentLibraries(nativeDirs)
             val authlib = File(runtime, AuthlibInjector.FILE_NAME)
             var authlibError: String? = null
             if (stored.toLaunchAccount().authlibApiRoot != null && !AuthlibInjector.isUsableJar(authlib)) {
