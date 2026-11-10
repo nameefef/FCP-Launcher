@@ -2,15 +2,27 @@
 // Copyright (c) 2026 FCP contributors
 package org.lwjgl.glfw;
 
+import android.view.Surface;
+
 /**
  * Class {@code libpojavexec.so}'s {@code JNI_OnLoad} looks up and registers natives on.
  *
  * <p>The static methods are resolved with {@code GetStaticMethodID}. The nine
  * {@code native*} methods are bound with {@code RegisterNatives}. Missing any
  * of them leaves a pending exception and {@code System.loadLibrary("pojavexec")}
- * fails. This build has no touch surface; the methods exist so the bridge can load.
+ * fails.
+ *
+ * <p>{@link #setupBridgeWindow(Surface)} is the exported JNI entry
+ * {@code libglfw.so} / {@code libpojavexec.so} use to store the
+ * {@code ANativeWindow}. {@code glfwInit} acquires that window. Call it
+ * before {@code JLI_Launch}.
  */
 public class CallbackBridge {
+    /** Stores {@code ANativeWindow_fromSurface}. A null surface is not safe. */
+    public static native void setupBridgeWindow(Surface surface);
+
+    /** Marks the bridge ready to take cursor and button events. */
+    public static native boolean nativeSetInputReady(boolean ready);
     public static native void nativeSetUseInputStackQueue(boolean use);
 
     public static native boolean nativeSendChar(char codepoint);
