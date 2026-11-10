@@ -19,7 +19,7 @@
     <string name="repairing_assets">Filling in missing libraries and assets…</string>
     <string name="launch_failed_title">Could not launch</string>
     <string name="launch_running_title">Game process started</string>
-    <string name="launch_running_body">Started %1$s (account %2$s). The log is logs/fcp-launch.log in app storage. If no window appears, open the log for the Java output.</string>
+    <string name="launch_running_body">Started %1$s (account %2$s) in its own process. The JVM is loaded in-process from libjli. Logs: logs/fcp-launch.log and logs/latest-game.log. If no window appears, open the log for the Java output.</string>
     <string name="launch_exited_title">Process exited</string>
     <string name="launch_exited_body">%1$s exited with code %2$d.\n\n%3$s</string>
     <string name="view_log">View log</string>

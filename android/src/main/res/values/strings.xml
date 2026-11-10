@@ -19,7 +19,7 @@
     <string name="repairing_assets">正在补齐缺少的依赖库和资源…</string>
     <string name="launch_failed_title">无法启动</string>
     <string name="launch_running_title">游戏进程已启动</string>
-    <string name="launch_running_body">已启动 %1$s（账号 %2$s）。日志在应用目录的 logs/fcp-launch.log。若窗口没有出现，打开日志查看 Java 的输出。</string>
+    <string name="launch_running_body">已在独立进程里启动 %1$s（账号 %2$s）。Java 虚拟机由 libjli 在该进程内启动。日志在 logs/fcp-launch.log 和 logs/latest-game.log。若窗口没有出现，打开日志查看 Java 的输出。</string>
     <string name="launch_exited_title">进程已退出</string>
     <string name="launch_exited_body">%1$s 的进程已退出，代码 %2$d。\n\n%3$s</string>
     <string name="view_log">查看日志</string>

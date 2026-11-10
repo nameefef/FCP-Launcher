@@ -122,6 +122,18 @@ class LaunchTest {
     }
 
     @Test
+    fun inProcessLaunchAcceptsJavaWithoutTheExecuteBit() {
+        val root = tempGame()
+        val java = executable(root, "#!/bin/sh\nexit 0\n")
+        assertTrue(java.setExecutable(false, false))
+        assertFalse(java.canExecute())
+        install(root, "1.7.10", legacyJson(), assetIndexId = "1.7.10", assetHash = ASSET)
+        val plan = GameLauncher().plan(request(root, "1.7.10", java).copy(requireExecutableJava = false))
+        assertEquals(java.absolutePath, plan.command.first())
+        assertTrue(plan.command.joinToString("\n").contains("-Djava.library.path="))
+    }
+
+    @Test
     fun javaWithoutExecuteBitIsReported() {
         val root = tempGame()
         val java = executable(root, "#!/bin/sh\nexit 0\n")

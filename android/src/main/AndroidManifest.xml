@@ -24,10 +24,11 @@
         <service
             android:name=".launch.GameSessionService"
             android:exported="false"
+            android:process=":game"
             android:foregroundServiceType="specialUse">
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="Keeps the Minecraft Java process and its log attached while the game is running." />
+                android:value="Hosts the Minecraft JVM via JLI_Launch so the game can exit without killing the launcher UI." />
         </service>
     </application>
 </manifest>

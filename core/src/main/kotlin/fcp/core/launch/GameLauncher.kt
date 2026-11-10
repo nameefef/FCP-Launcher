@@ -74,21 +74,23 @@ class GameLauncher {
         )
     }
 
-    fun start(plan: LaunchPlan, logFile: File): RunningGame {
-        val header = buildString {
-            appendLine(PRODUCT_NAME)
-            appendLine(OffsetDateTime.now().toString())
-            appendLine("version: ${plan.versionId}")
-            appendLine("account: ${plan.accountLabel}")
-            appendLine("workingDirectory: ${plan.workingDirectory.absolutePath}")
-            appendLine("environment:")
-            plan.environment.toSortedMap().forEach { (key, value) ->
-                appendLine("$key=${redactSecrets(value, plan.secrets)}")
-            }
-            appendLine("command:")
-            plan.command.forEach { appendLine(redactSecrets(it, plan.secrets)) }
+    /** Redacted header shared by a desktop process and the Android in-process launch. */
+    fun describe(plan: LaunchPlan): String = buildString {
+        appendLine(PRODUCT_NAME)
+        appendLine(OffsetDateTime.now().toString())
+        appendLine("version: ${plan.versionId}")
+        appendLine("account: ${plan.accountLabel}")
+        appendLine("workingDirectory: ${plan.workingDirectory.absolutePath}")
+        appendLine("environment:")
+        plan.environment.toSortedMap().forEach { (key, value) ->
+            appendLine("$key=${redactSecrets(value, plan.secrets)}")
         }
-        LaunchLog.write(logFile, header)
+        appendLine("command:")
+        plan.command.forEach { appendLine(redactSecrets(it, plan.secrets)) }
+    }
+
+    fun start(plan: LaunchPlan, logFile: File): RunningGame {
+        LaunchLog.write(logFile, describe(plan))
         plan.workingDirectory.mkdirs()
         val process = try {
             ProcessBuilder(plan.command)
@@ -166,7 +168,7 @@ class GameLauncher {
                 同一 runtime 目录下的 jre-$javaMajor、Internal-$javaMajor 也可以。
                 Android JRE 会在首次启动时下载；这次没有得到可用的 java。$download
             """.trimIndent()
-        } else if (!java.canExecute()) {
+        } else if (request.requireExecutableJava && !java.canExecute()) {
             problems += "找到了 Java，但没有执行权限：${java.path}"
         }
         if (request.checkNativeRuntime) {

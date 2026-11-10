@@ -42,6 +42,10 @@ Third-party / upstream acknowledgements (non-exhaustive; expand as code lands):
   libandroidnsbypass.so (MIT, from Amethyst-Android's androidnsbypass),
   libbytehook.so (ByteHook), libc++_shared.so, libopenal.so (LGPL-2.1),
   libgl4es_114.so (gl4es, MIT, as built by FCL).
+  libunpack200.so (PojavLauncher, GPL-3.0) turns the Java 8 runtime's
+  `.pack` files into jars. It is the unpack200 binary from
+  PojavLauncherTeam/PojavLauncher branch v3_openjdk, renamed only by the
+  lib prefix Android requires. https://github.com/PojavLauncherTeam/PojavLauncher
   Java 8 and Java 21 are not separate public tarballs. First launch of those
   majors downloads the matching FCL 1.3.4.4 APK and unpacks
   assets/app_runtime/java/jre8 or jre21. The APK itself is not committed.

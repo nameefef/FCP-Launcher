@@ -2,6 +2,7 @@
 // Copyright (c) 2026 FCP contributors
 package fcp.launcher.launch
 
+import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -12,6 +13,7 @@ import fcp.core.launch.ApkNativeLibraries
 import fcp.core.launch.AuthlibInjector
 import fcp.core.launch.GameLauncher
 import fcp.core.launch.GamePaths
+import fcp.core.launch.JreLayout
 import fcp.core.launch.LaunchException
 import fcp.core.launch.LaunchLog
 import fcp.core.launch.LaunchRequest
@@ -56,7 +58,7 @@ class AndroidGameLaunch(context: Context) {
             runtime.mkdirs()
             var javaBinary = RuntimeProbe.findJava(runtime, major)
             var runtimeError: String? = null
-            if (javaBinary == null || !javaBinary.canExecute()) {
+            if (javaBinary == null || !javaBinary.isFile) {
                 onStatus(app.getString(R.string.downloading_runtime, major))
                 val installed = runCatching {
                     RuntimeInstaller().ensureJava(
@@ -111,37 +113,133 @@ class AndroidGameLaunch(context: Context) {
                 checkNativeRuntime = true,
                 presentNativeLibraries = present,
                 nativeSearchPaths = nativeDirs.map { it.absolutePath },
+                // bin/java is not executed. Android 10+ denies execute_no_trans on app data.
+                requireExecutableJava = false,
             )
             val plan = GameLauncher().plan(request)
             processLogWritten = true
-            val running = GameLauncher().start(plan, log)
-            LaunchSession.replace(running)
+            val java = request.javaBinary
+                ?: return fail(log, "没有找到 Java，无法启动。")
+            LaunchLog.write(
+                log,
+                GameLauncher().describe(plan) + "launchMode: in-process JLI_Launch (:game)\n",
+            )
+            val gameLog = GamePaths.gameOutputLog(gameDir)
+            if (gameLog.exists()) gameLog.delete()
+            val stateFile = File(runtime, "launch-state.txt")
+            stopExistingGame(stateFile)
+            LaunchState.write(stateFile, "requested")
+            val specFile = File(runtime, "launch-spec.json")
+            LaunchSpec(
+                versionId = versionId,
+                command = plan.command,
+                environment = plan.environment,
+                workingDirectory = plan.workingDirectory.absolutePath,
+                javaHome = JreLayout.javaHomeOf(java).absolutePath,
+                nativesDirectory = natives.absolutePath,
+                nativeLibraryDir = nativeLibraryDir.absolutePath,
+                logFile = log.absolutePath,
+                gameLogFile = gameLog.absolutePath,
+                secrets = plan.secrets,
+                stateFile = stateFile.absolutePath,
+            ).write(specFile)
             try {
                 app.startForegroundService(
                     Intent(app, GameSessionService::class.java)
+                        .setAction(GameSessionService.ACTION_LAUNCH)
+                        .putExtra(GameSessionService.EXTRA_SPEC, specFile.absolutePath)
                         .putExtra(GameSessionService.EXTRA_VERSION, versionId),
                 )
             } catch (e: Exception) {
-                LaunchLog.append(log, "前台服务没有启动：${e.message}\n")
+                val message = "前台服务没有启动：${e.message}"
+                LaunchLog.append(log, message + "\n")
+                return LaunchOutcome.Failed(message, log)
             }
-            val code = running.exitCodeOrNull() ?: run {
-                Thread.sleep(1_200)
-                running.exitCodeOrNull()
-            }
-            return if (code == null) {
-                LaunchOutcome.Running(versionId, stored.profileName, log)
-            } else {
-                LaunchOutcome.Exited(versionId, code, LaunchLog.tail(log, 2500), log)
-            }
+            return awaitGame(versionId, stored.profileName, log, stateFile)
         } catch (e: LaunchException) {
             val message = e.message ?: app.getString(R.string.launch_failed_title)
-            if (!processLogWritten) LaunchLog.writeFailure(log, message)
+            record(log, message, processLogWritten)
             return LaunchOutcome.Failed(message, log)
         } catch (e: Exception) {
             val message = e.message ?: e.javaClass.simpleName
-            if (!processLogWritten) LaunchLog.writeFailure(log, message)
+            record(log, message, processLogWritten)
             return LaunchOutcome.Failed(message, log)
         }
+    }
+
+    private fun stopExistingGame(stateFile: File) {
+        if (!gameAppearsAlive(stateFile)) return
+        try {
+            app.startService(
+                Intent(app, GameSessionService::class.java).setAction(GameSessionService.ACTION_STOP),
+            )
+        } catch (_: Exception) {
+        }
+        val deadline = System.currentTimeMillis() + 8_000
+        while (gameAppearsAlive(stateFile) && System.currentTimeMillis() < deadline) {
+            Thread.sleep(200)
+        }
+    }
+
+    private fun awaitGame(versionId: String, accountName: String, log: File, stateFile: File): LaunchOutcome {
+        val started = System.currentTimeMillis()
+        val deadline = started + 60_000
+        var sawJvmAt = 0L
+        while (System.currentTimeMillis() < deadline) {
+            val now = System.currentTimeMillis()
+            val snapshot = LaunchState.read(stateFile)
+            if (snapshot == null) {
+                Thread.sleep(400)
+                continue
+            }
+            when (snapshot.phase) {
+                "failed" -> return LaunchOutcome.Failed(snapshot.detail.ifBlank { app.getString(R.string.launch_failed_title) }, log)
+                "exited" -> {
+                    val code = snapshot.detail.toIntOrNull() ?: -1
+                    return LaunchOutcome.Exited(versionId, code, LaunchLog.tail(log, 2500), log)
+                }
+                "jvm" -> {
+                    if (sawJvmAt == 0L) sawJvmAt = now
+                    val stale = snapshot.stampMs > 0 && now - snapshot.stampMs > 8_000
+                    if (stale) {
+                        return LaunchOutcome.Exited(versionId, -1, LaunchLog.tail(log, 2500), log)
+                    }
+                    if (now - sawJvmAt >= 3_000 && now - snapshot.stampMs < 4_000) {
+                        return LaunchOutcome.Running(versionId, accountName, log)
+                    }
+                }
+                "requested" -> {
+                    if (now - started > 20_000) {
+                        val message = "游戏进程没有起来。日志：${log.absolutePath}"
+                        LaunchLog.append(log, message + "\n")
+                        return LaunchOutcome.Failed(message, log)
+                    }
+                }
+                "starting" -> {
+                    if (snapshot.stampMs > 0 && now - snapshot.stampMs > 8_000) {
+                        val message = "游戏进程在启动虚拟机前退出。\n${LaunchLog.tail(log, 1500)}"
+                        return LaunchOutcome.Failed(message, log)
+                    }
+                }
+            }
+            Thread.sleep(400)
+        }
+        val message = "等待虚拟机启动超时。日志：${log.absolutePath}"
+        LaunchLog.append(log, message + "\n")
+        return LaunchOutcome.Failed(message, log)
+    }
+
+    private fun gameAppearsAlive(stateFile: File): Boolean {
+        val am = app.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val target = app.packageName + ":game"
+        if (am.runningAppProcesses.orEmpty().any { it.processName == target }) return true
+        val snapshot = LaunchState.read(stateFile) ?: return false
+        if (snapshot.phase != "starting" && snapshot.phase != "jvm") return false
+        return snapshot.stampMs > 0 && System.currentTimeMillis() - snapshot.stampMs < 4_000
+    }
+
+    private fun record(log: File, message: String, headerWritten: Boolean) {
+        if (!headerWritten) LaunchLog.writeFailure(log, message) else LaunchLog.append(log, message + "\n")
     }
 
     private fun rendererJvmArgs(gameDir: File, present: Set<String>): List<String> {

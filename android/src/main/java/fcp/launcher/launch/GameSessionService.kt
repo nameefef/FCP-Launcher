@@ -10,18 +10,22 @@ import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
+import android.os.Process
 import androidx.core.app.NotificationCompat
-import fcp.core.launch.LaunchLog
 import fcp.launcher.MainActivity
 import fcp.launcher.R
 import fcp.shared.PRODUCT_NAME
+import java.io.File
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * Stays in the foreground while the Minecraft process is running so Android
- * keeps this process, its log pumps, and the child JVM alive.
+ * Hosts the in-process JVM. Declared with `android:process=":game"` so
+ * `JLI_Launch` and the JVM's `exit()` take down this process and leave the
+ * launcher UI running. A foreground notification keeps Android from treating
+ * the game as a cached background process.
  */
 class GameSessionService : Service() {
-    private var generation = 0
+    private val launching = AtomicBoolean(false)
 
     override fun onBind(intent: Intent?): IBinder? = null
 
@@ -36,7 +40,46 @@ class GameSessionService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (intent?.action == ACTION_STOP) {
+            try {
+                stopForeground(STOP_FOREGROUND_REMOVE)
+            } catch (_: Exception) {
+            }
+            stopSelf()
+            Process.killProcess(Process.myPid())
+            return START_NOT_STICKY
+        }
         val version = intent?.getStringExtra(EXTRA_VERSION) ?: "Minecraft"
+        startInForeground(version)
+        val specPath = intent?.getStringExtra(EXTRA_SPEC)
+        if (specPath.isNullOrBlank() || !File(specPath).isFile) {
+            stopForeground(STOP_FOREGROUND_REMOVE)
+            stopSelf()
+            Process.killProcess(Process.myPid())
+            return START_NOT_STICKY
+        }
+        if (!launching.compareAndSet(false, true)) {
+            return START_NOT_STICKY
+        }
+        Thread {
+            try {
+                InProcessJvm.run(File(specPath))
+            } finally {
+                try {
+                    stopForeground(STOP_FOREGROUND_REMOVE)
+                } catch (_: Exception) {
+                }
+                stopSelf()
+                Process.killProcess(Process.myPid())
+            }
+        }.apply {
+            name = "fcp-jli"
+            start()
+        }
+        return START_NOT_STICKY
+    }
+
+    private fun startInForeground(version: String) {
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle(PRODUCT_NAME)
             .setContentText(getString(R.string.notification_running, version))
@@ -56,36 +99,13 @@ class GameSessionService : Service() {
         } else {
             startForeground(NOTIFICATION_ID, notification)
         }
-        val running = LaunchSession.current
-        if (running == null) {
-            stopForeground(STOP_FOREGROUND_REMOVE)
-            stopSelf()
-            return START_NOT_STICKY
-        }
-        val generation = ++this.generation
-        Thread {
-            val code = try {
-                running.awaitExit()
-            } catch (e: Exception) {
-                LaunchLog.append(running.logFile, "等待进程结束时出错：${e.message}\n")
-                -1
-            }
-            LaunchLog.append(running.logFile, "进程退出，代码 $code\n")
-            if (generation == this.generation) {
-                LaunchSession.clearIfCurrent(running)
-                stopForeground(STOP_FOREGROUND_REMOVE)
-                stopSelf()
-            }
-        }.apply {
-            name = "fcp-game-wait"
-            isDaemon = true
-            start()
-        }
-        return START_NOT_STICKY
     }
 
     companion object {
         const val EXTRA_VERSION = "version"
+        const val EXTRA_SPEC = "spec"
+        const val ACTION_LAUNCH = "fcp.launcher.launch.LAUNCH"
+        const val ACTION_STOP = "fcp.launcher.launch.STOP"
         private const val CHANNEL_ID = "fcp_game"
         private const val NOTIFICATION_ID = 11
     }

@@ -66,6 +66,12 @@ data class LaunchRequest(
     val checkNativeRuntime: Boolean = false,
     val presentNativeLibraries: Set<String> = emptySet(),
     val nativeSearchPaths: List<String> = emptyList(),
+    /**
+     * Desktop execs `bin/java` and needs the executable bit.
+     * Android 10+ rejects that exec (`execute_no_trans` on app data) and
+     * starts the JVM with `dlopen` + `JLI_Launch` instead, so the bit is irrelevant.
+     */
+    val requireExecutableJava: Boolean = true,
 )
 
 data class LaunchPlan(
@@ -105,6 +111,9 @@ object GamePaths {
     fun library(gameDir: File, relative: String): File = File(gameDir, "libraries/$relative")
 
     fun logFile(gameDir: File): File = File(gameDir, "logs/fcp-launch.log")
+
+    /** Game stdout/stderr. The launcher header stays in [logFile]. */
+    fun gameOutputLog(gameDir: File): File = File(gameDir, "logs/latest-game.log")
 
     fun installedVersionIds(gameDir: File): Set<String> {
         val root = File(gameDir, "versions")
