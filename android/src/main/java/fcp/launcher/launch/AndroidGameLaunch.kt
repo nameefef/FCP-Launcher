@@ -145,7 +145,7 @@ class AndroidGameLaunch(context: Context) {
                 ?: return fail(log, "没有找到 Java，无法启动。")
             LaunchLog.write(
                 log,
-                GameLauncher().describe(plan) + "launchMode: in-process JLI_Launch (:game)\n",
+                GameLauncher().describe(plan) + "launchMode: in-process JLI_Launch (:game activity)\n",
             )
             val gameLog = GamePaths.gameOutputLog(gameDir)
             if (gameLog.exists()) gameLog.delete()
@@ -167,14 +167,14 @@ class AndroidGameLaunch(context: Context) {
                 stateFile = stateFile.absolutePath,
             ).write(specFile)
             try {
-                app.startForegroundService(
-                    Intent(app, GameSessionService::class.java)
-                        .setAction(GameSessionService.ACTION_LAUNCH)
+                app.startActivity(
+                    Intent(app, GameActivity::class.java)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .putExtra(GameSessionService.EXTRA_SPEC, specFile.absolutePath)
                         .putExtra(GameSessionService.EXTRA_VERSION, versionId),
                 )
             } catch (e: Exception) {
-                val message = "前台服务没有启动：${e.message}"
+                val message = "游戏画面没有打开：${e.message}"
                 LaunchLog.append(log, message + "\n")
                 return LaunchOutcome.Failed(message, log)
             }

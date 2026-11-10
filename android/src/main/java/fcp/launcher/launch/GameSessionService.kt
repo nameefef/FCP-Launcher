@@ -15,18 +15,13 @@ import androidx.core.app.NotificationCompat
 import fcp.launcher.MainActivity
 import fcp.launcher.R
 import fcp.shared.PRODUCT_NAME
-import java.io.File
-import java.util.concurrent.atomic.AtomicBoolean
 
 /**
- * Hosts the in-process JVM. Declared with `android:process=":game"` so
- * `JLI_Launch` and the JVM's `exit()` take down this process and leave the
- * launcher UI running. A foreground notification keeps Android from treating
- * the game as a cached background process.
+ * Foreground notification for the `:game` process. The JVM itself starts
+ * from [GameActivity] after a surface exists. `exit()` still takes down
+ * this process and leaves the launcher UI running.
  */
 class GameSessionService : Service() {
-    private val launching = AtomicBoolean(false)
-
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onCreate() {
@@ -51,31 +46,6 @@ class GameSessionService : Service() {
         }
         val version = intent?.getStringExtra(EXTRA_VERSION) ?: "Minecraft"
         startInForeground(version)
-        val specPath = intent?.getStringExtra(EXTRA_SPEC)
-        if (specPath.isNullOrBlank() || !File(specPath).isFile) {
-            stopForeground(STOP_FOREGROUND_REMOVE)
-            stopSelf()
-            Process.killProcess(Process.myPid())
-            return START_NOT_STICKY
-        }
-        if (!launching.compareAndSet(false, true)) {
-            return START_NOT_STICKY
-        }
-        Thread {
-            try {
-                InProcessJvm.run(File(specPath))
-            } finally {
-                try {
-                    stopForeground(STOP_FOREGROUND_REMOVE)
-                } catch (_: Exception) {
-                }
-                stopSelf()
-                Process.killProcess(Process.myPid())
-            }
-        }.apply {
-            name = "fcp-jli"
-            start()
-        }
         return START_NOT_STICKY
     }
 
@@ -105,6 +75,7 @@ class GameSessionService : Service() {
         const val EXTRA_VERSION = "version"
         const val EXTRA_SPEC = "spec"
         const val ACTION_LAUNCH = "fcp.launcher.launch.LAUNCH"
+        const val ACTION_FOREGROUND = "fcp.launcher.launch.FOREGROUND"
         const val ACTION_STOP = "fcp.launcher.launch.STOP"
         private const val CHANNEL_ID = "fcp_game"
         private const val NOTIFICATION_ID = 11
