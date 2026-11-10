@@ -25,9 +25,31 @@ data class JreArtifact(
     val source: String,
 )
 
-data class RuntimeCatalog(val jre: List<JreArtifact>) {
+data class LwjglFile(
+    val name: String,
+    val entry: String,
+    val sha256: String,
+)
+
+data class LwjglArtifact(
+    val version: String,
+    val abi: String,
+    val url: String,
+    val sha256: String,
+    val jars: List<LwjglFile>,
+    val natives: List<LwjglFile>,
+    val source: String,
+)
+
+data class RuntimeCatalog(
+    val jre: List<JreArtifact>,
+    val lwjgl: List<LwjglArtifact> = emptyList(),
+) {
     fun find(major: Int, abi: String): JreArtifact? =
         jre.firstOrNull { it.major == major && it.abi == abi }
+
+    fun findLwjgl(version: String, abi: String): LwjglArtifact? =
+        lwjgl.firstOrNull { it.version == version && it.abi == abi }
 }
 
 fun parseRuntimeCatalog(json: String): RuntimeCatalog {
@@ -51,7 +73,42 @@ fun parseRuntimeCatalog(json: String): RuntimeCatalog {
         )
     } ?: throw LaunchException("运行时清单缺少 jre")
     if (artifacts.isEmpty()) throw LaunchException("运行时清单是空的")
-    return RuntimeCatalog(artifacts)
+    val lwjgl = root.getAsJsonArray("lwjgl")?.map { element ->
+        val item = element.asJsonObject
+        val version = item.get("version")?.asString ?: throw LaunchException("LWJGL 清单缺少 version")
+        val abi = item.get("abi")?.asString ?: throw LaunchException("LWJGL 清单缺少 abi")
+        LwjglArtifact(
+            version = version,
+            abi = abi,
+            url = item.get("url")?.asString?.takeIf { it.startsWith("https://") }
+                ?: throw LaunchException("LWJGL 清单的下载地址不是 https"),
+            sha256 = item.get("sha256")?.asString?.takeIf { it.length == 64 }
+                ?: throw LaunchException("LWJGL 清单缺少 sha256"),
+            jars = parseLwjglFiles(item.getAsJsonArray("jars"), "jars"),
+            natives = parseLwjglFiles(item.getAsJsonArray("natives"), "natives"),
+            source = item.get("source")?.asString ?: "",
+        )
+    } ?: emptyList()
+    return RuntimeCatalog(artifacts, lwjgl)
+}
+
+private fun parseLwjglFiles(array: com.google.gson.JsonArray?, label: String): List<LwjglFile> {
+    val files = array?.map { element ->
+        val item = element.asJsonObject
+        val entry = item.get("entry")?.asString ?: throw LaunchException("LWJGL $label 缺少 entry")
+        if (!entry.startsWith("assets/app_runtime/lwjgl/") || ".." in entry) {
+            throw LaunchException("LWJGL $label 路径不合法：$entry")
+        }
+        LwjglFile(
+            name = item.get("name")?.asString?.takeIf { it.isNotBlank() && "/" !in it && ".." !in it }
+                ?: throw LaunchException("LWJGL $label 缺少 name"),
+            entry = entry,
+            sha256 = item.get("sha256")?.asString?.takeIf { it.length == 64 }
+                ?: throw LaunchException("LWJGL $label 缺少 sha256"),
+        )
+    } ?: throw LaunchException("LWJGL 清单缺少 $label")
+    if (files.isEmpty()) throw LaunchException("LWJGL $label 是空的")
+    return files
 }
 
 fun loadBundledRuntimeCatalog(): RuntimeCatalog {

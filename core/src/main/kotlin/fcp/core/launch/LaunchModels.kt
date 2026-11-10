@@ -72,6 +72,11 @@ data class LaunchRequest(
      * starts the JVM with `dlopen` + `JLI_Launch` instead, so the bit is irrelevant.
      */
     val requireExecutableJava: Boolean = true,
+    /**
+     * When set, Mojang's LWJGL / jinput / jutils native jars stay off the
+     * classpath and [LwjglOverride.directory] is added instead.
+     */
+    val lwjglOverride: LwjglOverride? = null,
 )
 
 data class LaunchPlan(

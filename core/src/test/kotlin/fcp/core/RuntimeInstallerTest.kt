@@ -41,6 +41,15 @@ class RuntimeInstallerTest {
             val jre21 = catalog.find(21, abi)
             assertTrue(jre21 != null, "java 21 $abi")
             assertEquals("fcl-apk", jre21!!.format)
+            val lwjgl2 = catalog.findLwjgl("3.3.3", abi)
+            assertTrue(lwjgl2 != null, "lwjgl 3.3.3 $abi")
+            assertTrue(lwjgl2!!.jars.any { it.name == "lwjgl.jar" })
+            assertTrue(lwjgl2.jars.any { it.name == "lwjgl-lwjglx.jar" })
+            assertTrue(lwjgl2.natives.any { it.name == "liblwjgl.so" })
+            assertEquals(64, lwjgl2.natives.first { it.name == "liblwjgl.so" }.sha256.length)
+            val lwjgl3 = catalog.findLwjgl("3.4.1", abi)
+            assertTrue(lwjgl3 != null, "lwjgl 3.4.1 $abi")
+            assertTrue(lwjgl3!!.natives.any { it.name == "liblwjgl_opengl.so" })
         }
         assertFailsWith<LaunchException> {
             parseRuntimeCatalog("""{"jre":[{"major":17,"abi":"x86_64","url":"http://insecure","sha256":"abc"}]}""")

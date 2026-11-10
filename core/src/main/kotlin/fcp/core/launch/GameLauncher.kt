@@ -42,6 +42,9 @@ class GameLauncher {
         if (jvm.none { it.startsWith("-Djava.library.path=") }) {
             jvm.add(0, substitute("-Djava.library.path=\${natives_directory}", vars))
         }
+        if (request.lwjglOverride != null && jvm.none { it.startsWith("-Dorg.lwjgl.librarypath=") }) {
+            jvm.add(0, "-Dorg.lwjgl.librarypath=${request.nativesDirectory.absolutePath}")
+        }
         val game = gameArguments(version, request.platform, vars)
         if (game.isEmpty()) {
             throw LaunchException("版本 JSON 没有游戏参数，无法启动 ${request.versionId}。")
@@ -184,8 +187,10 @@ class GameLauncher {
 
     private fun classpathFiles(request: LaunchRequest, version: ResolvedVersion): List<File> {
         val files = mutableListOf<File>()
+        request.lwjglOverride?.let { files += lwjglClasspathJars(it) }
         for (library in version.libraries) {
             if (!library.includeFor(request.platform)) continue
+            if (request.lwjglOverride != null && replacedByFclLwjgl(library.name)) continue
             val file = libraryFile(request.gameDir, library) ?: continue
             if (file.isFile) files += file
         }
@@ -197,8 +202,17 @@ class GameLauncher {
         val missing = mutableListOf<String>()
         for (library in version.libraries) {
             if (!library.includeFor(request.platform)) continue
+            if (request.lwjglOverride != null && replacedByFclLwjgl(library.name)) continue
             val file = libraryFile(request.gameDir, library) ?: continue
             if (!file.isFile) missing += file.relativeTo(request.gameDir).path
+        }
+        request.lwjglOverride?.let { override ->
+            if (!File(override.directory, "lwjgl.jar").isFile) {
+                missing += "runtime/${override.directory.name}/lwjgl.jar"
+            }
+            if (override.includeCompatibilityLayer && !File(override.directory, "lwjgl-lwjglx.jar").isFile) {
+                missing += "runtime/${override.directory.name}/lwjgl-lwjglx.jar"
+            }
         }
         return missing
     }

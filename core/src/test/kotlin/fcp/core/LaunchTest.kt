@@ -11,6 +11,7 @@ import fcp.core.launch.LAUNCH_PLACEHOLDER_PATTERN
 import fcp.core.launch.LaunchAccount
 import fcp.core.launch.LaunchException
 import fcp.core.launch.LaunchRequest
+import fcp.core.launch.LwjglOverride
 import java.util.regex.Pattern
 import fcp.core.net.HttpClient
 import fcp.core.net.HttpRequest
@@ -119,6 +120,37 @@ class LaunchTest {
         }.message!!
         assertTrue(message.contains("Java 8"))
         assertTrue(message.contains("/runtime/java-8/bin/java"))
+    }
+
+    @Test
+    fun androidClasspathDropsMojangLwjglAndAddsTheFclBundle() {
+        val root = tempGame()
+        val java = executable(root, "#!/bin/sh\nexit 0\n")
+        install(root, "1.7.10", legacyJsonWithLwjgl(), assetIndexId = "1.7.10", assetHash = ASSET)
+        val bundle = File(root, "runtime/lwjgl2")
+        File(bundle, "lwjgl.jar").apply { parentFile.mkdirs(); writeBytes(byteArrayOf(1)) }
+        File(bundle, "lwjgl-lwjglx.jar").writeBytes(byteArrayOf(2))
+        File(bundle, "lwjgl-stb.jar").writeBytes(byteArrayOf(3))
+        GamePaths.library(root, "net/java/jinput/jinput/2.0.5/jinput-2.0.5.jar").apply {
+            parentFile.mkdirs()
+            writeBytes(byteArrayOf(4))
+        }
+        val plan = GameLauncher().plan(
+            request(root, "1.7.10", java).copy(
+                lwjglOverride = LwjglOverride(bundle, includeCompatibilityLayer = true),
+            ),
+        )
+        val command = plan.command.joinToString("\n")
+        assertTrue(command.contains("${bundle.absolutePath}/lwjgl.jar"))
+        assertTrue(command.contains("lwjgl-lwjglx.jar"))
+        assertTrue(command.contains("lwjgl-stb.jar"))
+        assertTrue(!command.contains("lwjgl-2.9.1.jar"))
+        assertTrue(!command.contains("jinput-platform"))
+        assertTrue(command.contains("jinput-2.0.5.jar"))
+        assertTrue(command.contains("-Dorg.lwjgl.librarypath="))
+        val indexOfBundle = command.indexOf("lwjgl.jar")
+        val indexOfClient = command.indexOf("1.7.10.jar")
+        assertTrue(indexOfBundle in 0 until indexOfClient)
     }
 
     @Test
@@ -442,6 +474,37 @@ private fun modernJson() = """
           "${'$'}{classpath}"
         ]
       }
+    }
+""".trimIndent()
+
+private fun legacyJsonWithLwjgl() = """
+    {
+      "id": "1.7.10",
+      "mainClass": "net.minecraft.client.main.Main",
+      "assetIndex": {"id": "1.7.10", "url": "https://example.invalid/index"},
+      "minecraftArguments": "--username ${'$'}{auth_player_name} --version ${'$'}{version_name} --gameDir ${'$'}{game_directory} --assetsDir ${'$'}{game_assets} --assetIndex ${'$'}{assets_index_name} --uuid ${'$'}{auth_uuid} --accessToken ${'$'}{auth_access_token} --userProperties ${'$'}{user_properties} --userType ${'$'}{user_type}",
+      "libraries": [
+        {"name": "com.example:shared:1", "downloads": {"artifact": {
+          "path": "com/example/shared/1/shared-1.jar",
+          "url": "https://example.invalid/shared.jar"
+        }}},
+        {"name": "org.lwjgl.lwjgl:lwjgl:2.9.1", "downloads": {"artifact": {
+          "path": "org/lwjgl/lwjgl/lwjgl/2.9.1/lwjgl-2.9.1.jar",
+          "url": "https://example.invalid/lwjgl.jar"
+        }}},
+        {"name": "org.lwjgl.lwjgl:lwjgl-platform:2.9.1:natives-linux", "downloads": {"artifact": {
+          "path": "org/lwjgl/lwjgl/lwjgl-platform/2.9.1/lwjgl-platform-2.9.1-natives-linux.jar",
+          "url": "https://example.invalid/lwjgl-natives.jar"
+        }}},
+        {"name": "net.java.jinput:jinput:2.0.5", "downloads": {"artifact": {
+          "path": "net/java/jinput/jinput/2.0.5/jinput-2.0.5.jar",
+          "url": "https://example.invalid/jinput.jar"
+        }}},
+        {"name": "net.java.jinput:jinput-platform:2.0.5:natives-linux", "downloads": {"artifact": {
+          "path": "net/java/jinput/jinput-platform/2.0.5/jinput-platform-2.0.5-natives-linux.jar",
+          "url": "https://example.invalid/jinput-natives.jar"
+        }}}
+      ]
     }
 """.trimIndent()
 

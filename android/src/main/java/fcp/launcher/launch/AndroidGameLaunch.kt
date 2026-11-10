@@ -15,6 +15,9 @@ import fcp.core.launch.GameLauncher
 import fcp.core.launch.GamePaths
 import fcp.core.launch.JreLayout
 import fcp.core.launch.LaunchException
+import fcp.core.launch.LwjglInstaller
+import fcp.core.launch.LwjglOverride
+import fcp.core.launch.chooseLwjgl
 import fcp.core.launch.LaunchLog
 import fcp.core.launch.LaunchRequest
 import fcp.core.launch.RuntimeInstaller
@@ -86,6 +89,22 @@ class AndroidGameLaunch(context: Context) {
             )
             val nativeDirs = RuntimeProbe.nativeDirectories(nativeLibraryDir, runtime)
             RuntimeProbe.stageNatives(natives, nativeDirs, AndroidNativeRuntime.shippedLibraryNames)
+            val lwjglChoice = chooseLwjgl(resolved.id, resolved.libraries.map { it.name })
+            val lwjglDir = runCatching {
+                LwjglInstaller().ensure(
+                    catalog = loadBundledRuntimeCatalog(),
+                    http = UrlHttpClient(),
+                    abi = RuntimeProbe.deviceAbi(),
+                    choice = lwjglChoice,
+                    runtimeRoot = runtime,
+                    sharedNatives = natives,
+                    onStatus = onStatus,
+                )
+            }
+            if (lwjglDir.isFailure) {
+                val message = lwjglDir.exceptionOrNull()?.message ?: "LWJGL 没有准备好"
+                return fail(log, message)
+            }
             val present = RuntimeProbe.presentLibraries(nativeDirs)
             val authlib = File(runtime, AuthlibInjector.FILE_NAME)
             var authlibError: String? = null
@@ -107,7 +126,7 @@ class AndroidGameLaunch(context: Context) {
                 authlibDownloadError = authlibError,
                 launcherName = PRODUCT_NAME,
                 launcherVersion = BuildConfig.VERSION_NAME,
-                extraJvmArgs = rendererJvmArgs(gameDir, present),
+                extraJvmArgs = rendererJvmArgs(gameDir, natives, present),
                 environment = RuntimeProbe.environment(javaBinary, natives, gameDir, present),
                 runtimeDownloadError = runtimeError,
                 checkNativeRuntime = true,
@@ -115,6 +134,10 @@ class AndroidGameLaunch(context: Context) {
                 nativeSearchPaths = nativeDirs.map { it.absolutePath },
                 // bin/java is not executed. Android 10+ denies execute_no_trans on app data.
                 requireExecutableJava = false,
+                lwjglOverride = LwjglOverride(
+                    directory = lwjglDir.getOrThrow(),
+                    includeCompatibilityLayer = lwjglChoice.includeCompatibilityLayer,
+                ),
             )
             val plan = GameLauncher().plan(request)
             processLogWritten = true
@@ -242,10 +265,15 @@ class AndroidGameLaunch(context: Context) {
         if (!headerWritten) LaunchLog.writeFailure(log, message) else LaunchLog.append(log, message + "\n")
     }
 
-    private fun rendererJvmArgs(gameDir: File, present: Set<String>): List<String> {
+    private fun rendererJvmArgs(gameDir: File, natives: File, present: Set<String>): List<String> {
         val args = RuntimeProbe.extraJvmArgs(gameDir).toMutableList()
+        args += "-Dorg.lwjgl.librarypath=${natives.absolutePath}"
         val renderer = listOf("libgl4es_114.so", "libgl4es.so", "libng_gl4es.so").firstOrNull { it in present }
         if (renderer != null) args += "-Dorg.lwjgl.opengl.libname=$renderer"
+        val openal = File(natives, "libopenal.so")
+        if (openal.isFile) args += "-Dorg.lwjgl.openal.libname=${openal.absolutePath}"
+        val freetype = File(natives, "libfreetype.so")
+        if (freetype.isFile) args += "-Dorg.lwjgl.freetype.libname=${freetype.absolutePath}"
         return args
     }
 

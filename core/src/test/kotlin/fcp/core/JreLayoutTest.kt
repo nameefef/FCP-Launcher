@@ -4,7 +4,11 @@ package fcp.core
 
 import fcp.core.launch.JreLayout
 import fcp.core.launch.LaunchException
+import fcp.core.launch.LwjglOverride
 import fcp.core.launch.RuntimePacks
+import fcp.core.launch.chooseLwjgl
+import fcp.core.launch.lwjglClasspathJars
+import fcp.core.launch.replacedByFclLwjgl
 import java.io.File
 import java.nio.file.Files
 import kotlin.test.assertEquals
@@ -79,6 +83,47 @@ class JreLayoutTest {
         }.message!!
         assertTrue(message.contains("libjli.so"))
         assertTrue(message.contains(home.path))
+    }
+
+    @Test
+    fun oldMinecraftUsesLwjgl2WithTheCompatibilityJar() {
+        val choice = chooseLwjgl("1.7.10", listOf("org.lwjgl.lwjgl:lwjgl:2.9.1", "net.java.jinput:jinput:2.0.5"))
+        assertEquals("lwjgl2", choice.slot)
+        assertEquals("3.3.3", choice.bundle)
+        assertTrue(choice.includeCompatibilityLayer)
+        assertTrue(replacedByFclLwjgl("org.lwjgl.lwjgl:lwjgl:2.9.1"))
+        assertTrue(replacedByFclLwjgl("org.lwjgl.lwjgl:lwjgl-platform:2.9.1:natives-linux"))
+        assertTrue(replacedByFclLwjgl("org.lwjgl:lwjgl-glfw:3.3.1"))
+        assertTrue(replacedByFclLwjgl("net.java.jinput:jinput-platform:2.0.5"))
+        assertTrue(replacedByFclLwjgl("net.java.jutils:jutils:1.0.0:natives-linux"))
+        assertTrue(replacedByFclLwjgl("tv.twitch:twitch-platform:5.16"))
+        assertTrue(!replacedByFclLwjgl("net.java.jinput:jinput:2.0.5"))
+        assertTrue(!replacedByFclLwjgl("net.java.jutils:jutils:1.0.0"))
+    }
+
+    @Test
+    fun modernMinecraftUsesLwjgl3WithoutTheCompatibilityJar() {
+        val choice = chooseLwjgl("1.20.1", listOf("org.lwjgl:lwjgl:3.3.1", "org.lwjgl:lwjgl-opengl:3.3.1"))
+        assertEquals("lwjgl3", choice.slot)
+        assertEquals("3.3.3", choice.bundle)
+        assertTrue(!choice.includeCompatibilityLayer)
+        val newer = chooseLwjgl("1.21.11", listOf("org.lwjgl:lwjgl:3.4.1"))
+        assertEquals("3.4.1", newer.bundle)
+    }
+
+    @Test
+    fun classpathListsLwjglJarBeforeTheCompatibilityLayer() {
+        val root = Files.createTempDirectory("fcp-lwjgl-jars").toFile()
+        touch(File(root, "lwjgl-stb.jar"))
+        touch(File(root, "lwjgl.jar"))
+        touch(File(root, "lwjgl-lwjglx.jar"))
+        val withLayer = lwjglClasspathJars(LwjglOverride(root, includeCompatibilityLayer = true)).map { it.name }
+        assertEquals("lwjgl.jar", withLayer.first())
+        assertEquals("lwjgl-lwjglx.jar", withLayer[1])
+        assertTrue(withLayer.contains("lwjgl-stb.jar"))
+        val modern = lwjglClasspathJars(LwjglOverride(root, includeCompatibilityLayer = false)).map { it.name }
+        assertTrue(!modern.contains("lwjgl-lwjglx.jar"))
+        assertEquals("lwjgl.jar", modern.first())
     }
 
     @Test

@@ -42,6 +42,12 @@ object JreLayout {
         "libng_gl4es.so",
         "libglfw.so",
         "libpojavexec.so",
+        "liblwjgl.so",
+        "liblwjgl_opengl.so",
+        "liblwjgl_stb.so",
+        "liblwjgl_nanovg.so",
+        "liblwjgl_tinyfd.so",
+        "libfreetype.so",
     )
 
     data class Resolved(
