@@ -206,7 +206,7 @@ class AndroidGameLaunch(context: Context) {
 
     private fun awaitGame(versionId: String, accountName: String, log: File, stateFile: File): LaunchOutcome {
         val started = System.currentTimeMillis()
-        val deadline = started + 60_000
+        val deadline = started + 180_000
         var sawJvmAt = 0L
         while (System.currentTimeMillis() < deadline) {
             val now = System.currentTimeMillis()
@@ -232,14 +232,14 @@ class AndroidGameLaunch(context: Context) {
                     }
                 }
                 "requested" -> {
-                    if (now - started > 20_000) {
+                    if (now - started > 90_000) {
                         val message = "游戏进程没有起来。日志：${log.absolutePath}"
                         LaunchLog.append(log, message + "\n")
                         return LaunchOutcome.Failed(message, log)
                     }
                 }
                 "starting" -> {
-                    if (snapshot.stampMs > 0 && now - snapshot.stampMs > 8_000) {
+                    if (snapshot.stampMs > 0 && now - snapshot.stampMs > 20_000) {
                         val message = "游戏进程在启动虚拟机前退出。\n${LaunchLog.tail(log, 1500)}"
                         return LaunchOutcome.Failed(message, log)
                     }

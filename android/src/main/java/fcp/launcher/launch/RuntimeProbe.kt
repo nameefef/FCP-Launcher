@@ -126,6 +126,9 @@ object RuntimeProbe {
             "libOSMesa.so" in present -> "zink"
             else -> null
         }
+        // FCL's glfwInit does strcmp(getenv("FORCE_VSYNC"), "true") with no
+        // null check. An unset variable SIGSEGVs inside libc.
+        env["FORCE_VSYNC"] = "false"
         if (renderer != null) {
             env["POJAV_RENDERER"] = renderer
             if (renderer == "gl4es") {
