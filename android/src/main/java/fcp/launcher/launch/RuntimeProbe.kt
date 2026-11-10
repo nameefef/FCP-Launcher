@@ -120,10 +120,13 @@ object RuntimeProbe {
         env["HOME"] = gameDir.absolutePath
         env["TMPDIR"] = File(gameDir, "tmp").apply { mkdirs() }.absolutePath
         env["POJAV_NATIVEDIR"] = nativesDir.absolutePath
+        // Names are the ones libpojavexec compares in pojavInitOpenGL.
+        // "gl4es" is not one of them; a value that does not start with
+        // "opengles" leaves the EGL function slot null and glfwInit jumps to 0.
         val renderer = when {
-            "libgl4es.so" in present || "libgl4es_114.so" in present || "libng_gl4es.so" in present -> "gl4es"
-            "libvgpu.so" in present || "libvirglrenderer.so" in present -> "virgl"
-            "libOSMesa.so" in present -> "zink"
+            "libgl4es.so" in present || "libgl4es_114.so" in present || "libng_gl4es.so" in present -> "opengles2"
+            "libvgpu.so" in present || "libvirglrenderer.so" in present -> "gallium_virgl"
+            "libOSMesa.so" in present -> "vulkan_zink"
             else -> null
         }
         // FCL's glfwInit does strcmp(getenv("FORCE_VSYNC"), "true") with no
@@ -131,7 +134,7 @@ object RuntimeProbe {
         env["FORCE_VSYNC"] = "false"
         if (renderer != null) {
             env["POJAV_RENDERER"] = renderer
-            if (renderer == "gl4es") {
+            if (renderer == "opengles2") {
                 env["LIBGL_ES"] = "2"
                 env["LIBGL_MIPMAP"] = "3"
                 env["LIBGL_NORMALIZE"] = "1"
