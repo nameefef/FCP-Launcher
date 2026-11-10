@@ -47,6 +47,10 @@ NATIVE_LIBS = [
     "libgl4es_114.so",
 ]
 GLFW_ALIAS = "libglfw.so"
+# Vendored from Pojav. Refreshing jniLibs must not delete it; the APK does not contain it.
+UNPACK200 = "libunpack200.so"
+# FCL 1.3.4.4 ships LWJGL 3 only. 1.12.2 and older use 3.3.3 plus lwjgl-lwjglx.jar.
+LWJGL_VERSIONS = ("3.3.3", "3.4.1")
 
 JRE17_TAG = "jre17-ec28559"
 JRE17_BASE = (
@@ -78,6 +82,34 @@ def download(url: str, dest: Path) -> None:
     subprocess.check_call(["curl", "-fL", "--retry", "3", "-o", str(dest), url])
 
 
+def file_record(apk: zipfile.ZipFile, entry: str) -> dict[str, str]:
+    data = apk.read(entry)
+    return {
+        "name": entry.rsplit("/", 1)[-1],
+        "entry": entry,
+        "sha256": hashlib.sha256(data).hexdigest(),
+    }
+
+
+def lwjgl_members(apk: zipfile.ZipFile, version: str, abi: str) -> tuple[list[dict[str, str]], list[dict[str, str]]]:
+    prefix = f"assets/app_runtime/lwjgl/{version}/"
+    native_prefix = f"{prefix}natives/{abi}/"
+    jars = []
+    natives = []
+    for name in apk.namelist():
+        if not name.startswith(prefix) or name.endswith("/"):
+            continue
+        if name.startswith(native_prefix) and name.endswith(".so"):
+            natives.append(file_record(apk, name))
+        elif name.endswith(".jar") and name.count("/") == prefix.count("/"):
+            jars.append(file_record(apk, name))
+    if not jars or not natives:
+        raise SystemExit(f"lwjgl {version} {abi} jars={len(jars)} natives={len(natives)}")
+    jars.sort(key=lambda item: item["name"])
+    natives.sort(key=lambda item: item["name"])
+    return jars, natives
+
+
 def jre_entries(apk: zipfile.ZipFile, major: int) -> list[str]:
     prefix = f"assets/app_runtime/java/jre{major}/"
     names = [name for name in apk.namelist() if name.startswith(prefix) and name.endswith(".tar.xz")]
@@ -97,7 +129,9 @@ def main() -> None:
         alias.replace(canonical)
 
     catalog_jre = []
+    catalog_lwjgl = []
     lock_natives = []
+    lock_lwjgl = []
 
     for abi, filename in JRE17_FILES.items():
         dest = CACHE / filename
@@ -120,9 +154,15 @@ def main() -> None:
         digest = sha256(dest)
         with zipfile.ZipFile(dest) as apk:
             out_dir = JNILIBS / abi
+            unpack200 = None
             if out_dir.exists():
+                saved = out_dir / UNPACK200
+                if saved.is_file():
+                    unpack200 = saved.read_bytes()
                 shutil.rmtree(out_dir)
             out_dir.mkdir(parents=True)
+            if unpack200 is not None:
+                (out_dir / UNPACK200).write_bytes(unpack200)
             for lib in NATIVE_LIBS:
                 member = f"lib/{abi}/{lib}"
                 data = apk.read(member)
@@ -151,6 +191,31 @@ def main() -> None:
                     "note": "same bytes as libpojavexec.so; Mojang LWJGL loads libglfw.so",
                 }
             )
+            for version in LWJGL_VERSIONS:
+                jars, natives = lwjgl_members(apk, version, abi)
+                catalog_lwjgl.append(
+                    {
+                        "version": version,
+                        "abi": abi,
+                        "url": f"{FCL_BASE}/{filename}",
+                        "sha256": digest,
+                        "jars": jars,
+                        "natives": natives,
+                        "source": f"FCL-Team/FoldCraftLauncher {FCL_TAG} app_runtime/lwjgl/{version}",
+                    }
+                )
+                for record in jars + natives:
+                    lock_lwjgl.append(
+                        {
+                            "version": version,
+                            "abi": abi,
+                            "name": record["name"],
+                            "sha256": record["sha256"],
+                            "apk": filename,
+                            "apkSha256": digest,
+                            "entry": record["entry"],
+                        }
+                    )
             for major in (8, 21):
                 entries = jre_entries(apk, major)
                 catalog_jre.append(
@@ -166,7 +231,8 @@ def main() -> None:
                 )
 
     catalog_jre.sort(key=lambda item: (item["major"], item["abi"]))
-    catalog = {"jre": catalog_jre}
+    catalog_lwjgl.sort(key=lambda item: (item["version"], item["abi"]))
+    catalog = {"jre": catalog_jre, "lwjgl": catalog_lwjgl}
     CATALOG.parent.mkdir(parents=True, exist_ok=True)
     CATALOG.write_text(json.dumps(catalog, indent=2) + "\n")
     LOCK.parent.mkdir(parents=True, exist_ok=True)
@@ -176,6 +242,7 @@ def main() -> None:
                 "fclTag": FCL_TAG,
                 "jre17Tag": JRE17_TAG,
                 "natives": lock_natives,
+                "lwjgl": lock_lwjgl,
             },
             indent=2,
         )
