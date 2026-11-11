@@ -13,6 +13,8 @@
 #include <fcntl.h>
 #include <jni.h>
 #include <link.h>
+#include <signal.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
@@ -163,6 +165,104 @@ static void *local_function(const char *path, const char *symbol, uintptr_t bias
     }
     free(shdrs);
     close(fd);
+    return result;
+}
+
+typedef jint (*jli_launch_fn)(
+        int argc,
+        char **argv,
+        int jargc,
+        const char **jargv,
+        int appclassc,
+        const char **appclassv,
+        const char *fullversion,
+        const char *dotversion,
+        const char *pname,
+        const char *lname,
+        jboolean javaargs,
+        jboolean cpwildcard,
+        jboolean javaw,
+        jint ergo);
+
+/* Same slate as FCL's jre_launcher.c. SIGSEGV stays SIG_IGN: ART aborts a
+ * process that installs SIG_DFL for it, and the VM replaces this handler. */
+static void reset_signals_for_jli(void) {
+    struct sigaction clean;
+    memset(&clean, 0, sizeof(clean));
+    for (int sig = 1; sig < NSIG; sig++) {
+        if (sig == SIGKILL || sig == SIGSTOP) continue;
+        clean.sa_handler = (sig == SIGSEGV) ? SIG_IGN : SIG_DFL;
+        sigaction(sig, &clean, NULL);
+    }
+}
+
+JNIEXPORT jint JNICALL
+Java_fcp_launcher_launch_LinkerSupport_launchJli(JNIEnv *env, jclass clazz, jstring libjliPath, jobjectArray args) {
+    (void) clazz;
+    if (libjliPath == NULL || args == NULL) return -1;
+    const char *path = (*env)->GetStringUTFChars(env, libjliPath, NULL);
+    if (path == NULL) return -2;
+    jsize argc = (*env)->GetArrayLength(env, args);
+    char **argv = calloc((size_t) argc + 1, sizeof(char *));
+    if (argv == NULL) {
+        (*env)->ReleaseStringUTFChars(env, libjliPath, path);
+        return -3;
+    }
+    for (jsize i = 0; i < argc; i++) {
+        jstring item = (*env)->GetObjectArrayElement(env, args, i);
+        const char *utf = item == NULL ? "" : (*env)->GetStringUTFChars(env, item, NULL);
+        argv[i] = strdup(utf == NULL ? "" : utf);
+        if (item != NULL && utf != NULL) (*env)->ReleaseStringUTFChars(env, item, utf);
+        if (item != NULL) (*env)->DeleteLocalRef(env, item);
+    }
+    printf("FCP launchJli: reset signals\n");
+    fflush(stdout);
+    __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "launchJli reset signals");
+    reset_signals_for_jli();
+    void *libjli = dlopen(path, RTLD_NOW | RTLD_GLOBAL);
+    printf("FCP launchJli: dlopen %s -> %p\n", path, libjli);
+    fflush(stdout);
+    __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "launchJli dlopen %s -> %p", path, libjli);
+    jint result = -4;
+    jli_launch_fn launch = NULL;
+    if (libjli == NULL) {
+        printf("FCP launchJli: dlopen failed: %s\n", dlerror());
+        fflush(stdout);
+        result = -4;
+        goto done;
+    }
+    launch = (jli_launch_fn) dlsym(libjli, "JLI_Launch");
+    if (launch == NULL) {
+        printf("FCP launchJli: JLI_Launch missing: %s\n", dlerror());
+        fflush(stdout);
+        result = -5;
+        goto done;
+    }
+    printf("FCP launchJli: calling JLI_Launch argc=%d\n", (int) argc);
+    fflush(stdout);
+    __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "launchJli calling JLI_Launch argc=%d", (int) argc);
+    result = launch(
+            (int) argc,
+            argv,
+            0,
+            NULL,
+            0,
+            NULL,
+            "1.8.0-internal",
+            "1.8",
+            argv[0] == NULL ? "java" : argv[0],
+            argv[0] == NULL ? "java" : argv[0],
+            JNI_FALSE,
+            JNI_TRUE,
+            JNI_FALSE,
+            0);
+    printf("FCP launchJli: JLI_Launch returned %d\n", (int) result);
+    fflush(stdout);
+    __android_log_print(ANDROID_LOG_INFO, LOG_TAG, "launchJli returned %d", (int) result);
+done:
+    for (jsize i = 0; i < argc; i++) free(argv[i]);
+    free(argv);
+    (*env)->ReleaseStringUTFChars(env, libjliPath, path);
     return result;
 }
 

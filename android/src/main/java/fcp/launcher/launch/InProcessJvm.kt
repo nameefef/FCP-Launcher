@@ -4,7 +4,6 @@ package fcp.launcher.launch
 
 import android.os.Build
 import android.os.Process
-import com.oracle.dalvik.VMLauncher
 import com.tungsten.fclauncher.bridge.FCLBridge
 import fcp.core.launch.JreLayout
 import fcp.core.launch.LaunchException
@@ -83,7 +82,12 @@ object InProcessJvm {
             log("libjvm: ${layout.libjvm.absolutePath}")
             val environment = LinkedHashMap<String, String>()
             environment.putAll(spec.environment)
-            environment["JAVA_HOME"] = layout.javaHome.absolutePath
+            val canonicalHome = try {
+                layout.javaHome.canonicalPath
+            } catch (_: Exception) {
+                layout.javaHome.absolutePath
+            }
+            environment["JAVA_HOME"] = canonicalHome
             environment["POJAV_NATIVEDIR"] = File(spec.nativesDirectory).absolutePath
             if (spec.nativeLibraryDir.isNotBlank()) {
                 environment["FCL_NATIVEDIR"] = spec.nativeLibraryDir
@@ -126,9 +130,16 @@ object InProcessJvm {
             FCLBridge.initializeHooks()
             log("initializeHooks done")
             if (spec.command.isEmpty()) throw Fail("启动命令是空的。")
-            log("VMLauncher.launchJVM argc=${spec.command.size}")
+            val command = spec.command.toMutableList()
+            if (command.none { it.startsWith("-Djava.home=") }) {
+                command.add(1, "-Djava.home=$canonicalHome")
+            }
+            if (command.none { it.startsWith("-Djdk.lang.Process.launchMechanism=") }) {
+                command.add(1, "-Djdk.lang.Process.launchMechanism=FORK")
+            }
+            log("LinkerSupport.launchJli argc=${command.size} java.home=$canonicalHome")
             state.update("jvm")
-            val exitCode = VMLauncher.launchJVM(spec.command.toTypedArray())
+            val exitCode = LinkerSupport.launchJli(layout.libjli.absolutePath, command.toTypedArray())
             log("JLI_Launch returned $exitCode")
             state.update("exited", exitCode.toString())
         } catch (e: Fail) {

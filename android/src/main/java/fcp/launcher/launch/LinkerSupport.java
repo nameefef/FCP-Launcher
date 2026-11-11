@@ -24,6 +24,14 @@ public final class LinkerSupport {
     public static native boolean updateLdLibraryPath(String path);
 
     /**
+     * Calls {@code JLI_Launch} on an already-loaded {@code libjli.so}.
+     * FCL's {@code VMLauncher} resets {@code SIGSEGV} to {@code SIG_DFL}, which
+     * ART rejects, and it dlopens {@code libjli.so} by short name. This keeps
+     * the VM in the current process.
+     */
+    public static native int launchJli(String libjliPath, String[] args);
+
+    /**
      * Runs Pojav's {@code libunpack200.so} main in this process.
      * Returns the tool's status, or a negative code when it could not be called.
      */
