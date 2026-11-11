@@ -111,6 +111,25 @@ class JreLayoutTest {
         assertTrue(resolved.libjli.path.endsWith("jre/lib/amd64/jli/libjli.so"))
         assertTrue(resolved.libjvm.path.endsWith("jre/lib/amd64/server/libjvm.so"))
         assertTrue(resolved.preload.any { it.name == "libjava.so" })
+        assertTrue(resolved.libraryPath.startsWith(File(home, "jre/lib/amd64/server").absolutePath))
+    }
+
+    @Test
+    fun java8KeepsTheDlopenPathAheadOfTheRealpath() {
+        val realRoot = Files.createTempDirectory("fcp-jre8-real").toFile()
+        val home = File(realRoot, "java-8")
+        touch(File(home, "bin/java"))
+        touch(File(home, "lib/amd64/jli/libjli.so"))
+        touch(File(home, "lib/amd64/server/libjvm.so"))
+        touch(File(home, "lib/amd64/libjava.so"))
+        val linkRoot = Files.createTempDirectory("fcp-jre8-link").toFile()
+        val link = File(linkRoot, "linked")
+        Files.createSymbolicLink(link.toPath(), home.toPath())
+        val natives = File(realRoot, "natives").apply { mkdirs() }
+        val resolved = JreLayout.resolve(File(link, "bin/java"), natives, null)
+        val opened = File(link, "lib/amd64/server").absolutePath
+        assertTrue(resolved.libraryPath.startsWith(opened), resolved.libraryPath)
+        assertTrue(!resolved.libraryPath.startsWith(File(home, "lib/amd64/server").canonicalPath) || opened == File(home, "lib/amd64/server").canonicalPath)
     }
 
     @Test

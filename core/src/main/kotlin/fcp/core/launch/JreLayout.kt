@@ -109,20 +109,23 @@ object JreLayout {
             add(pick(staged, name, preferPath = null))
         }
         val dirs = linkedSetOf<String>()
-        // libjli calls realpath() on its own file, then re-execs unless
-        // LD_LIBRARY_PATH already begins with that canonical JVM directory.
-        // Android denies the exec (`bin/java` on JRE 8, `/system/bin/app_process64`
-        // on JRE 17). The path the app was loaded from (`/data/user/0/...`)
-        // often differs from realpath (`/data/data/...`).
-        val jvmDir = canonicalPath(libjvm.parentFile)
-        dirs += jvmDir
-        val jvmDirAbsolute = libjvm.parentFile.absolutePath
-        if (jvmDirAbsolute != jvmDir) dirs += jvmDirAbsolute
+        // libjli re-execs unless LD_LIBRARY_PATH already begins with the JVM
+        // directory it computed. Android denies that exec (`bin/java` on JRE 8,
+        // `/system/bin/app_process64` on JRE 17). Pojav's Java 17 build
+        // realpath()s libjli.so first, so `/data/user/0` must not be the first
+        // entry. FCL's Java 8 build compares the path it was dlopened from.
+        val jvmAbsolute = libjvm.parentFile.absolutePath
+        val jvmCanonical = canonicalPath(libjvm.parentFile)
         if (libjli.parentFile.name == "lib") {
+            dirs += jvmCanonical
+            if (jvmAbsolute != jvmCanonical) dirs += jvmAbsolute
             val jreHome = canonicalPath(libjli.parentFile.parentFile)
             dirs += "$jreHome/lib"
             // Literal `../`, matching libjli's sprintf("%s:%s/lib:%s/../lib").
             dirs += "$jreHome/../lib"
+        } else {
+            dirs += jvmAbsolute
+            if (jvmCanonical != jvmAbsolute) dirs += jvmCanonical
         }
         preload.forEach { file -> dirs += file.parentFile.absolutePath }
         if (nativesDirectory.isDirectory) dirs += nativesDirectory.absolutePath
