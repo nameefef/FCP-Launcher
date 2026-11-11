@@ -68,13 +68,34 @@ class JreLayoutTest {
         touch(File(home, "lib/libjava.so"))
         val natives = File(root, "natives").apply { mkdirs() }
         val resolved = JreLayout.resolve(File(home, "bin/java"), natives, null)
+        val canonicalHome = home.canonicalPath
         val prefix = listOf(
-            File(home, "lib/server").absolutePath,
-            File(home, "lib").absolutePath,
-            "${home.absolutePath}/../lib",
+            File(home, "lib/server").canonicalPath,
+            "$canonicalHome/lib",
+            "$canonicalHome/../lib",
         ).joinToString(":")
         assertTrue(resolved.libraryPath.startsWith(prefix), resolved.libraryPath)
         assertTrue(resolved.libraryPath.contains(natives.absolutePath))
+        assertTrue(resolved.preload.none { it.name == "libjsig.so" })
+    }
+
+    @Test
+    fun java17LdPrefixUsesLibjliRealpathWhenTheTreeIsLinked() {
+        val realRoot = Files.createTempDirectory("fcp-jre17-real").toFile()
+        val home = File(realRoot, "java-17")
+        touch(File(home, "bin/java"))
+        touch(File(home, "lib/libjli.so"))
+        touch(File(home, "lib/server/libjvm.so"))
+        touch(File(home, "lib/libjava.so"))
+        touch(File(home, "lib/libjsig.so"))
+        val linkRoot = Files.createTempDirectory("fcp-jre17-link").toFile()
+        val link = File(linkRoot, "linked")
+        Files.createSymbolicLink(link.toPath(), home.toPath())
+        val natives = File(realRoot, "natives").apply { mkdirs() }
+        val resolved = JreLayout.resolve(File(link, "bin/java"), natives, null)
+        val canonicalServer = File(home, "lib/server").canonicalPath
+        assertTrue(resolved.libraryPath.startsWith(canonicalServer), resolved.libraryPath)
+        assertTrue(resolved.preload.none { it.name == "libjsig.so" })
     }
 
     @Test

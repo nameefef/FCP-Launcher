@@ -24,7 +24,6 @@ object JreLayout {
         "libawt.so",
         "libawt_headless.so",
         "libfontmanager.so",
-        "libjsig.so",
         "libjimage.so",
         "libzip.so",
         "libextnet.so",
@@ -103,22 +102,25 @@ object JreLayout {
         val used = preload.map { it.absolutePath }.toSet()
         runtimeLibraries
             .filter { it.absolutePath !in used }
-            .filter { it.name != "libjli.so" && it.name != "libjvm.so" }
+            .filter { it.name != "libjli.so" && it.name != "libjvm.so" && it.name != "libjsig.so" }
             .sortedBy { it.absolutePath }
             .forEach { add(it) }
         for (name in preferredNativeLibraries) {
             add(pick(staged, name, preferPath = null))
         }
         val dirs = linkedSetOf<String>()
-        // libjli re-execs the process unless LD_LIBRARY_PATH already has the
-        // prefix it would set itself. Android denies that exec
-        // (`bin/java` on JRE 8, `/system/bin/app_process64` on JRE 17).
-        val jvmDir = libjvm.parentFile.absolutePath
+        // libjli calls realpath() on its own file, then re-execs unless
+        // LD_LIBRARY_PATH already begins with that canonical JVM directory.
+        // Android denies the exec (`bin/java` on JRE 8, `/system/bin/app_process64`
+        // on JRE 17). The path the app was loaded from (`/data/user/0/...`)
+        // often differs from realpath (`/data/data/...`).
+        val jvmDir = canonicalPath(libjvm.parentFile)
         dirs += jvmDir
+        val jvmDirAbsolute = libjvm.parentFile.absolutePath
+        if (jvmDirAbsolute != jvmDir) dirs += jvmDirAbsolute
         if (libjli.parentFile.name == "lib") {
-            val jreLib = libjli.parentFile.absolutePath
-            val jreHome = libjli.parentFile.parentFile.absolutePath
-            dirs += jreLib
+            val jreHome = canonicalPath(libjli.parentFile.parentFile)
+            dirs += "$jreHome/lib"
             // Literal `../`, matching libjli's sprintf("%s:%s/lib:%s/../lib").
             dirs += "$jreHome/../lib"
         }
@@ -133,6 +135,12 @@ object JreLayout {
             preload = preload,
             libraryPath = dirs.joinToString(File.pathSeparator),
         )
+    }
+
+    private fun canonicalPath(file: File): String = try {
+        file.canonicalPath
+    } catch (_: Exception) {
+        file.absolutePath
     }
 
     private fun pick(files: List<File>, name: String, preferPath: String?): File? {
