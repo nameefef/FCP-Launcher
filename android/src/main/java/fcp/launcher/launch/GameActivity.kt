@@ -6,11 +6,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Process
-import android.view.MotionEvent
 import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.WindowManager
+import android.widget.FrameLayout
 import com.tungsten.fclauncher.bridge.FCLBridge
 import java.io.File
 import java.util.concurrent.atomic.AtomicBoolean
@@ -28,14 +28,31 @@ class GameActivity : Activity(), SurfaceHolder.Callback {
     private val windowInstalled = AtomicBoolean(false)
     private var boundSurface: Surface? = null
     private lateinit var surfaceView: SurfaceView
+    private var controls: TouchControlsOverlay? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         surfaceView = SurfaceView(this)
         surfaceView.holder.addCallback(this)
-        surfaceView.setOnTouchListener { _, event -> onGameTouch(event) }
-        setContentView(surfaceView)
+        val root = FrameLayout(this)
+        root.addView(
+            surfaceView,
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT,
+            ),
+        )
+        controls = TouchControlsOverlay(this).also {
+            root.addView(
+                it,
+                FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                ),
+            )
+        }
+        setContentView(root)
         val version = intent.getStringExtra(GameSessionService.EXTRA_VERSION) ?: "Minecraft"
         startForegroundService(
             Intent(this, GameSessionService::class.java)
@@ -106,28 +123,8 @@ class GameActivity : Activity(), SurfaceHolder.Callback {
         boundSurface = null
     }
 
-    private fun onGameTouch(event: MotionEvent): Boolean {
-        if (!windowInstalled.get()) return true
-        try {
-            val x = event.x
-            val y = event.y
-            when (event.actionMasked) {
-                MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> {
-                    CallbackBridge.nativeSendCursorPos(x, y)
-                    CallbackBridge.nativeSendMouseButton(0, 1, 0)
-                }
-                MotionEvent.ACTION_MOVE -> CallbackBridge.nativeSendCursorPos(x, y)
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP, MotionEvent.ACTION_CANCEL -> {
-                    CallbackBridge.nativeSendCursorPos(x, y)
-                    CallbackBridge.nativeSendMouseButton(0, 0, 0)
-                }
-            }
-        } catch (_: Throwable) {
-        }
-        return true
-    }
-
     override fun onDestroy() {
+        controls?.releaseHeldKeys()
         if (!jvmStarted.get()) releaseWindow()
         super.onDestroy()
     }

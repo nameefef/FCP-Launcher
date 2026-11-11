@@ -45,7 +45,20 @@ public class CallbackBridge {
         return null;
     }
 
+    /** Notified when Minecraft grabs or releases the pointer. */
+    public interface GrabListener {
+        void onGrabChanged(boolean grabbing);
+    }
+
+    private static GrabListener grabListener;
+
+    public static void setGrabListener(GrabListener listener) {
+        grabListener = listener;
+    }
+
     public static void onGrabStateChanged(boolean grabbing) {
+        GrabListener listener = grabListener;
+        if (listener != null) listener.onGrabChanged(grabbing);
     }
 
     public static void onDirectInputEnable() {
