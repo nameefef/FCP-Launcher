@@ -110,9 +110,18 @@ object JreLayout {
             add(pick(staged, name, preferPath = null))
         }
         val dirs = linkedSetOf<String>()
-        // JRE 8's libjli re-execs bin/java unless LD_LIBRARY_PATH starts with the
-        // directory that contains libjvm.so. Android denies that exec.
-        dirs += libjvm.parentFile.absolutePath
+        // libjli re-execs the process unless LD_LIBRARY_PATH already has the
+        // prefix it would set itself. Android denies that exec
+        // (`bin/java` on JRE 8, `/system/bin/app_process64` on JRE 17).
+        val jvmDir = libjvm.parentFile.absolutePath
+        dirs += jvmDir
+        if (libjli.parentFile.name == "lib") {
+            val jreLib = libjli.parentFile.absolutePath
+            val jreHome = libjli.parentFile.parentFile.absolutePath
+            dirs += jreLib
+            // Literal `../`, matching libjli's sprintf("%s:%s/lib:%s/../lib").
+            dirs += "$jreHome/../lib"
+        }
         preload.forEach { file -> dirs += file.parentFile.absolutePath }
         if (nativesDirectory.isDirectory) dirs += nativesDirectory.absolutePath
         if (nativeLibraryDir != null && nativeLibraryDir.isDirectory) dirs += nativeLibraryDir.absolutePath

@@ -59,6 +59,25 @@ class JreLayoutTest {
     }
 
     @Test
+    fun java17FlatLibTreeMatchesLibjliLdPrefix() {
+        val root = Files.createTempDirectory("fcp-jre17").toFile()
+        val home = File(root, "java-17")
+        touch(File(home, "bin/java"))
+        touch(File(home, "lib/libjli.so"))
+        touch(File(home, "lib/server/libjvm.so"))
+        touch(File(home, "lib/libjava.so"))
+        val natives = File(root, "natives").apply { mkdirs() }
+        val resolved = JreLayout.resolve(File(home, "bin/java"), natives, null)
+        val prefix = listOf(
+            File(home, "lib/server").absolutePath,
+            File(home, "lib").absolutePath,
+            "${home.absolutePath}/../lib",
+        ).joinToString(":")
+        assertTrue(resolved.libraryPath.startsWith(prefix), resolved.libraryPath)
+        assertTrue(resolved.libraryPath.contains(natives.absolutePath))
+    }
+
+    @Test
     fun java8TreeFindsArchSpecificLibraries() {
         val root = Files.createTempDirectory("fcp-jre8").toFile()
         val home = File(root, "java-8")
