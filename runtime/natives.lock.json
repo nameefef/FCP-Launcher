@@ -1,0 +1,1780 @@
+{
+  "fclTag": "1.3.4.4",
+  "jre17Tag": "jre17-ec28559",
+  "natives": [
+    {
+      "abi": "arm64-v8a",
+      "name": "libpojavexec.so",
+      "sha256": "fde3063d7d3f699712802ab0599f8a29011453b5971c26b2595b6d816f468aa6",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libpojavexec.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libfcl.so",
+      "sha256": "38208195c43c28ae4e80c7a84cb4e976f20796e184d1be2e5f07f72a3d61182e",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libfcl.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libandroidnsbypass.so",
+      "sha256": "82daa2e1b49d4620c5ae4999f02540a87b685046000d6b250739a266beddf242",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libandroidnsbypass.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libbytehook.so",
+      "sha256": "69c0bbddd47850dd06f26ca13ad64d010be56c2103f6e4785da6a75754c2a516",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libbytehook.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libc++_shared.so",
+      "sha256": "92ee8da641b969254cc8723f64aa115d36c8ffa87115e38bc9cb89e3eefee839",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libc++_shared.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libopenal.so",
+      "sha256": "e9c9171d5832637a1e9c476fd9cc61b4e1a5edb38db220c96227795109ff541c",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libopenal.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libgl4es_114.so",
+      "sha256": "3dbcc87baae1436f2affb923eda053d7e256f0aa032654452e2b2092566f6b24",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libgl4es_114.so"
+    },
+    {
+      "abi": "arm64-v8a",
+      "name": "libglfw.so",
+      "sha256": "fde3063d7d3f699712802ab0599f8a29011453b5971c26b2595b6d816f468aa6",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "lib/arm64-v8a/libpojavexec.so",
+      "note": "same bytes as libpojavexec.so; Mojang LWJGL loads libglfw.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libpojavexec.so",
+      "sha256": "dd823b6d81ad101412891d83580b6377c012bb6626a92dc7030a03d1834d1c49",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libpojavexec.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libfcl.so",
+      "sha256": "e71a33b4620920070ef31df903ee2ca726b31d61da28e9cf23644bcecd0e6056",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libfcl.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libandroidnsbypass.so",
+      "sha256": "eebf601b88cfae8c1e25ef6e41cfcc7d7dd55a1e8d9cb02a0a751a74f7d4c3f1",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libandroidnsbypass.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libbytehook.so",
+      "sha256": "79eb726b3202e132b30a3959a079761812a0c9e35d4a9a454f8cf4d5d1d24818",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libbytehook.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libc++_shared.so",
+      "sha256": "37d4ffc8c166bd8e670971985bc888e89279c771fcbf90ec70a592ad9645c9d7",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libc++_shared.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libopenal.so",
+      "sha256": "7d0c4942e9d87fd0ef6e31128c64413e454a8877d45914ac7d54486e70a08421",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libopenal.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libgl4es_114.so",
+      "sha256": "ffa254b7d1f71fe25af962bf145b013f57546cfd67ee5d1c7a75ad973df183e4",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libgl4es_114.so"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "name": "libglfw.so",
+      "sha256": "dd823b6d81ad101412891d83580b6377c012bb6626a92dc7030a03d1834d1c49",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "lib/armeabi-v7a/libpojavexec.so",
+      "note": "same bytes as libpojavexec.so; Mojang LWJGL loads libglfw.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libpojavexec.so",
+      "sha256": "da83c44bf4229fdf1e927eb1ff0fac585ef0f92f21de5e05d2ed7cd4fe99200f",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libpojavexec.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libfcl.so",
+      "sha256": "52bd19352777a7ab4e40c03431fd0dfe474d56b477257c345ff6dc50b8fca314",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libfcl.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libandroidnsbypass.so",
+      "sha256": "30714d4b87f4796966bf3cbb11f6140efbf24e9d770a51da5379f5373ba2f79d",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libandroidnsbypass.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libbytehook.so",
+      "sha256": "689b0036d9875ea076d2755ce467573779c79e093832f424a353bf53784cc02c",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libbytehook.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libc++_shared.so",
+      "sha256": "128bb6e63a08bbd21fba7128223fb6e1016afd76dab9cbc09d9aaf4b0400f4e2",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libc++_shared.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libopenal.so",
+      "sha256": "dd90f8905e4c23025e1d140570e4dead461b520a04c3a6100e40a128c13cbacf",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libopenal.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libgl4es_114.so",
+      "sha256": "eba6fa929bfde45afa60ea92788493ffa5f0ebe635b482452447d0631bd5811f",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libgl4es_114.so"
+    },
+    {
+      "abi": "x86_64",
+      "name": "libglfw.so",
+      "sha256": "da83c44bf4229fdf1e927eb1ff0fac585ef0f92f21de5e05d2ed7cd4fe99200f",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "lib/x86_64/libpojavexec.so",
+      "note": "same bytes as libpojavexec.so; Mojang LWJGL loads libglfw.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libpojavexec.so",
+      "sha256": "0729f16aec5a6f298ec9e7966e7ee2bbf5d21332323736f8f152f6d491765d0e",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libpojavexec.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libfcl.so",
+      "sha256": "a464434317c8fa5b3ea8a45b47a39710989638ec1e0d539f62448d69b381ab9a",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libfcl.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libandroidnsbypass.so",
+      "sha256": "ff8937b41f96611a9b690ec29133ccd118f9618d7f65a04b7cb37adb5048e454",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libandroidnsbypass.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libbytehook.so",
+      "sha256": "7b8682f28caacbc360fbbf92656e1200b175d543655f61203adf510717ae65f6",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libbytehook.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libc++_shared.so",
+      "sha256": "649cf75deda40f5985f316d1cc63cba59466db453e610a14e983e36be0caaa94",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libc++_shared.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libopenal.so",
+      "sha256": "ee9accbde10c9f5fc6ae59822c952e9b70a45e3e6293cca32829dc916650223b",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libopenal.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libgl4es_114.so",
+      "sha256": "b53d34bf8dc086d78ddaf33b6b400da9397c85d3b55530daf8b9ed2fea08a093",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libgl4es_114.so"
+    },
+    {
+      "abi": "x86",
+      "name": "libglfw.so",
+      "sha256": "0729f16aec5a6f298ec9e7966e7ee2bbf5d21332323736f8f152f6d491765d0e",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "lib/x86/libpojavexec.so",
+      "note": "same bytes as libpojavexec.so; Mojang LWJGL loads libglfw.so"
+    }
+  ],
+  "lwjgl": [
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-3.3.3-merged-modules.jar",
+      "sha256": "6f6b2ad5e9a04204261c67986b5604125b10ed5bfbbc095d3402363205be0a8e",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-3.3.3-merged-modules.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-freetype.jar",
+      "sha256": "5c4e2ff87fa4faf5c55d9922fffec62faf449ad2733000951ab9c17da0d3adf8",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-freetype.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-lwjglx.jar",
+      "sha256": "7346cb92ce8668c314dd4d751057fc3b4fbc4c3111973cbc3e8ec50166b111c9",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-lwjglx.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-nanovg.jar",
+      "sha256": "a76270407fe11569eb83cb3e644d05efed7a5595e0a7cd0a2743d46ba83177e4",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-nanovg.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-openal.jar",
+      "sha256": "7b8264841d709365250542b5f49aee0f720464687b09854eecca35b8baab0f28",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-openal.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-shaderc.jar",
+      "sha256": "d2fb00df0697c5fa85b0c877a2bbe61f99d2d1caf245a035188f01f9f84b5c60",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-shaderc.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-spvc.jar",
+      "sha256": "e5e5ded01b5fe2f8c1fcf189ea4242ffd23416de268b85337d134e86644a4224",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-spvc.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-stb.jar",
+      "sha256": "7da67c67d9674daf94248d857f15b82fa07bb9d91b006ede7eb9447de6af78be",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-stb.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-tinyfd.jar",
+      "sha256": "a8a07d746a9f5bc16ba3102a5665c47c315f9846c404e7259f6b76bea4492aed",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-tinyfd.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-vma.jar",
+      "sha256": "0d97d3dd96031873630f5c200c986dcc7aeff7654f8d524884689e74d1522018",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-vma.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-vulkan.jar",
+      "sha256": "e10c2122de8fdfb5e9e35de8c59112b8104bc446554402c1f24743d976d1f96d",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-vulkan.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "lwjgl.jar",
+      "sha256": "4210729d04c0f0218c053fffd2a95845937135484f6b4cb0ae25a6eceb4e83a3",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "libfreetype.so",
+      "sha256": "e29baaa7677bb06931260f06abf8850af8073e550ea7d1a4556c75fb187d866d",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/arm64-v8a/libfreetype.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "liblwjgl.so",
+      "sha256": "70e8642abcd11a368c0b4cbbeae31e33f2e031553ba3a05f9375fc6b92c8a40f",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/arm64-v8a/liblwjgl.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "liblwjgl_nanovg.so",
+      "sha256": "bdb66cf94262bbd1fdcf4e07de61278301d68cfec9865cc99abac5dde2d1ddd5",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/arm64-v8a/liblwjgl_nanovg.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "liblwjgl_opengl.so",
+      "sha256": "c3b456be14c1dfd3969106c1a6e069ea2381b3044604962c97e9531086a6eb00",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/arm64-v8a/liblwjgl_opengl.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "liblwjgl_stb.so",
+      "sha256": "bb289be0e19aa9b997a6801b550fd9b056be8ee3fc9883e8cd8edfef4b969c94",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/arm64-v8a/liblwjgl_stb.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "liblwjgl_tinyfd.so",
+      "sha256": "2c58ffc3e7902ae80c6fa56e4a5416a78b10ebcf7aedf03e5d9a72d438ead5b5",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/arm64-v8a/liblwjgl_tinyfd.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "liblwjgl_vma.so",
+      "sha256": "fbb31358b6166cd8d3f92fcf877af1d0167e96e182f3bafe19e142800894848d",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/arm64-v8a/liblwjgl_vma.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "arm64-v8a",
+      "name": "libshaderc.so",
+      "sha256": "3ea0879da7809ab0ec74f8012ca7129e5383f4431d46d514171076f843a177f0",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/arm64-v8a/libshaderc.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-3.4.1-merged-modules.jar",
+      "sha256": "d2e1a65beb53ecbc4538ec3624a5e129adc46174198b3ccaeb49b3e5ec4fbe18",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-3.4.1-merged-modules.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-freetype.jar",
+      "sha256": "e7001800c634f13f15f767493c1debfb92d5422942c5160c524df0fa3de54a46",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-freetype.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-lwjglx.jar",
+      "sha256": "03838ef76b021ea9e3b50c392659d34e61e851a1d327344e088fb939781cde2c",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-lwjglx.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-nanovg.jar",
+      "sha256": "e825f799ac378d13e61bcae419953ecc23b8ee272c26408ffdb09f151af602c4",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-nanovg.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-openal.jar",
+      "sha256": "67c72306d4a233b473f66faf72de5be8f589a3c34823faf56cbd7e0f52796fc6",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-openal.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-shaderc.jar",
+      "sha256": "fa02faae80950e5bb28bdcc5a9cc7cbb7e552d723b72777d2ab1adece9d2287e",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-shaderc.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-spng.jar",
+      "sha256": "10daa293281297d1a968a615a957233d4b8268cf7446fae118212e2330b0fb12",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-spng.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-spvc.jar",
+      "sha256": "ddd4ba883d72b6ac2759370c81877b1ac291c552e2eb1d97911199755cb6e571",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-spvc.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-stb.jar",
+      "sha256": "4f36cacea19d64f37a16dac91095d3542626fac726bb6934ecd480f5677ce7b6",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-stb.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-tinyfd.jar",
+      "sha256": "879e1403a5547cc335eb44a27052f5e33510ccc04ddd317f5825f76cc91cdc09",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-tinyfd.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-vma.jar",
+      "sha256": "1895f7f3ad8d16e90db490a8abdc094048976e462e42d747c40941cf559fef2b",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-vma.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "lwjgl-vulkan.jar",
+      "sha256": "75957d2845320adf2799c9f154c4e2b35202cf007d0d1e36a238a2fb212391fa",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-vulkan.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "lwjgl.jar",
+      "sha256": "a675ff2a93ecb9f94bdd72bb3a9ab648f4413225749c46fc83d5aae8a8260275",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "libfreetype.so",
+      "sha256": "68638d4ee371a79027accf1f1bb3c489f40d912590c5970877c035bbd2c272bd",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/arm64-v8a/libfreetype.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "liblwjgl.so",
+      "sha256": "e76694d8a4ce0f9922c93b1c2e5776f317a9339c9013d776147e4c4a84d7f91e",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/arm64-v8a/liblwjgl.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "liblwjgl_nanovg.so",
+      "sha256": "9f640ca57cb787feea8b17e4d4aa2f463ec954358cdfaa776a7d4c66c9de5bc0",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/arm64-v8a/liblwjgl_nanovg.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "liblwjgl_opengl.so",
+      "sha256": "ccc474a7691bc1b4e6ae36905c19eb7c53cf916d94ca9e0b35a564bbcad26b1f",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/arm64-v8a/liblwjgl_opengl.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "liblwjgl_spng.so",
+      "sha256": "fc2a68d37bf754258d869f6b7875fd20fbcbc58b30616bf9f789262788513f9e",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/arm64-v8a/liblwjgl_spng.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "liblwjgl_stb.so",
+      "sha256": "adefdf01f6f0ff384b6302c73ce5f7c0bf45695d9e20a28eae832a43c6cc46f1",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/arm64-v8a/liblwjgl_stb.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "liblwjgl_tinyfd.so",
+      "sha256": "e3c2b6849c73a8bc7221eb1db167773270bfeb3433b6fb1240adfeaeb615f8b9",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/arm64-v8a/liblwjgl_tinyfd.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "liblwjgl_vma.so",
+      "sha256": "c7d58d5bff0b5c90bdfa13f646fe52140ab294b8a6f63533367a018095f2a16d",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/arm64-v8a/liblwjgl_vma.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "arm64-v8a",
+      "name": "libshaderc.so",
+      "sha256": "3ea0879da7809ab0ec74f8012ca7129e5383f4431d46d514171076f843a177f0",
+      "apk": "FCL-release-1.3.4.4-arm64-v8a.apk",
+      "apkSha256": "5f9e03b4303394b205d2995a4878bc1cc1e3b4cea21ba392a0b3d44a0c79d3fe",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/arm64-v8a/libshaderc.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-3.3.3-merged-modules.jar",
+      "sha256": "6f6b2ad5e9a04204261c67986b5604125b10ed5bfbbc095d3402363205be0a8e",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-3.3.3-merged-modules.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-freetype.jar",
+      "sha256": "5c4e2ff87fa4faf5c55d9922fffec62faf449ad2733000951ab9c17da0d3adf8",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-freetype.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-lwjglx.jar",
+      "sha256": "7346cb92ce8668c314dd4d751057fc3b4fbc4c3111973cbc3e8ec50166b111c9",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-lwjglx.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-nanovg.jar",
+      "sha256": "a76270407fe11569eb83cb3e644d05efed7a5595e0a7cd0a2743d46ba83177e4",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-nanovg.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-openal.jar",
+      "sha256": "7b8264841d709365250542b5f49aee0f720464687b09854eecca35b8baab0f28",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-openal.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-shaderc.jar",
+      "sha256": "d2fb00df0697c5fa85b0c877a2bbe61f99d2d1caf245a035188f01f9f84b5c60",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-shaderc.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-spvc.jar",
+      "sha256": "e5e5ded01b5fe2f8c1fcf189ea4242ffd23416de268b85337d134e86644a4224",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-spvc.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-stb.jar",
+      "sha256": "7da67c67d9674daf94248d857f15b82fa07bb9d91b006ede7eb9447de6af78be",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-stb.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-tinyfd.jar",
+      "sha256": "a8a07d746a9f5bc16ba3102a5665c47c315f9846c404e7259f6b76bea4492aed",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-tinyfd.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-vma.jar",
+      "sha256": "0d97d3dd96031873630f5c200c986dcc7aeff7654f8d524884689e74d1522018",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-vma.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-vulkan.jar",
+      "sha256": "e10c2122de8fdfb5e9e35de8c59112b8104bc446554402c1f24743d976d1f96d",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-vulkan.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl.jar",
+      "sha256": "4210729d04c0f0218c053fffd2a95845937135484f6b4cb0ae25a6eceb4e83a3",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "libfreetype.so",
+      "sha256": "1883614a307aafa6fa845dfa5682d3d0918184f216d44bb92ed8ea03588f3ea6",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/armeabi-v7a/libfreetype.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "liblwjgl.so",
+      "sha256": "c7128ba276b543a61df07791cc56979366e6ce1b28e0506bcb48ac057bf199a5",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/armeabi-v7a/liblwjgl.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "liblwjgl_nanovg.so",
+      "sha256": "3e41122b328dfe610459346af38af9f26724fbc388b2d55c2ea344134dce0294",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/armeabi-v7a/liblwjgl_nanovg.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "liblwjgl_opengl.so",
+      "sha256": "716e02b077845763cb0268778764ac4e934a94c886a9296e763c02ae4caa54f3",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/armeabi-v7a/liblwjgl_opengl.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "liblwjgl_stb.so",
+      "sha256": "28cc788ee2570bd985a0d31bf0a34fb24d3eb633862909c642f2561a09c175dc",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/armeabi-v7a/liblwjgl_stb.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "liblwjgl_tinyfd.so",
+      "sha256": "ea5d5476be1bdcf35425761a8cd5830d575d1dbf6642d9e56cc27c2e76b52cd8",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/armeabi-v7a/liblwjgl_tinyfd.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "liblwjgl_vma.so",
+      "sha256": "930b5d8819fc56f076d3106ab6424d7bba2d6fbe2206b065e0fcd33d3bd71161",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/armeabi-v7a/liblwjgl_vma.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "armeabi-v7a",
+      "name": "libshaderc.so",
+      "sha256": "5872731cec67501dfb5000f1c469fbb7a054b8b90bcb9ee3346c34c95e3b0378",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/armeabi-v7a/libshaderc.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-3.4.1-merged-modules.jar",
+      "sha256": "d2e1a65beb53ecbc4538ec3624a5e129adc46174198b3ccaeb49b3e5ec4fbe18",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-3.4.1-merged-modules.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-freetype.jar",
+      "sha256": "e7001800c634f13f15f767493c1debfb92d5422942c5160c524df0fa3de54a46",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-freetype.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-lwjglx.jar",
+      "sha256": "03838ef76b021ea9e3b50c392659d34e61e851a1d327344e088fb939781cde2c",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-lwjglx.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-nanovg.jar",
+      "sha256": "e825f799ac378d13e61bcae419953ecc23b8ee272c26408ffdb09f151af602c4",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-nanovg.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-openal.jar",
+      "sha256": "67c72306d4a233b473f66faf72de5be8f589a3c34823faf56cbd7e0f52796fc6",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-openal.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-shaderc.jar",
+      "sha256": "fa02faae80950e5bb28bdcc5a9cc7cbb7e552d723b72777d2ab1adece9d2287e",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-shaderc.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-spng.jar",
+      "sha256": "10daa293281297d1a968a615a957233d4b8268cf7446fae118212e2330b0fb12",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-spng.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-spvc.jar",
+      "sha256": "ddd4ba883d72b6ac2759370c81877b1ac291c552e2eb1d97911199755cb6e571",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-spvc.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-stb.jar",
+      "sha256": "4f36cacea19d64f37a16dac91095d3542626fac726bb6934ecd480f5677ce7b6",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-stb.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-tinyfd.jar",
+      "sha256": "879e1403a5547cc335eb44a27052f5e33510ccc04ddd317f5825f76cc91cdc09",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-tinyfd.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-vma.jar",
+      "sha256": "1895f7f3ad8d16e90db490a8abdc094048976e462e42d747c40941cf559fef2b",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-vma.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl-vulkan.jar",
+      "sha256": "75957d2845320adf2799c9f154c4e2b35202cf007d0d1e36a238a2fb212391fa",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-vulkan.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "lwjgl.jar",
+      "sha256": "a675ff2a93ecb9f94bdd72bb3a9ab648f4413225749c46fc83d5aae8a8260275",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "libfreetype.so",
+      "sha256": "f3b9a044292a130759af8899424e0db815efdd03f70bd02882c7f956ea9ab154",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/armeabi-v7a/libfreetype.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "liblwjgl.so",
+      "sha256": "3192ed28dcc4b0bee964d60724856f6867d2e343ae74a785b9f4aa443ee045e3",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/armeabi-v7a/liblwjgl.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "liblwjgl_nanovg.so",
+      "sha256": "3432cb24945e832992c3d89584872d47b020111494ae9c55e85df8a1309c48fb",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/armeabi-v7a/liblwjgl_nanovg.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "liblwjgl_opengl.so",
+      "sha256": "0ba0de722a50e62f33741359cd5d1a5177307bd74483379e66896c115bd038e0",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/armeabi-v7a/liblwjgl_opengl.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "liblwjgl_spng.so",
+      "sha256": "1acabc1e3ff44f31915f66da912928049d5fc902f025a47be80967c7337915d9",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/armeabi-v7a/liblwjgl_spng.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "liblwjgl_stb.so",
+      "sha256": "05e6ca2cb1826fc1680c07a242658924a15361f315f2d6b997f33e38bdfab8a5",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/armeabi-v7a/liblwjgl_stb.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "liblwjgl_tinyfd.so",
+      "sha256": "9d8217853fe221997702fe4ea23d0610b56f605be58a44ca8828c9f990862f15",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/armeabi-v7a/liblwjgl_tinyfd.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "liblwjgl_vma.so",
+      "sha256": "44fbc53cdd0ee05f22bfe9927c7d430f27adeb2576717f65195c0ec9feb5f86e",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/armeabi-v7a/liblwjgl_vma.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "armeabi-v7a",
+      "name": "libshaderc.so",
+      "sha256": "5872731cec67501dfb5000f1c469fbb7a054b8b90bcb9ee3346c34c95e3b0378",
+      "apk": "FCL-release-1.3.4.4-armeabi-v7a.apk",
+      "apkSha256": "116cc30aae52003692f6df3424511f7b3f985113788190ddf3c302ac883655bf",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/armeabi-v7a/libshaderc.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "lwjgl-3.3.3-merged-modules.jar",
+      "sha256": "6f6b2ad5e9a04204261c67986b5604125b10ed5bfbbc095d3402363205be0a8e",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-3.3.3-merged-modules.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "lwjgl-freetype.jar",
+      "sha256": "5c4e2ff87fa4faf5c55d9922fffec62faf449ad2733000951ab9c17da0d3adf8",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-freetype.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "lwjgl-lwjglx.jar",
+      "sha256": "7346cb92ce8668c314dd4d751057fc3b4fbc4c3111973cbc3e8ec50166b111c9",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-lwjglx.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "lwjgl-nanovg.jar",
+      "sha256": "a76270407fe11569eb83cb3e644d05efed7a5595e0a7cd0a2743d46ba83177e4",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-nanovg.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "lwjgl-openal.jar",
+      "sha256": "7b8264841d709365250542b5f49aee0f720464687b09854eecca35b8baab0f28",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-openal.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "lwjgl-shaderc.jar",
+      "sha256": "d2fb00df0697c5fa85b0c877a2bbe61f99d2d1caf245a035188f01f9f84b5c60",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-shaderc.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "lwjgl-spvc.jar",
+      "sha256": "e5e5ded01b5fe2f8c1fcf189ea4242ffd23416de268b85337d134e86644a4224",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-spvc.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "lwjgl-stb.jar",
+      "sha256": "7da67c67d9674daf94248d857f15b82fa07bb9d91b006ede7eb9447de6af78be",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-stb.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "lwjgl-tinyfd.jar",
+      "sha256": "a8a07d746a9f5bc16ba3102a5665c47c315f9846c404e7259f6b76bea4492aed",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-tinyfd.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "lwjgl-vma.jar",
+      "sha256": "0d97d3dd96031873630f5c200c986dcc7aeff7654f8d524884689e74d1522018",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-vma.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "lwjgl-vulkan.jar",
+      "sha256": "e10c2122de8fdfb5e9e35de8c59112b8104bc446554402c1f24743d976d1f96d",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-vulkan.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "lwjgl.jar",
+      "sha256": "4210729d04c0f0218c053fffd2a95845937135484f6b4cb0ae25a6eceb4e83a3",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "libfreetype.so",
+      "sha256": "a8fb408529f57200aa984a04ccca9f653dcc07311e4f8edd00997c81c32b0f7d",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86_64/libfreetype.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "liblwjgl.so",
+      "sha256": "4fa89e013454d17457b8c43cb4519c83600aa562582a602b8b0ed6c0a312bd9a",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86_64/liblwjgl.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "liblwjgl_nanovg.so",
+      "sha256": "cea791cfb08d440739d8e395200c488b19478ce394d154aa02f7bfd7e94aeb34",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86_64/liblwjgl_nanovg.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "liblwjgl_opengl.so",
+      "sha256": "0ba645084d791d60c43d42e6fa0228fd60f096c816cbd38351b47777230bb690",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86_64/liblwjgl_opengl.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "liblwjgl_stb.so",
+      "sha256": "69b83cf03c0cdb654f007e13402880282d98fd7c99b40983570d35a5daa9944f",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86_64/liblwjgl_stb.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "liblwjgl_tinyfd.so",
+      "sha256": "2c03375147333c7ba065be790aa5661cca547b86d53daec961fdcc4bb47f7f3f",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86_64/liblwjgl_tinyfd.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "liblwjgl_vma.so",
+      "sha256": "dd4d3b5b55d24757cdc8dcc3dbc1a6c791e7a2cfda5624beff99dc6c7667ff01",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86_64/liblwjgl_vma.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86_64",
+      "name": "libshaderc.so",
+      "sha256": "515d6902aa11f43af1325ae6b322d976c03fdcca52d51add84d82dbecffd926a",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86_64/libshaderc.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "lwjgl-3.4.1-merged-modules.jar",
+      "sha256": "d2e1a65beb53ecbc4538ec3624a5e129adc46174198b3ccaeb49b3e5ec4fbe18",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-3.4.1-merged-modules.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "lwjgl-freetype.jar",
+      "sha256": "e7001800c634f13f15f767493c1debfb92d5422942c5160c524df0fa3de54a46",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-freetype.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "lwjgl-lwjglx.jar",
+      "sha256": "03838ef76b021ea9e3b50c392659d34e61e851a1d327344e088fb939781cde2c",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-lwjglx.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "lwjgl-nanovg.jar",
+      "sha256": "e825f799ac378d13e61bcae419953ecc23b8ee272c26408ffdb09f151af602c4",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-nanovg.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "lwjgl-openal.jar",
+      "sha256": "67c72306d4a233b473f66faf72de5be8f589a3c34823faf56cbd7e0f52796fc6",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-openal.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "lwjgl-shaderc.jar",
+      "sha256": "fa02faae80950e5bb28bdcc5a9cc7cbb7e552d723b72777d2ab1adece9d2287e",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-shaderc.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "lwjgl-spng.jar",
+      "sha256": "10daa293281297d1a968a615a957233d4b8268cf7446fae118212e2330b0fb12",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-spng.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "lwjgl-spvc.jar",
+      "sha256": "ddd4ba883d72b6ac2759370c81877b1ac291c552e2eb1d97911199755cb6e571",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-spvc.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "lwjgl-stb.jar",
+      "sha256": "4f36cacea19d64f37a16dac91095d3542626fac726bb6934ecd480f5677ce7b6",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-stb.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "lwjgl-tinyfd.jar",
+      "sha256": "879e1403a5547cc335eb44a27052f5e33510ccc04ddd317f5825f76cc91cdc09",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-tinyfd.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "lwjgl-vma.jar",
+      "sha256": "1895f7f3ad8d16e90db490a8abdc094048976e462e42d747c40941cf559fef2b",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-vma.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "lwjgl-vulkan.jar",
+      "sha256": "75957d2845320adf2799c9f154c4e2b35202cf007d0d1e36a238a2fb212391fa",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-vulkan.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "lwjgl.jar",
+      "sha256": "a675ff2a93ecb9f94bdd72bb3a9ab648f4413225749c46fc83d5aae8a8260275",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "libfreetype.so",
+      "sha256": "c0af10bf2e2d43b715146f28ab42c29b0609aaf1188bd16b41aefd3d5b08453d",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86_64/libfreetype.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "liblwjgl.so",
+      "sha256": "4221e707fec83c117c537bc766e40ca5c98837f9942f9c4a6593fdbd44080bb7",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86_64/liblwjgl.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "liblwjgl_nanovg.so",
+      "sha256": "ecd4fb805104cfb938fb304d5cdc9beff51eb050e3091701608ee683453c8d0b",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86_64/liblwjgl_nanovg.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "liblwjgl_opengl.so",
+      "sha256": "06ba70792424dfb03ab3bbfdd9313a41a3e534f7fd277aeda1d42bbd9d28aeb4",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86_64/liblwjgl_opengl.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "liblwjgl_spng.so",
+      "sha256": "eb5fc0eff7656296c77b08926984e0cb3b846ef7b6f4af501c9ef4d7dc2fd6de",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86_64/liblwjgl_spng.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "liblwjgl_stb.so",
+      "sha256": "5e9e44130cbb3f88bcb68339d481e3841854d18036bbcdb966b876743b457a32",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86_64/liblwjgl_stb.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "liblwjgl_tinyfd.so",
+      "sha256": "086a794958158b4d2cb82653f3118678f4c657bdd0030c09975eb940b8c23d12",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86_64/liblwjgl_tinyfd.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "liblwjgl_vma.so",
+      "sha256": "6c1121e3b547838d34787a692204b43eb9d8888269951405ac793d375943f257",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86_64/liblwjgl_vma.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86_64",
+      "name": "libshaderc.so",
+      "sha256": "515d6902aa11f43af1325ae6b322d976c03fdcca52d51add84d82dbecffd926a",
+      "apk": "FCL-release-1.3.4.4-x86_64.apk",
+      "apkSha256": "5d96a264e3de8f0d84424096612dc2e89f756d47ba15e68194cfa965457c5167",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86_64/libshaderc.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "lwjgl-3.3.3-merged-modules.jar",
+      "sha256": "6f6b2ad5e9a04204261c67986b5604125b10ed5bfbbc095d3402363205be0a8e",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-3.3.3-merged-modules.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "lwjgl-freetype.jar",
+      "sha256": "5c4e2ff87fa4faf5c55d9922fffec62faf449ad2733000951ab9c17da0d3adf8",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-freetype.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "lwjgl-lwjglx.jar",
+      "sha256": "7346cb92ce8668c314dd4d751057fc3b4fbc4c3111973cbc3e8ec50166b111c9",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-lwjglx.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "lwjgl-nanovg.jar",
+      "sha256": "a76270407fe11569eb83cb3e644d05efed7a5595e0a7cd0a2743d46ba83177e4",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-nanovg.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "lwjgl-openal.jar",
+      "sha256": "7b8264841d709365250542b5f49aee0f720464687b09854eecca35b8baab0f28",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-openal.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "lwjgl-shaderc.jar",
+      "sha256": "d2fb00df0697c5fa85b0c877a2bbe61f99d2d1caf245a035188f01f9f84b5c60",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-shaderc.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "lwjgl-spvc.jar",
+      "sha256": "e5e5ded01b5fe2f8c1fcf189ea4242ffd23416de268b85337d134e86644a4224",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-spvc.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "lwjgl-stb.jar",
+      "sha256": "7da67c67d9674daf94248d857f15b82fa07bb9d91b006ede7eb9447de6af78be",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-stb.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "lwjgl-tinyfd.jar",
+      "sha256": "a8a07d746a9f5bc16ba3102a5665c47c315f9846c404e7259f6b76bea4492aed",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-tinyfd.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "lwjgl-vma.jar",
+      "sha256": "0d97d3dd96031873630f5c200c986dcc7aeff7654f8d524884689e74d1522018",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-vma.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "lwjgl-vulkan.jar",
+      "sha256": "e10c2122de8fdfb5e9e35de8c59112b8104bc446554402c1f24743d976d1f96d",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl-vulkan.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "lwjgl.jar",
+      "sha256": "4210729d04c0f0218c053fffd2a95845937135484f6b4cb0ae25a6eceb4e83a3",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/lwjgl.jar"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "libfreetype.so",
+      "sha256": "648d79fc98c73b75affb133038e57f481534db5afaacf501e7c42a59f6ea8140",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86/libfreetype.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "liblwjgl.so",
+      "sha256": "6fbc3151cc40d1ae893840d76abe465a3fe21c2bd4368d0c0bab4a6dc3a7dfdf",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86/liblwjgl.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "liblwjgl_nanovg.so",
+      "sha256": "86fcccd0f63a68ed082e664b84916eaea3575b31b1800c1200574d2d57ec03d5",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86/liblwjgl_nanovg.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "liblwjgl_opengl.so",
+      "sha256": "9e8dc6a24beb080e269d6fd2d34a44ecb592030dd30c5d81bab562f3a8143547",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86/liblwjgl_opengl.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "liblwjgl_stb.so",
+      "sha256": "7569d1e2ac088106eeb9375a9830377edc913065d549b2e756782b2fb0ce30ca",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86/liblwjgl_stb.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "liblwjgl_tinyfd.so",
+      "sha256": "7002182597ea2e8199e8732972d82519baa25345e19838372d2159a792720a44",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86/liblwjgl_tinyfd.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "liblwjgl_vma.so",
+      "sha256": "daf903562edf312e4d783334fe7067f53dd855fbc225f9723eb02926e357fed3",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86/liblwjgl_vma.so"
+    },
+    {
+      "version": "3.3.3",
+      "abi": "x86",
+      "name": "libshaderc.so",
+      "sha256": "e1ed381c2b4750d0afef3e68ab0d310011f4d2fa15f15e984ecd81c50bea5168",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.3.3/natives/x86/libshaderc.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "lwjgl-3.4.1-merged-modules.jar",
+      "sha256": "d2e1a65beb53ecbc4538ec3624a5e129adc46174198b3ccaeb49b3e5ec4fbe18",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-3.4.1-merged-modules.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "lwjgl-freetype.jar",
+      "sha256": "e7001800c634f13f15f767493c1debfb92d5422942c5160c524df0fa3de54a46",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-freetype.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "lwjgl-lwjglx.jar",
+      "sha256": "03838ef76b021ea9e3b50c392659d34e61e851a1d327344e088fb939781cde2c",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-lwjglx.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "lwjgl-nanovg.jar",
+      "sha256": "e825f799ac378d13e61bcae419953ecc23b8ee272c26408ffdb09f151af602c4",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-nanovg.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "lwjgl-openal.jar",
+      "sha256": "67c72306d4a233b473f66faf72de5be8f589a3c34823faf56cbd7e0f52796fc6",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-openal.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "lwjgl-shaderc.jar",
+      "sha256": "fa02faae80950e5bb28bdcc5a9cc7cbb7e552d723b72777d2ab1adece9d2287e",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-shaderc.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "lwjgl-spng.jar",
+      "sha256": "10daa293281297d1a968a615a957233d4b8268cf7446fae118212e2330b0fb12",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-spng.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "lwjgl-spvc.jar",
+      "sha256": "ddd4ba883d72b6ac2759370c81877b1ac291c552e2eb1d97911199755cb6e571",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-spvc.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "lwjgl-stb.jar",
+      "sha256": "4f36cacea19d64f37a16dac91095d3542626fac726bb6934ecd480f5677ce7b6",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-stb.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "lwjgl-tinyfd.jar",
+      "sha256": "879e1403a5547cc335eb44a27052f5e33510ccc04ddd317f5825f76cc91cdc09",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-tinyfd.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "lwjgl-vma.jar",
+      "sha256": "1895f7f3ad8d16e90db490a8abdc094048976e462e42d747c40941cf559fef2b",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-vma.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "lwjgl-vulkan.jar",
+      "sha256": "75957d2845320adf2799c9f154c4e2b35202cf007d0d1e36a238a2fb212391fa",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl-vulkan.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "lwjgl.jar",
+      "sha256": "a675ff2a93ecb9f94bdd72bb3a9ab648f4413225749c46fc83d5aae8a8260275",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/lwjgl.jar"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "libfreetype.so",
+      "sha256": "2b407d295359f4a47490f6b9d8044a54cb1e37dc4354a504b7ab4eeadd113534",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86/libfreetype.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "liblwjgl.so",
+      "sha256": "620df2e66218859fc0b1fd84ab68c49ece989ba41a2961da0b5de3e745391a76",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86/liblwjgl.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "liblwjgl_nanovg.so",
+      "sha256": "79a906b53966e394b93a9880dbb3f9d3090e6e37e612ec91081b27737bd49b72",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86/liblwjgl_nanovg.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "liblwjgl_opengl.so",
+      "sha256": "98a5831532317100c77b6814f02b1c757127754a4eb222ef4786a93b63e576f7",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86/liblwjgl_opengl.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "liblwjgl_spng.so",
+      "sha256": "01dcd2c67f0db1c73d0d24cd7ac1df830f9dd50f7a351cbe2c970e82bba103e5",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86/liblwjgl_spng.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "liblwjgl_stb.so",
+      "sha256": "5992edd50124d6e700e1dbee7bb9085db91e55a3062c96c7777b06b8b16c0d77",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86/liblwjgl_stb.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "liblwjgl_tinyfd.so",
+      "sha256": "2e71f102f7ab3beffb432aec0924d0208f6098447d8eb78758b3613753724c3b",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86/liblwjgl_tinyfd.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "liblwjgl_vma.so",
+      "sha256": "ffd141f4c7159e77036911197cac2e36cf28c35e2db171df7b7a4478be35b381",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86/liblwjgl_vma.so"
+    },
+    {
+      "version": "3.4.1",
+      "abi": "x86",
+      "name": "libshaderc.so",
+      "sha256": "e1ed381c2b4750d0afef3e68ab0d310011f4d2fa15f15e984ecd81c50bea5168",
+      "apk": "FCL-release-1.3.4.4-x86.apk",
+      "apkSha256": "20e23d6ec7698f4a057a9088953e73a4c1cad9cd4a19af40829fc2ec065304ae",
+      "entry": "assets/app_runtime/lwjgl/3.4.1/natives/x86/libshaderc.so"
+    }
+  ]
+}

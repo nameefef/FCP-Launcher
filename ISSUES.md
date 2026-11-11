@@ -17,3 +17,7 @@ Shipped on Android first. Desktop (#5) and multiplayer (#4) stay open.
 - Official Microsoft login is out of v0.1. Do not block on a Mojang client-id whitelist, and do not embed another launcher's Azure client id.
 - Version lists and files try BMCLAPI2 first (`https://bmclapi2.bangbang93.com`) and fall back to Mojang. About must keep the BMCLAPI credit. No extra unknown mirrors.
 
+## Launch slice (issue #11)
+
+The Android client builds an HMCL / FCL style command from the installed version and the selected offline or Yggdrasil account, then starts a process when a Java runtime and the Pojav / FCL native libraries are present. This package does not yet include that JRE or those `.so` files. A missing runtime, JRE, or asset set is reported in the UI and in `logs/fcp-launch.log`. Desktop (#5), multiplayer (#4), and Microsoft login stay out.
+

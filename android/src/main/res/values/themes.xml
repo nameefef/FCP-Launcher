@@ -6,4 +6,11 @@
         <item name="android:statusBarColor">@color/md_theme_primary</item>
         <item name="android:navigationBarColor">@color/md_theme_background</item>
     </style>
+
+    <style name="Theme.FcpLauncher.Game" parent="Theme.FcpLauncher">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:statusBarColor">@android:color/black</item>
+        <item name="android:navigationBarColor">@android:color/black</item>
+    </style>
 </resources>

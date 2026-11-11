@@ -13,7 +13,7 @@ import java.net.URL
 class UrlHttpClient(
     private val connectTimeoutMs: Int = 15_000,
     private val readTimeoutMs: Int = 60_000,
-    private val userAgent: String = "FCP-Launcher/0.1 (+https://fcp.easonyin.xyz)",
+    private val userAgent: String = "FCP-Launcher/0.2 (+https://fcp.easonyin.xyz)",
 ) : HttpClient {
     override fun execute(request: HttpRequest): HttpResponse {
         val connection = open(request.method, request.url, request.followRedirects)

@@ -24,6 +24,32 @@ Third-party / upstream acknowledgements (non-exhaustive; expand as code lands):
   https://manual.littleskin.cn/yggdrasil/
   https://littleskin.cn/api/yggdrasil
   LittleSkin is not Microsoft or Mojang login.
+- authlib-injector — AGPL-3.0
+  https://github.com/yushijinhun/authlib-injector
+  Used as a separate Java agent when launching a Yggdrasil account (LittleSkin
+  or a custom server). The jar is downloaded at launch from BMCLAPI, then from
+  the GitHub release if that fails. It is not vendored in this repository.
+- Android OpenJDK / JRE builds used by PojavLauncher — GPL-2.0 with the
+  Classpath exception, plus Pojav's Android port.
+  https://github.com/PojavLauncherTeam/android-openjdk-build-multiarch
+  Tag jre17-ec28559. Java 17 is downloaded on first launch (not stored in git)
+  into files/runtime/java-17/. Checksums are in core/src/main/resources/fcp/android-runtime.json.
+- Fold Craft Launcher 1.3.4.4 native libraries (GPL-3.0), extracted by
+  scripts/fetch-android-runtime.py from the per-ABI release APKs and shipped in
+  android/src/main/jniLibs/:
+  libpojavexec.so (also copied to libglfw.so, because Mojang LWJGL loads that
+  name and FCL's GLFW JNI entry points are in libpojavexec), libfcl.so,
+  libandroidnsbypass.so (MIT, from Amethyst-Android's androidnsbypass),
+  libbytehook.so (ByteHook), libc++_shared.so, libopenal.so (LGPL-2.1),
+  libgl4es_114.so (gl4es, MIT, as built by FCL).
+  libunpack200.so (PojavLauncher, GPL-3.0) turns the Java 8 runtime's
+  `.pack` files into jars. It is the unpack200 binary from
+  PojavLauncherTeam/PojavLauncher branch v3_openjdk, renamed only by the
+  lib prefix Android requires. https://github.com/PojavLauncherTeam/PojavLauncher
+  Java 8 and Java 21 are not separate public tarballs. First launch of those
+  majors downloads the matching FCL 1.3.4.4 APK and unpacks
+  assets/app_runtime/java/jre8 or jre21. The APK itself is not committed.
+  https://github.com/FCL-Team/FoldCraftLauncher/releases/tag/1.3.4.4
 
 Plain Craft Launcher (PCL) by 龙腾猫跃 is NOT included as source.
 UI/UX ideas may be referenced independently; do not copy PCL code or assets.
