@@ -6,7 +6,7 @@ Microsoft login is not included. There is no Mojang client id in this repo, and 
 
 ## UI
 
-Compose Multiplatform Desktop. Chinese is the default copy (`tr` falls back to English when the locale language is `en`). The green bar and 版本 / 账号 / 关于 layout follow the Android app. 设置 adds the game directory, `-Xmx`, an optional Java path, and the download source (BMCLAPI first, or Mojang only).
+Compose Multiplatform Desktop. Chinese is the default copy. English is used when `LC_ALL` or `LANG` names English (`en_US`, `en_GB`, …). `C`, `POSIX`, and `C.UTF-8` are not a language — the JVM reports them as English, and the UI stays Chinese anyway. A blank Chinese string falls back to English. The green bar and 版本 / 账号 / 关于 layout follow the Android app. 设置 adds the game directory, `-Xmx`, an optional Java path, and the download source (BMCLAPI first, or Mojang only).
 
 Java is chosen from the version JSON `javaVersion.majorVersion` (8 when the field is absent and the id is 1.16 or older, 17 for 1.18–1.20.4, 21 for 1.20.5 and newer). A path set in 设置 is preferred when its major matches. If nothing matches, the dialog explains which Java is required and which installs were found.
 
