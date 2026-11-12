@@ -10,7 +10,7 @@
 
 ## v0.1 decisions (issues #3, #8, #9)
 
-Shipped on Android first. Desktop (#5) and multiplayer (#4) stay open.
+Shipped on Android first. The desktop client (#5) is the Compose Desktop module in `desktop/`. Multiplayer (#4) stays open.
 
 - Offline accounts use the HMCL / FCL `OfflinePlayer:` UUID. No crack / online-bypass tooling.
 - Third-party login is LittleSkin (API root from https://manual.littleskin.cn/yggdrasil/ : `https://littleskin.cn/api/yggdrasil`). Advanced users can paste another authlib-injector / Yggdrasil URL, including hosts that send `X-Authlib-Injector-API-Location`.
@@ -19,5 +19,5 @@ Shipped on Android first. Desktop (#5) and multiplayer (#4) stay open.
 
 ## Launch slice (issue #11)
 
-The Android client builds an HMCL / FCL style command from the installed version and the selected offline or Yggdrasil account, then starts a process when a Java runtime and the Pojav / FCL native libraries are present. This package does not yet include that JRE or those `.so` files. A missing runtime, JRE, or asset set is reported in the UI and in `logs/fcp-launch.log`. Desktop (#5), multiplayer (#4), and Microsoft login stay out.
+The Android client builds an HMCL / FCL style command from the installed version and the selected offline or Yggdrasil account, then starts the game in-process when a Java runtime and the Pojav / FCL native libraries are present. A missing runtime or asset set is reported in the UI and in `logs/fcp-launch.log`. The desktop client starts a separate process with a system JDK and extracts LWJGL natives from the version JSON. Multiplayer (#4) and Microsoft login stay out.
 

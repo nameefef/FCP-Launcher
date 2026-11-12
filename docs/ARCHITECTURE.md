@@ -12,7 +12,7 @@
 | 平台 | 路线 |
 |------|------|
 | Android | 以 FCL 为起点 fork / 模块化改造，恢复下载 + 联机增强 |
-| Desktop | 以 HMCL（Java / JavaFX）为底做 Win/macOS/Linux；不走 PCL 的 WPF/VB.NET |
+| Desktop | Kotlin + Compose Multiplatform Desktop，复用 `:core`。Win/macOS/Linux 用系统 Java 启动独立进程，原生库来自版本 JSON 的 LWJGL 分类器 |
 | Web | 静态/Worker 官网：介绍、各端安装包、协议与致谢 |
 
 ## v0.1 与暂缓
@@ -22,9 +22,10 @@ Android 先做账号、下载和游戏启动。桌面端和联机仍不在这条
 | 已包含 | 暂缓 |
 |--------|------|
 | 离线账号（`OfflinePlayer:` UUID，与 HMCL / FCL 相同） | 官方 Microsoft 登录（不申请 Client ID，不借用其他启动器的 Azure 应用） |
-| LittleSkin，以及高级选项里的自定义 Yggdrasil / authlib-injector 地址 | 把 Pojav / FCL 的 JRE 和渲染 `.so` 打进安装包（[#11](https://github.com/nameefef/FCP-Launcher/issues/11) 的后续） |
-| BMCLAPI2 优先、Mojang 官方回退的版本清单和客户端 / 依赖库 / 资源下载 | 桌面端（[#5](https://github.com/nameefef/FCP-Launcher/issues/5)） |
-| 启动参数与进程：已安装版本 + 当前账号；缺 JRE、原生运行时或资源时写明原因并记日志 | 联机（[#4](https://github.com/nameefef/FCP-Launcher/issues/4)） |
+| LittleSkin，以及高级选项里的自定义 Yggdrasil / authlib-injector 地址 | 把 Pojav / FCL 的 JRE 和渲染 `.so` 打进 Android 安装包（[#11](https://github.com/nameefef/FCP-Launcher/issues/11) 的后续） |
+| BMCLAPI2 优先、Mojang 官方回退的版本清单和客户端 / 依赖库 / 资源下载 | 联机（[#4](https://github.com/nameefef/FCP-Launcher/issues/4)） |
+| 启动参数与进程：Android 在进程内调用 `JLI_Launch`；桌面端用系统 Java 启动独立进程。缺 Java、原生库或资源时写明原因并记日志 | — |
+| 桌面端（[#5](https://github.com/nameefef/FCP-Launcher/issues/5)）：Compose Desktop，游戏目录、内存、Java 路径、下载源 | — |
 | 关于页保留 BMCLAPI 署名；`PRODUCT_FULL_NAME` 只在连点彩蛋中出现 | — |
 
 下载源只保留口碑稳定、HMCL / FCL 也在用的两组：
