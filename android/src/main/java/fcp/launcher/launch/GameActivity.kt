@@ -6,11 +6,16 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Process
-import android.view.MotionEvent
+import android.util.Log
+import android.view.Gravity
 import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.WindowManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.widget.FrameLayout
+import android.widget.PopupWindow
 import com.tungsten.fclauncher.bridge.FCLBridge
 import java.io.File
 import java.util.concurrent.atomic.AtomicBoolean
@@ -28,20 +33,56 @@ class GameActivity : Activity(), SurfaceHolder.Callback {
     private val windowInstalled = AtomicBoolean(false)
     private var boundSurface: Surface? = null
     private lateinit var surfaceView: SurfaceView
+    private var controls: TouchControlsOverlay? = null
+    private var controlsWindow: PopupWindow? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         surfaceView = SurfaceView(this)
+        // Keep the game surface behind this window. A sibling view is still
+        // covered on this emulator, so the controls live in a popup above it.
+        surfaceView.setZOrderOnTop(false)
+        surfaceView.setZOrderMediaOverlay(false)
         surfaceView.holder.addCallback(this)
-        surfaceView.setOnTouchListener { _, event -> onGameTouch(event) }
-        setContentView(surfaceView)
+        val root = FrameLayout(this)
+        root.addView(
+            surfaceView,
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT,
+            ),
+        )
+        val overlay = TouchControlsOverlay(this)
+        controls = overlay
+        setContentView(root)
+        root.post { showControls(root, overlay) }
         val version = intent.getStringExtra(GameSessionService.EXTRA_VERSION) ?: "Minecraft"
         startForegroundService(
             Intent(this, GameSessionService::class.java)
                 .setAction(GameSessionService.ACTION_FOREGROUND)
                 .putExtra(GameSessionService.EXTRA_VERSION, version),
         )
+    }
+
+    private fun showControls(anchor: FrameLayout, overlay: TouchControlsOverlay) {
+        if (isFinishing || controlsWindow != null) return
+        val screen = anchor.resources.displayMetrics
+        val width = anchor.width.takeIf { it > 0 } ?: screen.widthPixels
+        val height = anchor.height.takeIf { it > 0 } ?: screen.heightPixels
+        overlay.minimumWidth = width
+        overlay.minimumHeight = height
+        val popup = PopupWindow(overlay, width, height, true)
+        popup.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        popup.isClippingEnabled = false
+        popup.isTouchable = true
+        popup.inputMethodMode = PopupWindow.INPUT_METHOD_NEEDED
+        popup.showAtLocation(anchor, Gravity.TOP or Gravity.START, 0, 0)
+        popup.update(0, 0, width, height)
+        overlay.post {
+            Log.i("FCP", "overlay size ${overlay.width}x${overlay.height} children=${overlay.childCount}")
+        }
+        controlsWindow = popup
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -106,28 +147,10 @@ class GameActivity : Activity(), SurfaceHolder.Callback {
         boundSurface = null
     }
 
-    private fun onGameTouch(event: MotionEvent): Boolean {
-        if (!windowInstalled.get()) return true
-        try {
-            val x = event.x
-            val y = event.y
-            when (event.actionMasked) {
-                MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> {
-                    CallbackBridge.nativeSendCursorPos(x, y)
-                    CallbackBridge.nativeSendMouseButton(0, 1, 0)
-                }
-                MotionEvent.ACTION_MOVE -> CallbackBridge.nativeSendCursorPos(x, y)
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP, MotionEvent.ACTION_CANCEL -> {
-                    CallbackBridge.nativeSendCursorPos(x, y)
-                    CallbackBridge.nativeSendMouseButton(0, 0, 0)
-                }
-            }
-        } catch (_: Throwable) {
-        }
-        return true
-    }
-
     override fun onDestroy() {
+        controls?.releaseHeldKeys()
+        controlsWindow?.dismiss()
+        controlsWindow = null
         if (!jvmStarted.get()) releaseWindow()
         super.onDestroy()
     }
