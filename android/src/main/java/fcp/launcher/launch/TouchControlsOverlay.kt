@@ -111,13 +111,15 @@ class TouchControlsOverlay(context: Context) : FrameLayout(context) {
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        Log.i(TAG, "overlay onSizeChanged ${w}x$h")
         if (w <= 0 || h <= 0) return
         val key = w * 100_000 + h
         if (key == laidFor) return
         laidFor = key
         virtualX = w / 2f
         virtualY = h / 2f
-        placeControls(w, h)
+        // Adding children inside onSizeChanged skips their measure pass.
+        post { placeControls(w, h) }
     }
 
     private fun placeControls(w: Int, h: Int) {

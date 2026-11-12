@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Process
+import android.util.Log
 import android.view.Gravity
 import android.view.Surface
 import android.view.SurfaceHolder
@@ -67,8 +68,10 @@ class GameActivity : Activity(), SurfaceHolder.Callback {
     private fun showControls(anchor: FrameLayout, overlay: TouchControlsOverlay) {
         if (isFinishing || controlsWindow != null) return
         val screen = anchor.resources.displayMetrics
-        val width = screen.widthPixels
-        val height = screen.heightPixels
+        val width = anchor.width.takeIf { it > 0 } ?: screen.widthPixels
+        val height = anchor.height.takeIf { it > 0 } ?: screen.heightPixels
+        overlay.minimumWidth = width
+        overlay.minimumHeight = height
         val popup = PopupWindow(overlay, width, height, true)
         popup.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         popup.isClippingEnabled = false
@@ -76,6 +79,9 @@ class GameActivity : Activity(), SurfaceHolder.Callback {
         popup.inputMethodMode = PopupWindow.INPUT_METHOD_NEEDED
         popup.showAtLocation(anchor, Gravity.TOP or Gravity.START, 0, 0)
         popup.update(0, 0, width, height)
+        overlay.post {
+            Log.i("FCP", "overlay size ${overlay.width}x${overlay.height} children=${overlay.childCount}")
+        }
         controlsWindow = popup
     }
 
