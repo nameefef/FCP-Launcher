@@ -35,6 +35,7 @@ class TouchControlsOverlay(context: Context) : FrameLayout(context) {
     private val controls = mutableListOf<View>()
     private val showButton: Button
     private var laidFor = 0
+    private var loggedLayout = false
     private var grabbing = false
     private var lookPointer = -1
     private var lastX = 0f
@@ -187,7 +188,14 @@ class TouchControlsOverlay(context: Context) : FrameLayout(context) {
         }
 
         place(showButton, w - margin - small, margin, small + dp(8), small)
-        post { logCenters() }
+    }
+
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+        if (!loggedLayout && controls.isNotEmpty() && controls[0].width > 0) {
+            loggedLayout = true
+            logCenters()
+        }
     }
 
     private fun place(view: View, x: Int, y: Int, width: Int, height: Int) {
@@ -335,7 +343,8 @@ class TouchControlsOverlay(context: Context) : FrameLayout(context) {
             minHeight = 0
             stateListAnimator = null
             background = GradientDrawable().apply {
-                setColor(0xB3000000.toInt())
+                setColor(0xE6181818.toInt())
+                setStroke(dp(2), Color.WHITE)
                 cornerRadius = dp(10).toFloat()
             }
         }

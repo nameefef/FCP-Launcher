@@ -6,11 +6,15 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Process
+import android.view.Gravity
 import android.view.Surface
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.WindowManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.widget.FrameLayout
+import android.widget.PopupWindow
 import com.tungsten.fclauncher.bridge.FCLBridge
 import java.io.File
 import java.util.concurrent.atomic.AtomicBoolean
@@ -29,11 +33,16 @@ class GameActivity : Activity(), SurfaceHolder.Callback {
     private var boundSurface: Surface? = null
     private lateinit var surfaceView: SurfaceView
     private var controls: TouchControlsOverlay? = null
+    private var controlsWindow: PopupWindow? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         surfaceView = SurfaceView(this)
+        // Keep the game surface behind this window. A sibling view is still
+        // covered on this emulator, so the controls live in a popup above it.
+        surfaceView.setZOrderOnTop(false)
+        surfaceView.setZOrderMediaOverlay(false)
         surfaceView.holder.addCallback(this)
         val root = FrameLayout(this)
         root.addView(
@@ -43,22 +52,34 @@ class GameActivity : Activity(), SurfaceHolder.Callback {
                 FrameLayout.LayoutParams.MATCH_PARENT,
             ),
         )
-        controls = TouchControlsOverlay(this).also {
-            root.addView(
-                it,
-                FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                ),
-            )
-        }
+        val overlay = TouchControlsOverlay(this)
+        controls = overlay
         setContentView(root)
+        root.post { showControls(root, overlay) }
         val version = intent.getStringExtra(GameSessionService.EXTRA_VERSION) ?: "Minecraft"
         startForegroundService(
             Intent(this, GameSessionService::class.java)
                 .setAction(GameSessionService.ACTION_FOREGROUND)
                 .putExtra(GameSessionService.EXTRA_VERSION, version),
         )
+    }
+
+    private fun showControls(anchor: FrameLayout, overlay: TouchControlsOverlay) {
+        if (isFinishing || controlsWindow != null) return
+        val popup = PopupWindow(
+            overlay,
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT,
+            false,
+        )
+        popup.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        popup.isClippingEnabled = false
+        popup.isTouchable = true
+        // Focusable so the chat field can open the soft keyboard.
+        popup.isFocusable = true
+        popup.inputMethodMode = PopupWindow.INPUT_METHOD_NEEDED
+        popup.showAtLocation(anchor, Gravity.TOP or Gravity.START, 0, 0)
+        controlsWindow = popup
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -125,6 +146,8 @@ class GameActivity : Activity(), SurfaceHolder.Callback {
 
     override fun onDestroy() {
         controls?.releaseHeldKeys()
+        controlsWindow?.dismiss()
+        controlsWindow = null
         if (!jvmStarted.get()) releaseWindow()
         super.onDestroy()
     }
