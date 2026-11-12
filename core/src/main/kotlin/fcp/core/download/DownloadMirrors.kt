@@ -14,16 +14,23 @@ package fcp.core.download
  */
 class DownloadMirrors(
     val bmclApiRoot: String = DEFAULT_BMCLAPI_ROOT,
+    /** When false, only Mojang's official hosts are queried. */
+    val bmclFirst: Boolean = true,
 ) {
-    fun versionManifestUrls(): List<String> = listOf(
-        "$bmclApiRoot/mc/game/version_manifest_v2.json",
-        "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json",
-        "$bmclApiRoot/mc/game/version_manifest.json",
-        "https://piston-meta.mojang.com/mc/game/version_manifest.json",
-        "https://launchermeta.mojang.com/mc/game/version_manifest.json",
-    )
+    fun versionManifestUrls(): List<String> {
+        val all = listOf(
+            "$bmclApiRoot/mc/game/version_manifest_v2.json",
+            "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json",
+            "$bmclApiRoot/mc/game/version_manifest.json",
+            "https://piston-meta.mojang.com/mc/game/version_manifest.json",
+            "https://launchermeta.mojang.com/mc/game/version_manifest.json",
+        )
+        if (bmclFirst) return all
+        return all.filterNot { it.startsWith(bmclApiRoot) }
+    }
 
     fun candidatesFor(officialUrl: String): List<String> {
+        if (!bmclFirst) return listOf(officialUrl)
         val mirrored = rewrite(officialUrl)
         if (mirrored == null || mirrored == officialUrl) return listOf(officialUrl)
         return listOf(mirrored, officialUrl)

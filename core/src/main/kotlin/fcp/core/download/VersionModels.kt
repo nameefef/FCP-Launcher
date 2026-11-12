@@ -37,12 +37,33 @@ data class RuleSpec(
     val osName: String?,
     val osArch: String?,
     val hasFeatures: Boolean,
+    val osVersion: String? = null,
 ) {
-    fun matches(platform: String): Boolean {
-        if (hasFeatures || osArch != null) return false
+    fun matches(platform: String): Boolean = matches(platform, arch = null)
+
+    /**
+     * [arch] is the launcher arch (`x64`, `x86`, `arm64`, `arm32`).
+     * A missing [arch] does not satisfy an arch-specific rule, which is the
+     * Android install path. Version constraints are not evaluated.
+     */
+    fun matches(platform: String, arch: String?): Boolean {
+        if (hasFeatures || !osVersion.isNullOrBlank()) return false
+        if (osArch != null && !osArchEquals(osArch, arch)) return false
         if (osName == null) return true
         return osName.equals(platform, ignoreCase = true)
     }
+}
+
+private fun osArchEquals(ruleArch: String, actual: String?): Boolean {
+    if (actual == null) return false
+    fun norm(value: String): String = when (value.lowercase()) {
+        "x86_64", "amd64", "x86-64", "x64" -> "x64"
+        "i386", "i686", "x86" -> "x86"
+        "aarch64", "arm64" -> "arm64"
+        "arm", "armv7", "armv7l", "arm32" -> "arm32"
+        else -> value.lowercase()
+    }
+    return norm(ruleArch) == norm(actual)
 }
 
 data class LibrarySpec(
@@ -50,13 +71,18 @@ data class LibrarySpec(
     val rules: List<RuleSpec>,
     val artifact: RemoteFile?,
     val nativeOnly: Boolean,
+    /** Legacy `downloads.classifiers`, keyed by classifier such as `natives-linux`. */
+    val classifiers: Map<String, RemoteFile> = emptyMap(),
+    /** Legacy `natives` map: Mojang OS name to classifier, which may contain `${arch}`. */
+    val nativeClassifiers: Map<String, String> = emptyMap(),
+    val extractExcludes: List<String> = emptyList(),
 ) {
     /**
-     * Desktop native jars are not downloaded. The Android launch path puts these
-     * Java artifacts on the classpath and expects GLFW / OpenAL / renderer
-     * `.so` files from a Pojav / Fold Craft Launcher style runtime.
-     * [platform] follows Mojang's library rule names (`linux` is what that
-     * runtime matches).
+     * Classpath and install filter. A legacy natives-only entry (a `natives`
+     * map and no artifact) stays out of this list; desktop launch downloads
+     * that classifier separately and extracts it. Modern `natives-*` artifacts
+     * are included so the jar is downloaded, then kept off the game classpath.
+     * [platform] is Mojang's library rule name. Android passes `linux`.
      */
     fun includeFor(platform: String): Boolean {
         if (nativeOnly || artifact == null) return false
@@ -121,12 +147,32 @@ fun parseVersionMetadata(json: String): VersionMetadata {
 private fun parseLibrary(lib: JsonObject): LibrarySpec {
     val name = lib.requireString("name")
     val rules = parseRules(lib.getAsJsonArray("rules"))
-    val artifact = lib.getAsJsonObject("downloads")?.getAsJsonObject("artifact")?.toRemoteFile(
-        path = lib.getAsJsonObject("downloads")?.getAsJsonObject("artifact")?.get("path")?.asString,
-    ) ?: mavenArtifact(lib, name)
+    val downloads = lib.getAsJsonObject("downloads")
+    val artifactObject = downloads?.getAsJsonObject("artifact")
+    val artifact = artifactObject?.toRemoteFile(path = artifactObject.get("path")?.asString) ?: mavenArtifact(lib, name)
     val natives = lib.get("natives")
     val nativeOnly = natives != null && artifact == null
-    return LibrarySpec(name = name, rules = rules, artifact = artifact, nativeOnly = nativeOnly)
+    val nativeClassifiers = if (natives != null && natives.isJsonObject) {
+        natives.asJsonObject.entrySet().associate { (key, value) -> key to value.asString }
+    } else {
+        emptyMap()
+    }
+    val classifiers = downloads?.getAsJsonObject("classifiers")?.entrySet()?.associate { (key, value) ->
+        val obj = value.asJsonObject
+        key to obj.toRemoteFile(path = obj.get("path")?.asString)
+    }.orEmpty()
+    val excludes = lib.getAsJsonObject("extract")?.getAsJsonArray("exclude")?.mapNotNull { element ->
+        element.takeIf { it.isJsonPrimitive }?.asString
+    }.orEmpty()
+    return LibrarySpec(
+        name = name,
+        rules = rules,
+        artifact = artifact,
+        nativeOnly = nativeOnly,
+        classifiers = classifiers,
+        nativeClassifiers = nativeClassifiers,
+        extractExcludes = excludes,
+    )
 }
 
 private fun mavenArtifact(lib: JsonObject, name: String): RemoteFile? {
@@ -184,6 +230,7 @@ fun parseRules(array: com.google.gson.JsonArray?): List<RuleSpec> =
             osName = os?.get("name")?.asString,
             osArch = os?.get("arch")?.asString,
             hasFeatures = rule.get("features") != null,
+            osVersion = os?.get("version")?.asString,
         )
     }
 
