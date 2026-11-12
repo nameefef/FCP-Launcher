@@ -66,19 +66,16 @@ class GameActivity : Activity(), SurfaceHolder.Callback {
 
     private fun showControls(anchor: FrameLayout, overlay: TouchControlsOverlay) {
         if (isFinishing || controlsWindow != null) return
-        val popup = PopupWindow(
-            overlay,
-            WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.MATCH_PARENT,
-            false,
-        )
+        val screen = anchor.resources.displayMetrics
+        val width = screen.widthPixels
+        val height = screen.heightPixels
+        val popup = PopupWindow(overlay, width, height, true)
         popup.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         popup.isClippingEnabled = false
         popup.isTouchable = true
-        // Focusable so the chat field can open the soft keyboard.
-        popup.isFocusable = true
         popup.inputMethodMode = PopupWindow.INPUT_METHOD_NEEDED
         popup.showAtLocation(anchor, Gravity.TOP or Gravity.START, 0, 0)
+        popup.update(0, 0, width, height)
         controlsWindow = popup
     }
 
