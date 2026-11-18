@@ -52,9 +52,9 @@ class AndroidGameLaunch(context: Context) {
                 ?: return fail(log, app.getString(R.string.no_account_for_launch))
             onStatus(app.getString(R.string.launch_checking))
             onStatus(app.getString(R.string.repairing_assets))
-            GameRepository().completeInstallation(versionId, gameDir) { event ->
+            GameRepository().completeInstallation(versionId, gameDir, listener = { event ->
                 onStatus(event.label)
-            }
+            })
             val resolved = loadResolvedVersion(gameDir, versionId)
             val major = resolved.javaMajor ?: 8
             val runtime = runtimeRoot()
