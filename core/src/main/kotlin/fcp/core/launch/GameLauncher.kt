@@ -190,6 +190,7 @@ class GameLauncher {
         request.lwjglOverride?.let { files += lwjglClasspathJars(it) }
         for (library in version.libraries) {
             if (!library.includeFor(request.platform)) continue
+            if (isNativeLibraryCoordinate(library.name)) continue
             if (request.lwjglOverride != null && replacedByFclLwjgl(library.name)) continue
             val file = libraryFile(request.gameDir, library) ?: continue
             if (file.isFile) files += file

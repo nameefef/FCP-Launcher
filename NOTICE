@@ -51,6 +51,12 @@ Third-party / upstream acknowledgements (non-exhaustive; expand as code lands):
   assets/app_runtime/java/jre8 or jre21. The APK itself is not committed.
   https://github.com/FCL-Team/FoldCraftLauncher/releases/tag/1.3.4.4
 
+- Desktop (Windows / macOS / Linux) uses the same `:core` download and account code.
+  The game process is the system `java` (or a path chosen in settings). Native
+  libraries are the LWJGL classifier jars published in the Minecraft version
+  JSON for that OS. Fold Craft Launcher's Android `.so` files are not used
+  on the desktop.
+
 Plain Craft Launcher (PCL) by 龙腾猫跃 is NOT included as source.
 UI/UX ideas may be referenced independently; do not copy PCL code or assets.
 PCL uses a custom limited distribution license, incompatible with shipping

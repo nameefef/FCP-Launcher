@@ -17,6 +17,8 @@ data class InstallOptions(
     val downloadLibraries: Boolean = true,
     val downloadAssetIndex: Boolean = true,
     val downloadAssetObjects: Boolean = true,
+    /** Asset objects are fetched in parallel when this is greater than 1. Library downloads stay serial. */
+    val assetParallelism: Int = 1,
 )
 
 data class InstallEvent(val label: String, val completed: Long, val total: Long)
@@ -136,13 +138,14 @@ class GameRepository(
                 listener = listener,
             )
             if (options.downloadAssetObjects) {
-                assetObjects = downloadAssetObjects(
-                    indexFile = assetIndexFile,
-                    gameDir = gameDir,
-                    limit = options.assetObjectLimit,
-                    listener = listener,
-                    used = used,
-                )
+            assetObjects = downloadAssetObjects(
+                indexFile = assetIndexFile,
+                gameDir = gameDir,
+                limit = options.assetObjectLimit,
+                listener = listener,
+                used = used,
+                parallelism = options.assetParallelism,
+            )
             }
         }
 
@@ -169,6 +172,7 @@ class GameRepository(
         gameDir: File,
         platform: String = "linux",
         listener: InstallListener? = null,
+        assetParallelism: Int = 1,
     ) {
         val seen = mutableSetOf<String>()
         fun walk(id: String) {
@@ -180,7 +184,7 @@ class GameRepository(
             val inherits = com.google.gson.JsonParser.parseString(json).asJsonObject
                 .get("inheritsFrom")?.asString?.takeIf { it.isNotBlank() }
             if (inherits != null) walk(inherits)
-            completeOne(metadata, gameDir, platform, listener, downloadClient = id == versionId)
+            completeOne(metadata, gameDir, platform, listener, downloadClient = id == versionId, assetParallelism = assetParallelism)
         }
         walk(versionId)
     }
@@ -191,6 +195,7 @@ class GameRepository(
         platform: String,
         listener: InstallListener?,
         downloadClient: Boolean,
+        assetParallelism: Int,
     ) {
         if (downloadClient) {
             val client = metadata.client
@@ -232,7 +237,7 @@ class GameRepository(
                     listener = listener,
                 )
             }
-            downloadAssetObjects(indexFile, gameDir, limit = null, listener = listener, used = mutableListOf())
+            downloadAssetObjects(indexFile, gameDir, limit = null, listener = listener, used = mutableListOf(), parallelism = assetParallelism)
         }
     }
 
@@ -250,7 +255,11 @@ class GameRepository(
         limit: Int?,
         listener: InstallListener?,
         used: MutableList<String>,
+        parallelism: Int = 1,
     ): Int {
+        if (parallelism > 1 && limit == null) {
+            return downloadAssetObjectsParallel(indexFile, gameDir, listener, used, parallelism)
+        }
         val root = com.google.gson.JsonParser.parseString(indexFile.readText()).asJsonObject
         val objects = root.getAsJsonObject("objects") ?: return 0
         var count = 0
@@ -283,6 +292,62 @@ class GameRepository(
             throw DownloadException("有 ${failed.size} 个资源下载失败，已保留其余文件。例如：$sample")
         }
         return count
+    }
+
+    private fun downloadAssetObjectsParallel(
+        indexFile: File,
+        gameDir: File,
+        listener: InstallListener?,
+        used: MutableList<String>,
+        parallelism: Int,
+    ): Int {
+        val root = com.google.gson.JsonParser.parseString(indexFile.readText()).asJsonObject
+        val objects = root.getAsJsonObject("objects") ?: return 0
+        data class Job(val name: String, val hash: String, val dest: File)
+        val jobs = mutableListOf<Job>()
+        var ready = 0
+        for ((name, value) in objects.entrySet()) {
+            val obj = value.asJsonObject
+            val hash = obj.get("hash")?.asString ?: continue
+            val size = obj.get("size")?.takeUnless { it.isJsonNull }?.asLong
+            val dest = File(gameDir, "assets/objects/${hash.substring(0, 2)}/$hash")
+            if (isReady(dest, hash, size)) {
+                ready += 1
+                continue
+            }
+            jobs += Job(name, hash, dest)
+        }
+        if (jobs.isEmpty()) return ready
+        val failed = java.util.Collections.synchronizedList(mutableListOf<String>())
+        val downloaded = java.util.concurrent.atomic.AtomicInteger(0)
+        val pool = java.util.concurrent.Executors.newFixedThreadPool(parallelism.coerceIn(2, 16))
+        try {
+            val futures = jobs.map { job ->
+                pool.submit {
+                    try {
+                        val url = downloadFile(
+                            urls = mirrors.assetObjectUrls(job.hash),
+                            dest = job.dest,
+                            sha1 = job.hash,
+                            label = "资源 ${job.name}",
+                            listener = listener,
+                        )
+                        synchronized(used) { used += url }
+                        downloaded.incrementAndGet()
+                    } catch (e: Exception) {
+                        failed += "${job.name}（${e.message}）"
+                    }
+                }
+            }
+            futures.forEach { it.get() }
+        } finally {
+            pool.shutdown()
+        }
+        if (failed.isNotEmpty()) {
+            val sample = failed.take(6).joinToString("；")
+            throw DownloadException("有 ${failed.size} 个资源下载失败，已保留其余文件。例如：$sample")
+        }
+        return ready + downloaded.get()
     }
 
     private fun fetchBytes(
